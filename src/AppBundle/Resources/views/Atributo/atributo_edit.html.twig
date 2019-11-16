@@ -1,0 +1,82 @@
+{# 
+# Created by PhpStorm.
+# User: @jdperea59 && wilianlk
+# PC: gerencia-ti
+# Date: 24/04/18
+# Time: 02:28 PM
+#}
+
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="col-lg-8 box-form" method="post">
+                    <h3>Editar Atributo</h3>
+                    <hr/>
+                    {{ form_widget(form) }}
+                    <div>
+                        <label for="idDepartamento" class="required">Departamento</label>
+                        <select id="idDepartamento" name="idDepartamento" class="form-departamento form-control">
+                            {% for item in departamento %}
+                                <option value="{{ item.idDepartamento }}">{{ item.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="idTipo" class="required">Tipo</label>
+                        <select id="idTipo" name="idTipo" class="form-tipo form-control">
+
+                        </select>
+                    </div>
+                    <div id="nuevoLugarBoton">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('.form-submit').appendTo('#nuevoLugarBoton');
+            if($( ".form-departamentohidden").val() != ""){
+                $( ".form-departamento" ).val($( ".form-departamentohidden").val());
+                tipoAtributo($( ".form-departamentohidden" ).val(),1);
+            }else{
+                tipoAtributo($( ".form-departamento" ).val(),0);
+            }
+            $( ".form-departamento" ).change(function() {
+                tipoAtributo($( ".form-departamento" ).val(),0);
+                $( ".form-departamentohidden").val($( ".form-departamento" ).val());
+            });
+            $('#idTipo').change(function() {
+                $( ".form-tipohidden").val($('#idTipo').val());
+            });
+        });
+
+        function tipoAtributo(valor,bool) {
+            $.ajax({
+                url: "{{ path('ajax_atributos') }}",
+                type: 'POST',
+                data: {operacion: "mostrarTiposAtributosDeptos", departamento: valor},
+                success: function (data) {
+                    console.debug(data);
+                    if(data!='error'){
+                        $('#idTipo').html(data);
+                        if(bool==1){
+                            $("#idTipo").val($( ".form-tipohidden").val());
+                        }else{
+                            $( ".form-tipohidden").val($('#idTipo').val());
+                        }
+                    }
+                }
+            });
+            $( ".form-departamentohidden").val($( ".form-departamento" ).val());
+        }
+    </script>
+{% endblock %}

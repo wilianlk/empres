@@ -1,0 +1,11 @@
+credito_index:
+  path: /credito
+  defaults: { _controller: AppBundle:CartaCredito:index}
+
+credito_save:
+  path: /credito_save
+  defaults: { _controller: AppBundle:CartaCredito:save}
+
+credito_contacto:
+  path: /credito_contacto
+  defaults: { _controller: AppBundle:CartaCredito:show}

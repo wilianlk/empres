@@ -1,0 +1,131 @@
+BackendBundle\Entity\CliContacto:
+    type: entity
+    table: cli_contacto
+    indexes:
+        id_cliente_idx:
+            columns:
+                - id_cliente
+        id_idioma_idx:
+            columns:
+                - id_idioma
+        id_ciudad_idx:
+            columns:
+                - id_ciudad
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idClienteContacto:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_cliente_contacto
+            generator:
+                strategy: IDENTITY
+    fields:
+        idCliente:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_cliente
+        identificacion:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        apellido:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        cargo:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        idIdioma:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_idioma
+        idCiudad:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_ciudad
+        email:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        autorizaNewsletter:
+            type: boolean
+            nullable: true
+            options:
+                default: '0'
+            column: autoriza_newsletter
+        zipCode:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: zip_code
+        genero:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: false
+        fechaNacimiento:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+            column: fecha_nacimiento
+        observaciones:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+    lifecycleCallbacks: {  }

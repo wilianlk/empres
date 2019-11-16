@@ -1,0 +1,95 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-8 box-form">
+                        <h3>Crear Configuracion De Beneficios</h3>
+
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="col-sm-2 control-label">{{ form_label(form.idBeneficio,'Nombre Beneficio') }}</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.idBeneficio) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email"
+                                       class="col-sm-2 control-label">{{ form_label(form.idConfig,'Nombre Configuracion') }}</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.idConfig) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message"
+                                       class="col-sm-2 control-label">{{ form_label(form.cantidad,'Cantidad') }}</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.cantidad) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="human"
+                                       class="col-sm-2 control-label">{{ form_label(form.unidadMedida,'Unidad De Medida') }}</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.unidadMedida) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-2">
+                                    <input id="submit" name="submit" type="submit" value="Enviar"
+                                           class="btn btn-primary">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submit").click(function () {
+
+                let idBeneficio = $('#appbundle_configbeneficios_idBeneficio').val();
+                let idConfig = $('#appbundle_configbeneficios_idConfig').val();
+                let cantidad = $('#appbundle_configbeneficios_cantidad').val();
+                let unidadMedida = $('#appbundle_configbeneficios_unidadMedida').val();
+
+                $.ajax(
+                    {
+                        url: '{{ url('timeclock_configbeneficios_new') }}',
+                        data:
+                            {
+                                idBeneficio: idBeneficio,
+                                idConfig: idConfig,
+                                cantidad: cantidad,
+                                unidadMedida: unidadMedida
+                            },
+                        dataType: 'json',
+                        complete: function (data) {
+
+                        },
+                        success: function (data) {
+                            swal("", "Datos Enviados", "success")
+                                .then((value => {
+                                    window.location.reload()
+                                }))
+                        }
+                    }
+                )
+            });
+        });
+    </script>
+{% endblock %}

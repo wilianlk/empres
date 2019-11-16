@@ -1,0 +1,41 @@
+BackendBundle\Entity\UserLogCreditos:
+    type: entity
+    table: user_log_creditos
+    id:
+        idUserLogCreditos:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_user_log_creditos
+            generator:
+                strategy: IDENTITY
+    fields:
+        año:
+            type: date
+            nullable: false
+        mes:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        idUser:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_user
+        idTienda:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_tienda
+        monto:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 2
+    lifecycleCallbacks: {  }

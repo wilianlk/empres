@@ -1,0 +1,35 @@
+BackendBundle\Entity\ContractHistory:
+    type: entity
+    table: contract_history
+    id:
+        idContractHistory:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_contract_history
+            generator:
+                strategy: IDENTITY
+    fields:
+        idEmployee:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_employee
+        startDate:
+            type: datetime
+            nullable: true
+            column: start_date
+        endDate:
+            type: datetime
+            nullable: true
+            column: end_date
+        idTypeContract:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_type_contract
+    lifecycleCallbacks: {  }

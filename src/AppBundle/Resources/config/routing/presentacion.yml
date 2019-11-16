@@ -1,0 +1,42 @@
+# User: @jdperea59 
+# PC: gerencia-ti
+# Date: 26/05/18
+# Time: 11:19 AM
+
+#Rutas para ejecucion de CRUD Presentacion
+presentacionlist:
+  path: /presentacioneslist
+  defaults: { _controller: AppBundle:Presentacion:index}
+  methods: [GET]
+
+presentacioncreate:
+  path: /presentacion/create
+  defaults: { _controller: AppBundle:Presentacion:create}
+
+presentaciontest:
+  path: /presentacion_test
+  defaults: { _controller: AppBundle:Presentacion:presentacionTest}
+  methods: [POST]
+
+presentacionview:
+  path: /presentacion/{id}/view
+  defaults: { _controller: AppBundle:Presentacion:show,id: 0}
+
+presentacionesedit:
+  path: /presentacion/{id}/edit
+  defaults: { _controller: AppBundle:Presentacion:edit,id: 0}
+
+presentacionesdelete:
+  path: /presentacion/{id}/delete
+  defaults: { _controller: AppBundle:Presentacion:delete,id: 0}
+
+#Ruta para peticiones AJAX
+presentacionesajax:
+  path: /presentacion/ajax
+  defaults: { _controller: AppBundle:Presentacion:ajax }
+  methods: [POST]
+
+#Ruta para descargar la presentacion
+downloadslide:
+  path: /downloadslide
+  defaults: { _controller: AppBundle:Presentacion:downloadSlide}

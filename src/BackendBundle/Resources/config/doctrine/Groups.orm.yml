@@ -1,0 +1,27 @@
+BackendBundle\Entity\Groups:
+    type: entity
+    table: groups
+    id:
+        groupid:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        groupname:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+        officeid:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+    lifecycleCallbacks: {  }

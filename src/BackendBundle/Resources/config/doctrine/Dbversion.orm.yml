@@ -1,0 +1,15 @@
+BackendBundle\Entity\Dbversion:
+    type: entity
+    table: dbversion
+    id:
+        dbversion:
+            type: decimal
+            nullable: false
+            precision: 5
+            scale: 1
+            options:
+                default: '0.0'
+            id: true
+            generator:
+                strategy: IDENTITY
+    lifecycleCallbacks: {  }

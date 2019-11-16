@@ -1,0 +1,70 @@
+BackendBundle\Entity\ProdTalla:
+    type: entity
+    table: prod_talla
+    indexes:
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idTalla:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_talla
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: false
+        nombreIng:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: false
+            column: nombre_ing
+        estado:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

@@ -1,0 +1,45 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+
+                <div class="panel-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Beneficio</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="container">
+                                <div class="col-xs-4 col-md-4">
+                                    <p>ID : {{ benefit.idBeneficio }}</p>
+                                    <p>Nombre : {{ benefit.nombre }}</p>
+                                    <p>Oficina : {{ benefit.pais }}</p>
+                                </div>
+                                <div>
+                                    <a href="{{ path('timeclock_benefits_edit', { 'idBeneficio': benefit.idBeneficio }) }}"
+                                       class="btn btn-primary" role="button">Back to the list</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <li>
+            <a href="{{ path('timeclock_benefits_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('timeclock_benefits_edit', { 'idBeneficio': benefit.idBeneficio }) }}">Edit</a>
+        </li>
+
+        {#{{ form_start(delete_form) }}#}
+        {#<input type="submit" value="Delete">#}
+        {#{{ form_end(delete_form) }}#}
+    </div>
+{% endblock %}

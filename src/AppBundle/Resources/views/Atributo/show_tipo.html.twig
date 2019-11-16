@@ -1,0 +1,177 @@
+{#
+# Created by PhpStorm.
+# User: @jdperea59
+# PC: gerencia-ti
+# Date: 04/06/18
+# Time: 09:28 PM
+#}
+
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 separarDivs">
+                <table class="table table-striped">
+                    <thead>
+                    <th>ID</th>
+                    <th>Nombre Departamento</th>
+                    <th colspan="2">Acciones</th>
+                    </thead>
+                    <tbody class="">
+                    {% for item in departamento %}
+                        <tr id="trtable_{{ item.idDepartamento }}" {% if loop.first %}class="primerTipo"{% endif %}>
+                            <td>{{ item.idDepartamento }}</td>
+                            <td id="nombre_{{ item.idDepartamento }}">{{ item.nombre }}</td>
+                            <td>
+                                <a href="#" onclick="listarTipoAtributo({{ item.idDepartamento }})" class="btn btn-xs btn-default btn-block btnsinpadding" role="button"><span class="glyphicon glyphicon-edit espacioMenu" aria-hidden="true"></span>Modificar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(departamento) }}
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <h2 class="text-center">Tipos de Atributos Asociados <span id="ajaxNombreDepartamento"></span></h2>
+                <span class="hide" id="id_departamento_actual"></span>
+                <div id="loadingDiv" class="text-center">
+                    <img src="{{ asset('assets/images/ajax-loader.gif') }}">
+                </div>
+                <div class="row">
+                <div class="col-xs-12 col-sm-6" id="parteajax">
+                    <div class="col-xs-12 col-sm-12">
+                        <ul id="sortableenabled" class="col-xs-12 col-sm-12 connectedSortable">
+                            <li id='li_0' class="ui-state-default"><p class="col-xs-12 col-sm-12 tiposortable"></p></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12" id="notificacionAjaxOrden">
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="col-xs-12 col-sm-12">
+                        <ul id="sortabledisable" class="col-xs-12 col-sm-12 connectedSortable">
+                            <li id='li_0' class="ui-state-default"><p class="col-xs-12 col-sm-12 tiposortable"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var urlListarAtributo;
+        var activos;
+        var inactivos ;
+
+        urlListarAtributo = "{{ path('ajax_tipo_asociar_departamento') }}";
+        $( document ).ready(function() {
+            /* Se conectan las listas, y se setea el metodo para recibir el momento en el que se hagan cambios registrarlos en la base de datos
+            https://jqueryui.com/sortable/#connect-lists */
+            $( "#sortableenabled, #sortabledisable" ).sortable({
+                connectWith: ".connectedSortable",
+                stop:function(event,ui){
+                    modificarTipoAtributos();
+                }
+            }).disableSelection();
+                var primertipo = $(".primerTipo").attr('id');
+            primertipo = primertipo.replace('trtable_','');
+            console.log(""+primertipo);
+            listarTipoAtributo(primertipo);
+        });
+        // funcion para recibir que lista se va a modificar y retornar los datos de los ids limpios
+        function DatosListas(campo){
+            $("#li_0").remove();
+            var datos = $( "#"+campo ).sortable('toArray').toString();
+            var datos2 = datos.replace(/li_/g,"");
+            //console.log("Datos "+campo+"|",datos,"|",datos2);
+            return datos2;
+        }
+
+        function listarTipoAtributo(id){
+            console.log(urlListarAtributo,id);
+            var texto = $("#nombre_"+id).text();
+            console.log(texto);
+            $("#id_departamento_actual").text(id);
+            $("#ajaxNombreDepartamento").text(texto);
+            //$('#loadingDiv').show();
+            animarEntrada();
+            getOrdenTipo(urlListarAtributo,id);
+            $.ajax({
+                url: urlListarAtributo,
+                type: 'POST',
+                data: {operacion: "mostrarTiposAtributosDeptos", departamento: id},
+                success: function (data) {
+                    //$('#referencia_list_id').show();
+                    //alert(data);
+                    $('#sortabledisable').html(data);
+                    //$('#loadingDiv').hide(500);
+                    animarSalida();
+                }
+            });
+        }
+
+        function getOrdenTipo(urlListarAtributo,id) {
+            $.ajax({
+                url: urlListarAtributo,
+                type: 'POST',
+                data: {operacion: "mostrarOrdenTiposAtributos", departamento: id},
+                success: function (data) {
+                    //$('#referencia_list_id').show();
+                    //alert(data);
+                    $('#sortableenabled').html(data);
+                    //$('#loadingDiv').hide(500);
+                }
+            });
+        }
+
+        function modificarTipoAtributos() {
+            activos = DatosListas('sortableenabled');
+            inactivos = DatosListas('sortabledisable');
+            var id_departamento_actual = $("#id_departamento_actual").text();
+            //console.log(activos,"|",inactivos);
+
+            // operacion => setTipoAtributo
+            //console.log("urlListarAtributo=>"+urlListarAtributo);
+
+            $.ajax({
+                url: urlListarAtributo,
+                type: 'POST',
+                data: {operacion: "setTipoAtributo", departamento: id_departamento_actual, tiposactivos: activos, tiposinactivos: inactivos },
+                success: function (data) {
+                    //$('#referencia_list_id').show();
+                    //alert(data);
+                    if (data=='ok'){
+                        console.log('ok');
+                    }else{
+                        console.log(data);
+                        //$('#notificacionAjaxOrden').html("<p>Se presentaron Problemas. Notifique a Sistemas.</p>");
+                    }
+                    //$('#loadingDiv').hide(500);
+                }
+            });
+        }
+
+    </script>
+{% endblock %}
+
+
+{% block animations %}
+    <script>
+        function animarEntrada() {
+            $('#loadingDiv').show();
+            $("#loadingDiv").animate({height: "20px"});
+        }
+        function animarSalida() {
+            $("#loadingDiv").animate({height: "0px"});
+            $('#loadingDiv').hide(100);
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Permisos</h1>
+        <div align="center">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Crear Permiso
+            </button>
+            <div id="permisos_filas"></div>
+        </div>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Crear Permiso</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                {{ form_label(form.name,'Nombre Permiso',{'label_attr':{'class':'col-sm-2 control-label'}}) }}
+                                <div class="col-sm-5">
+                                    {{ form_widget(form.name) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" id="submit">Enviar</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#submit').click(function () {
+                let name = $('#backendbundle_typeofpermitsrequired_name').val();
+
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '{{ url('timeclock_permitsrequired_new') }}',
+                        data:
+                            {
+                                'name': name
+                            },
+                        dataType: 'json',
+                        success: function (data) {
+                            $('.modal').modal('toggle');
+                        }
+                    }
+                )
+            });
+
+            function permits() {
+                $.ajax
+                (
+                    {
+                        url: '{{ url('timeclock_permits_index') }}',
+                        dataType: 'json'
+                    }
+                )
+                    .done(function (data) {
+                        let permit = JSON.parse(data.data);
+                        var html = "";
+
+                        html += '<br>';
+                        html += '<br>';
+                        html += '<table class="table table-bordered" id="mytable">';
+                        html += '<thead>';
+                        html += '<tr class="text-center">';
+                        html += '<th>ID</th>';
+                        html += '<th>Nombre Permiso</th>';
+                        html += '<th>Accion</th>';
+                        html += '</tr>';
+                        html += '</thead>';
+                        html += '<tbody>';
+
+                        for (pp in permit)
+                        {
+                            let permits = permit[pp];
+                            var url = '{{ path("timeclock_permitsrequired_edit", {'idTypeOfPermits': 'idTypeOfPermit'}) }}';
+                            url = url.replace("idTypeOfPermit", permits['idTypeOfPermits']);
+
+                            html += '<tr>';
+                            html += '<td>' + permits['idTypeOfPermits'] + '</td>';
+                            html += '<td>' + permits['name'] + '</td>';
+                            html += '<td>' + '<a  href="' + url + '" class="btn btn-warning">Editar</a>' + '</td>';
+                            html += '</tr>';
+                        }
+                        html += '</tbody>';
+                        html += '</table>';
+
+                        $('#permisos_filas').html(html);
+                    })
+            }
+
+            setInterval(function () {
+                permits();
+            }, 1000);
+        });
+    </script>
+{% endblock %}

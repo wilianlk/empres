@@ -1,0 +1,67 @@
+BackendBundle\Entity\PermisionUser:
+    type: entity
+    table: permisions_users
+    indexes:
+        FK_permisions_users_permisions:
+            columns:
+                - id_permision
+                - id_user
+        FK_permision_users_users:
+            columns:
+                - id_user
+        IDX_4B315DA123C8C9D3:
+            columns:
+                - id_permision
+    id:
+        idPermisionUser:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_permision_user
+            generator:
+                strategy: IDENTITY
+    fields:
+        createdBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: updated_by
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    manyToOne:
+        idPermision:
+            targetEntity: Permision
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_permision:
+                    referencedColumnName: id_permision
+            orphanRemoval: false
+        idUser:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_user:
+                    referencedColumnName: id_user
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

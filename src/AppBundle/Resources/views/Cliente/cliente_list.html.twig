@@ -1,0 +1,53 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container-fluid">
+
+        {# total items count #}
+        <div class="count">
+        <span class="label label-primary">
+            Entradas en total: {{ pagination.getTotalItemCount }}
+        </span>
+        </div>
+        <br/>
+
+        <table class="table table-bordered">
+            <tr>
+                {# sorting of properties based on query components #}
+                <th>{{ knp_pagination_sortable(pagination, 'ID', 'c.idCliente') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Nombre', 'c.idCliente') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Apellido', 'c.idCliente') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Telefono cliente', 'c.idCliente') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Estado de compra', 'c.idCliente') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Estado', 'c.idCliente') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Ciudad', 'c.idCliente') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Empresa', 'c.idCliente') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Correo E.', 'c.idCliente') }}</th>
+                <th{% if pagination.isSorted('e.Title') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'Fecha de Registro', 'e.title') }}
+                </th>
+                <th>Acciones</th>
+            </tr>
+
+            {# table body #}
+            {% for cliente in pagination %}
+                <tr {% if loop.index is odd %}class="color"{% endif %}>
+                    <td>{{ cliente.idCliente }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido }}</td>
+                    <td></td>
+                    <td>{{ cliente.tipo }}</td>
+                    <td>{{ cliente.ciudadestado }}</td>
+                    <td>{{ cliente.ciudad }}</td>
+                    <td>{{ cliente.empresa }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.created_at|date('Y-m-d H:i:s') }}</td>
+                    <td><button>Editar</button></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}

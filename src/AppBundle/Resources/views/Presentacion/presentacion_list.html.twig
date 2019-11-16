@@ -1,0 +1,114 @@
+{#
+# Created by PhpStorm.
+# User: @jdperea59
+# PC: gerencia-ti
+# Date: 16/04/18
+# Time: 11:23 AM
+#}
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8">
+            <h2>Listar Presentaciones</h2>
+            <table class="table table-striped">
+                <thead>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th colspan="3">Acciones</th>
+                </thead>
+                <tbody class="">
+                {% for item in presentaciones %}
+                    <tr id="trtable_{{ item.idPresentacion }}">
+                        <td>{{ item.idPresentacion }}</td>
+                        <td>{{ item.nombrePresentacion }}</td>
+                        <td>{{ item.descripcionPresentacion|length > 60 ? item.descripcionPresentacion|slice(0,60) ~ '...' : item.descripcionPresentacion}}</td>
+                        <td>
+                            <a href="{{ path('presentacionview',{'id':item.idPresentacion}) }}" class="btn btn-xs btn-default btn-block btnsinpadding" role="button"><span class="glyphicon glyphicon-edit espacioMenu" aria-hidden="true"></span>Ver</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('presentacionesedit',{'id':item.idPresentacion}) }}" class="btn btn-xs btn-default btn-block btnsinpadding" role="button"><span class="glyphicon glyphicon-edit espacioMenu" aria-hidden="true"></span>Editar</a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-xs btn-danger btn-block btnsinpadding" role="button" onclick="borrarTipoAtributo({{ item.idPresentacion }})"><span class="glyphicon glyphicon-edit espacioMenu" aria-hidden="true"></span>Borrar<span class="badge ocultoAnimar" id="badgeborrar_{{ item.idPresentacion }}"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation text-center">
+                {{ knp_pagination_render(presentaciones) }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h2>Sidemenu</h2>
+            <hr/>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $( function() {
+            $( "#dialog" ).dialog({
+                autoOpen: false,
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: [ {
+                    text: "Delete all items",
+                    icon: "glyphicon glyphicon-remove",
+                    class: "btn btn-danger",
+                    click: function() {
+                        deleteSubmit(this);
+                    }
+                },{
+                    text: "Cancel",
+                    icon: "ui-icon-heart",
+                    class: "btn btn-primary",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+                ]
+            });
+        } );
+        $( document ).ready(function() {
+            $( ".ui-dialog-titlebar-close" ).html("<i class='glyphicon glyphicon-remove text-center'></i>");//
+        });
+
+        function borrarTipoAtributo(id){
+            var urlBorrarAtributo = "{{ path('tipos_atributos_delete',{'id':0}) }}";
+            var ultimoCaracter = urlBorrarAtributo.substring(urlBorrarAtributo.length-1);
+            if (ultimoCaracter == 0){
+                urlBorrarAtributo = urlBorrarAtributo.substring(0,urlBorrarAtributo.length-1);
+            }
+            var texto = $( "#badgeborrar_"+id).text();
+            var numale = Math.floor((Math.random() * 100) + 1);
+            $( "#textdialogdelete").html('Desea borrar este <b>Tipo de Atributo</b> que tiene <b>'+texto+'</b> atributos asociados?<br><br>Para confimar ingrese este valor '+numale+'.');
+            $( "#formconfirmrandom").val(numale);
+            $( "#formconfirmidtipoatributo").val(id);
+            urlBorrarAtributo = urlBorrarAtributo+""+id;
+            $( "#formconfirmconfirmar").val('');
+            $( "#dialog" ).dialog( "open" );
+            $( "#formconfirmconfirmar").focus();
+        }
+
+        function deleteSubmit(dialog) {
+            var idrow = $( "#formconfirmidtipoatributo").val();
+            if($( "#formconfirmrandom").val() == $( "#formconfirmconfirmar").val()){
+                $( "#trtable_"+idrow).remove();
+                //console.log("SI"+idrow);
+                $( dialog ).dialog( "close" );
+            }else{
+                console.log($( "#formconfirmrandom").val());
+                console.log($( "#formconfirmidtipoatributo").val());
+                console.log($( "#formconfirmconfirmar").val());
+            }
+        }
+    </script>
+{% endblock %}

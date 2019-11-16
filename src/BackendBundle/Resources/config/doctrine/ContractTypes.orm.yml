@@ -1,0 +1,22 @@
+BackendBundle\Entity\ContractTypes:
+    type: entity
+    table: Contract_types
+    id:
+        idTypeContract:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_type_contract
+            generator:
+                strategy: IDENTITY
+    fields:
+        contractName:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+            column: contract_name
+    lifecycleCallbacks: {  }

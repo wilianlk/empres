@@ -1,0 +1,98 @@
+{# 
+# Created by PhpStorm.
+# User: @jdperea59 
+# PC: gerencia-ti
+# Date: 24/04/18
+# Time: 02:49 PM
+#}
+
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="col-lg-8 box-form" method="post">
+                    <h3>Crear Atributo</h3>
+                    <hr/>
+                    {# Se debio realizar de esta manera ya que no contamos con el conocimiento para enviar el formulario con un select dependiente de otro #}
+                    {{ form_widget(form) }}
+                    {# este metodo se encarga solo de pintar los campos, no pinta ni el inicio ni el final del formulario #}
+                    <div>
+                        <label for="idDepartamento" class="required">Departamento</label>
+                        <select id="idDepartamento" name="idDepartamento" class="form-departamento form-control">
+                            {% for item in departamento %}
+                                <option value="{{ item.idDepartamento }}">{{ item.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="idTipo" class="required">Tipo</label>
+                        <select id="idTipo" name="idTipo" class="form-tipo form-control">
+
+                        </select>
+                    </div>
+                    <div id="nuevoLugarBoton">
+
+                    </div>
+                    <!-- aqui -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $( document ).ready(function() {
+            //Aqui se mueve el boton a otro lugar en el formulario, esto debido a que no contamos con el conocimiento de como crear los selects con el form integrado
+            $('.form-submit').appendTo('#nuevoLugarBoton');
+
+            if($( ".form-departamentohidden").val() != ""){
+                // se setea el departamento que viene en el campo hidden
+                $( ".form-departamento" ).val($( ".form-departamentohidden").val());
+                tipoAtributo($( ".form-departamentohidden" ).val(),1);
+            }else{
+                //se ejecuta al estar lista la interfaz y sin valores. la segunda variable que se pasa va en 0 para que no haga el proceso a la inversa
+                tipoAtributo($( ".form-departamento" ).val(),0);
+            }
+
+            // se crea un evento para cada que se cambie el departamento se recargue el selector
+            $( ".form-departamento" ).change(function() {
+                tipoAtributo($( ".form-departamento" ).val(),0);
+                $( ".form-departamentohidden").val($( ".form-departamento" ).val());
+            });
+
+            $('#idTipo').change(function() {
+                $( ".form-tipohidden").val($('#idTipo').val());
+            });
+        });
+
+
+        function tipoAtributo(valor,bool) {
+            console.log(valor);
+
+            $.ajax({
+                url: "{{ path('ajax_atributos') }}",
+                type: 'POST',
+                data: {operacion: "mostrarTiposAtributosDeptos", departamento: valor},
+                success: function (data) {
+                    console.debug(data);
+                    if(data!='error'){
+                        $('#idTipo').html(data);
+                        if(bool==1){
+                            $("#idTipo").val($( ".form-tipohidden").val());
+                        }else{
+                            $( ".form-tipohidden").val($('#idTipo').val());
+                        }
+                    }
+                }
+            });
+            $( ".form-departamentohidden").val($( ".form-departamento" ).val());
+        }
+    </script>
+    {% endblock %}

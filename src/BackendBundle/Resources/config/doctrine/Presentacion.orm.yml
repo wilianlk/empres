@@ -1,0 +1,49 @@
+BackendBundle\Entity\Presentacion:
+    type: entity
+    table: presentacion
+    id:
+        idPresentacion:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_presentacion
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombrePresentacion:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: nombre_presentacion
+        descripcionPresentacion:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: descripcion_presentacion
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updateAt:
+            type: datetime
+            nullable: false
+            column: update_at
+        createdBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: updated_by
+    lifecycleCallbacks: {  }

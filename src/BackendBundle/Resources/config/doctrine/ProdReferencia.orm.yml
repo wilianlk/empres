@@ -1,0 +1,167 @@
+BackendBundle\Entity\ProdReferencia:
+    type: entity
+    table: prod_referencia
+    indexes:
+        producto_referencia_referencia_uniq_idx:
+            columns:
+                - referencia
+        id_marca_proveedor_idx:
+            columns:
+                - id_marca_proveedor
+        id_departamento_idx:
+            columns:
+                - id_departamento
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idProductoReferencia:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_producto_referencia
+            generator:
+                strategy: IDENTITY
+    fields:
+        idMarcaProveedor:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_marca_proveedor
+        idDepartamento:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_departamento
+        partidaArancelaria:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: partida_arancelaria
+        referencia:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        nombreIng:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: nombre_ing
+        descripcion:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        descripcionIng:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: descripcion_ing
+        descCallcenter:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: desc_callcenter
+        imagen1:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        imagen2:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        imagen3:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        imagen4:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        estado:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+        imagen5:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        imagen6:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        referenciaProveedor:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: referencia_proveedor
+    lifecycleCallbacks: {  }

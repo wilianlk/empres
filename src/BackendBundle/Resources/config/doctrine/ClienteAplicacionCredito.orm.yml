@@ -1,0 +1,215 @@
+BackendBundle\Entity\ClienteAplicacionCredito:
+    type: entity
+    table: cliente_aplicacion_credito
+    id:
+        idCreditoClientes:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_credito_clientes
+            generator:
+                strategy: IDENTITY
+    fields:
+        idCliente:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_cliente
+        name:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        lastname:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        address:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        floor:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        state:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        zipCode:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: zip_code
+        mobile:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        language:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        birthdate:
+            type: datetime
+            nullable: true
+            column: birthDate
+        income:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        tipoIdentificacion:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tipo_identificacion
+        tipoIdentificacionNumber:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: tipo_identificacion_number
+        tipoIdentificacionStateCountry:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: tipo_identificacion_state_country
+        tipoIdentificacionDueDate:
+            type: datetime
+            nullable: true
+            column: tipo_identificacion_due_date
+        personalReferenceName:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: personal_reference_name
+        personalReferenceLastName:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: personal_reference_last_name
+        personalReferenceMobile:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: personal_reference_mobile
+        personalReferenceRelation:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: personal_reference_relation
+        personalReferenceName2:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: personal_reference_name2
+        personalReferenceLastName2:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: personal_reference_last_name2
+        personalReferenceMobile2:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: personal_reference_mobile2
+        personalReferenceRelation2:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: personal_reference_relation2
+        signatureRequired:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: signature_required
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+        createdAt:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: updated_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+                default: '1'
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+                default: '1'
+            column: updated_by
+    lifecycleCallbacks: {  }

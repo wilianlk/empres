@@ -1,0 +1,43 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container">
+        {{ form_start(edit_form,{'attr':{'class':'well form-horizontal'}}) }}
+
+        <fieldset>
+            <legend>Editar Beneficio</legend>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Nombre Beneficio</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
+                        {{ form_widget(edit_form.nombre) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Pais</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
+                        {{ form_widget(edit_form.pais) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-warning">Editar<span
+                                class="glyphicon glyphicon-send"></span></button>
+                </div>
+            </div>
+        </fieldset>
+        {{ form_end(edit_form) }}
+
+        <ul>
+            <a href="{{ path('timeclock_benefits_index') }}" class="btn btn-primary">Back to the list</a>
+        </ul>
+    </div>
+{% endblock %}
+    

@@ -1,0 +1,64 @@
+BackendBundle\Entity\ColeccionDetalle:
+    type: entity
+    table: coleccion_detalle
+    indexes:
+        coleccion:
+            columns:
+                - id_coleccion
+        referencia:
+            columns:
+                - id_producto_referencia
+    id:
+        idColeccionDetalle:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_coleccion_detalle
+            generator:
+                strategy: IDENTITY
+    fields:
+        idColeccion:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_coleccion
+        idProductoReferencia:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_producto_referencia
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

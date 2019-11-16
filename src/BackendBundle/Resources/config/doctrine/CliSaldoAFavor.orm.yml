@@ -1,0 +1,72 @@
+BackendBundle\Entity\CliSaldoAFavor:
+    type: entity
+    table: cli_saldo_a_favor
+    indexes:
+        cli_saldo_a_favor_id_cliente_idx:
+            columns:
+                - id_cliente
+        cli_saldo_a_favor_created_by_idx:
+            columns:
+                - created_by
+        cli_saldo_a_favor_updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idSaldoAFavor:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_saldo_a_favor
+            generator:
+                strategy: IDENTITY
+    fields:
+        idCliente:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_cliente
+        motivo:
+            type: string
+            nullable: false
+            length: 1000
+            options:
+                fixed: false
+        monto:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 2
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

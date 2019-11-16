@@ -1,0 +1,32 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container">
+        {{ form_start(edit_form,{'attr':{'class':'well form-horizontal'}} ) }}
+
+        <fieldset>
+            <legend>Editar Configuración</legend>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Nombre Configuración</label>
+                <div class="col-md-6 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
+                        {{ form_widget(edit_form.nombreConfig) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-warning">Editar<span
+                                class="glyphicon glyphicon-send"></span></button>
+                </div>
+            </div>
+        </fieldset>
+        {{ form_end(edit_form) }}
+
+        <ul>
+            <a href="{{ path('timeclock_configuracion_index') }}" class="btn btn-primary">Back to the list</a>
+        </ul>
+    </div>
+{% endblock %}

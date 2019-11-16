@@ -1,0 +1,45 @@
+BackendBundle\Entity\GroupSchedule:
+    type: entity
+    table: group_schedule
+    id:
+        idGroupschedule:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_groupschedule
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        toleranceBeforeIn:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tolerance_before_in
+        toleranceAfterIn:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tolerance_after_in
+        toleranceBeforeOut:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tolerance_before_out
+        toleranceAfterOut:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tolerance_after_out
+    lifecycleCallbacks: {  }

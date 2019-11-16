@@ -1,0 +1,251 @@
+{#
+# Created by PhpStorm.
+# User: @jdperea59
+# PC: gerencia-ti
+# Date: 16/04/18
+# Time: 11:23 AM
+#}
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+                <h2>Filtrar</h2>
+                <form action="" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="departamento" class="col-sm-5 control-label">Tipos</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="tipo" name="tipo">
+                                <option value=""></option>
+                                {% for tip in tipos %}
+                                    <option value="{{ tip.id }}"{% if selectipo == tip.id %} selected{% endif %}>{{ tip.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento" class="col-sm-5 control-label">Departamento</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="departamento" name="departamento">
+                                <option value=""></option>
+                                {% for dep in departamentos %}
+                                    <option value="{{ dep.id_departamento }}"{% if selectdepto == dep.id_departamento %} selected{% endif %}>{{ dep.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group form-group">
+                        <label for="departamento" class="col-sm-5 control-label">Por Atributo</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="buscador" name="buscador"
+                                   value="{{ buscador }}">
+                        </div>
+                    </div>
+                    <div class="form-group form-group">
+                        <div class="col-xs-6 col-sm-6">
+                            <button type="submit" class="btn btn-default btn-block">
+                                <span class="glyphicon glyphicon-search espacioMenu" aria-hidden="true"></span>Buscar
+                            </button>
+                        </div>
+                        <div class="col-xs-6 col-sm-6">
+                            <button class="btn btn-warning btn-block" onclick="limpiar()">
+                                <span class="glyphicon glyphicon-search espacioMenu" aria-hidden="true"></span>Limpiar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-9">
+            <h2 id="titulo">Listar Atributos</h2>
+            <div id="loadingDiv" class="text-center">
+                <img src="{{ asset('assets/images/ajax-loader.gif') }}">
+            </div>
+            {% if (zdep == 1) %}
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#veratributos" aria-controls="veratributos" role="tab" data-toggle="tab">Ver Atributos</a></li>
+                    <li role="presentation" class=""><a href="#orden" aria-controls="orden" role="tab" data-toggle="tab">Ordenar Atributos</a></li>
+                </ul>
+                <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade" id="orden">
+                {# Ordenar los atributos de un departamento #}
+                <input type="hidden" id="iddept" value="{{ selectdepto }}">
+                    <ul id="sortable" class="col-xs-12 col-sm-6">
+                        {% for item in atributos %}
+                            <li id='li_{{ item.idAtributo }}' class="ui-state-default fontXLarge"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span> {{ item.atrib_nombre }}</li>
+                            {#{{ item.depto_nombre }}#}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane fade in active" id="veratributos">
+            {% endif %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Atributo</th>
+                        <th>Departamento</th>
+                        <th>Tipo</th>
+                        <th colspan="1">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody class="">
+                    {% for item in atributos %}{# idAtributo, atrib_nombre, idTipo, nombre_tipo, idDepartamento, depto_nombre #}
+                        <tr id="trtable_{{ item.idAtributo }}">
+                            <td>{{ item.atrib_nombre }}</td>
+                            <td>{{ item.depto_nombre }}</td>
+                            <td>{{ item.nombre_tipo }}</td>
+                            <td>
+                                <a href="{{ path('atributos_edit',{'id':item.idAtributo}) }}"
+                                   class="btn btn-xs btn-default btn-block btnsinpadding">Editar</a>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-xs btn-primary btn-block btnsinpadding" role="button"
+                                   onclick="borrarAtributo({{ item.idAtributo }})">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(atributos) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="dialog" title="Esta seguro de borrar este tipo de atributo?">
+                <p id="textdialogdelete"></p>
+                <form id="formDeleteIdAtributo" action="#">
+                    <input type="hidden" id="formconfirmrandom" name="random">
+                    <div class="form-group">
+                        <label for="confirmar">Confimar el numero para borrar el atributo:</label>
+                        <input type="text" class="form-control" id="formconfirmconfirmar" name="confirmar">
+                    </div>
+                    <input type="hidden" id="id_atributo" name="idtipoatributo">
+                    <input type="hidden" id="urlatributo" name="urlatributo">
+                    <input type="submit" class="hidden">
+                </form>
+            </div>
+
+            {% if (zdep == 1) %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            $("#dialog").dialog({
+                autoOpen: false,
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: [{
+                    text: "Delete all items",
+                    icon: "glyphicon glyphicon-remove",
+                    class: "btn btn-danger",
+                    click: function () {
+                        deleteSubmit(this);
+                    }
+                }, {
+                    text: "Cancel",
+                    icon: "ui-icon-heart",
+                    class: "btn btn-primary",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }
+                ]
+            });
+        });
+
+        function borrarAtributo(id){
+
+            var urlBorrarAtributo = "{{ path('atributos_delete',{'id':0}) }}";
+
+            var ultimoCaracter = urlBorrarAtributo.substring(urlBorrarAtributo.length-1);
+
+            if (ultimoCaracter == 0){
+                urlBorrarAtributo = urlBorrarAtributo.substring(0,urlBorrarAtributo.length-1);
+            }
+
+            $("#id_atributo").val(id);
+
+            urlBorrarAtributo = urlBorrarAtributo+""+id;
+            $("#urlatributo").val(urlBorrarAtributo);
+
+            $("#dialog").dialog("open");
+        }
+
+        function deleteSubmit(dialog) {
+            let id = $('#id_atributo').val();
+            let url = $('#urlatributo').val();
+
+            $.ajax(
+                {
+                    url:url,
+                    data: {id_tipo: id},
+                });
+            $(dialog).dialog("close");
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            animarSalida();
+        });
+
+        function limpiar() {
+            $("#buscador").val("");
+            $("#departamento").val("");
+            $("#tipo").val("");
+        }
+    </script>
+    {% if (zdep == 1) %}
+        <script>
+            $( document ).ready(function() {
+                $( "#sortable" ).sortable();
+                $("#titulo").html("Ordenar Atributos "+$("#departamento option:selected").text());
+
+
+                $( "#sortable" ).sortable({stop:function(event,ui){
+                    var datos = $( "#sortable" ).sortable('toArray').toString();
+                    var datos2 = datos.replace(/li_/g,"");
+                    var iddept = $("#iddept").val();
+                    console.debug(datos2);
+                    /* peticion ajax */
+                        $.ajax({
+                            url: "{{ path('ajax_atributos') }}",
+                            type: 'POST',
+                            data: {operacion: "modificarOrdenAtributos", orden: datos2, iddept: iddept},
+                            success: function (data) {
+                                console.debug(data);
+                                if(data!='ok'){
+                                    alert("Se presentó un error al intentar guardar los datos. Notifique al departamento de sistemas.")
+                                }else{
+                                }
+                            }
+                        });
+                }});
+
+                $( "#sortable" ).disableSelection();
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block animations %}
+    <script>
+        function animarEntrada() {
+            $('#loadingDiv').show();
+            $("#loadingDiv").animate({height: "20px"});
+        }
+
+        function animarSalida() {
+            $("#loadingDiv").animate({height: "0px"});
+            $('#loadingDiv').hide(100);
+        }
+    </script>
+{% endblock %}

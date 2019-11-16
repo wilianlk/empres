@@ -1,0 +1,219 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+<style type="text/css">
+        #group-schedule {
+            background-color: #fff;
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 40px;
+            color: #858b8e;
+            box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #group-schedule h2 {
+            padding-bottom: 20px;
+            margin: 10px 20px;
+            font-size: 24px;
+        }
+
+        #group-schedule hr {
+            margin-top: 38px;
+            margin-bottom: 54px;
+            margin-left: 3px;
+            border: 1px solid #cccccc;
+        }
+
+        #group-schedule .form-group {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            width: 30%;
+            float: left;
+            text-align: left;
+        }
+
+        #group-schedule .form-control {
+            padding: 12px 20px;
+            height: auto;
+            border-radius: 2px;
+        }
+
+        #group-schedule .radio-inline {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        #group-schedule .gender {
+            width: 30%;
+            margin-top: 30px;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #group-schedule .btn {
+            width: 46%;
+            margin: 20px auto 0;
+            display: block;
+            outline: none;
+        }
+
+</style>
+
+    <div class="container" id="group-schedule">
+        <h2>Horario Grupo</h2>
+        <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">Crear Grupo Horario</button>
+
+        <div id="filas"></div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Crear Grupo De Horario</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label for="human" class="col-sm-2 control-label">{{ form_label(form.name,'Nombre') }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.name) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="human" class="col-sm-2 control-label">{{ form_label(form.toleranceBeforeIn,'Tolerancia Antes In') }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.toleranceBeforeIn) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="human" class="col-sm-2 control-label">{{ form_label(form.toleranceAfterIn,'Tolerancia Despues In') }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.toleranceAfterIn) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="human" class="col-sm-2 control-label">{{ form_label(form.toleranceBeforeOut,'Tolerancia Antes Out') }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.toleranceBeforeOut) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="human" class="col-sm-2 control-label">{{ form_label(form.toleranceAfterOut,'Tolerancia Despues Out') }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.toleranceAfterOut) }}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" id="submit">Enviar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            
+            $(function () {
+                ajaxgroup()
+            });
+
+            $('#submit').click(function () {
+
+                let name   = $('#backendbundle_groupschedule_name').val();
+                let office = $('#backendbundle_groupschedule_idOffice').val();
+                let toleranceBeforeIn   = $('#backendbundle_groupschedule_toleranceBeforeIn').val();
+                let toleranceAfterIn   = $('#backendbundle_groupschedule_toleranceAfterIn').val();
+                let toleranceBeforeOut   = $('#backendbundle_groupschedule_toleranceBeforeOut').val();
+                let toleranceAfterOut   = $('#backendbundle_groupschedule_toleranceAfterOut').val();
+
+                $.ajax(
+                    {
+                        url: '{{ url('timeclock_groupschedule_new') }}',
+                        data:
+                            {
+                            'name':name,
+                            'office':office,
+                            'toleranceBeforeIn':toleranceBeforeIn,
+                            'toleranceAfterIn':toleranceAfterIn,
+                            'toleranceBeforeOut':toleranceBeforeOut,
+                            'toleranceAfterOut':toleranceAfterOut
+                            },
+                        dataType: 'json',
+                        success:function (data) {
+                            $('.modal').modal('toggle');
+                            window.location.reload();
+                        }
+                    }
+                )
+            });
+
+            function ajaxgroup() {
+                $.ajax(
+                    {
+                        url: '{{ url('timeclock_groupschedule_index') }}',
+                        dataType: 'json'
+                    })
+                    .done(function (data) {
+                        let datas = JSON.parse(data.data);
+
+                        var html = "";
+                        html += '<br>';
+                        html += '<br>';
+                        html += '<table class="table table-bordered" id="mytable">';
+                        html += '<thead>';
+                        html += '<tr class="text-center">';
+                        html += '<th>ID</th>';
+                        html += '<th>Nombre </th>';
+                        html += '<th>Tolerancia Antes In</th>';
+                        html += '<th>Tolerancia Despues In</th>';
+                        html += '<th>Tolerancia Antes Out</th>';
+                        html += '<th>Tolerancia Despues Out</th>';
+                        html += '</tr>';
+                        html += '</thead>';
+                        html += '<tbody>';
+
+                        for (dd in datas)
+                        {
+                            let group = datas[dd];
+
+                            html += '<tr>';
+                            html += '<td>' + group['idGroupschedule'] + '</td>';
+                            html += '<td>' + group['name'] + '</td>';
+                            html += '<td>' + group['toleranceBeforeIn'] + '</td>';
+                            html += '<td>' + group['toleranceAfterIn'] + '</td>';
+                            html += '<td>' + group['toleranceBeforeOut'] + '</td>';
+                            html += '<td>' + group['toleranceAfterOut'] + '</td>';
+                            html += '</tr>';
+                        }
+
+                        html += '</tbody>';
+                        html += '</table>';
+
+                        $('#filas').html(html);
+                    })
+            }
+
+            setInterval(function () {
+                ajaxgroup();
+            }, 50000);
+
+        });
+    </script>
+{% endblock %}

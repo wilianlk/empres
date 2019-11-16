@@ -1,0 +1,8 @@
+clientelist:
+  path: /cliente
+  defaults: { _controller: AppBundle:Cliente:index}
+
+
+clientecreate:
+  path: /new
+  defaults: { _controller: AppBundle:Cliente:create}

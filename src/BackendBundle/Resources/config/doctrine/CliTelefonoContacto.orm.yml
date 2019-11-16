@@ -1,0 +1,98 @@
+BackendBundle\Entity\CliTelefonoContacto:
+    type: entity
+    table: cli_telefono_contacto
+    indexes:
+        cli_telefono_id_cliente_idx:
+            columns:
+                - id_cliente_contacto
+        cli_telefono_id_proveedor_celular_idx:
+            columns:
+                - id_proveedor_celular
+        cli_telefono_created_by_idx:
+            columns:
+                - created_by
+        cli_telefono_updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idTelefonoContacto:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_telefono_contacto
+            generator:
+                strategy: IDENTITY
+    fields:
+        idClienteContacto:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_cliente_contacto
+        idProveedorCelular:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_proveedor_celular
+        tipo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        numero:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        extension:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+        autorizaSms:
+            type: boolean
+            nullable: true
+            column: autoriza_sms
+        horario:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

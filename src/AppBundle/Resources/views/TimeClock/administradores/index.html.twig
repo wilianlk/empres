@@ -1,0 +1,164 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+
+    <style type="text/css">
+        #manager {
+            background-color: #fff;
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 45px;
+            color: #858b8e;
+            box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #manager h2 {
+            padding-bottom: 20px;
+            margin: 10px 20px;
+            font-size: 24px;
+        }
+
+        #manager hr {
+            margin-top: 38px;
+            margin-bottom: 54px;
+            margin-left: 3px;
+            border: 1px solid #cccccc;
+        }
+
+        #manager .form-group {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            width: 30%;
+            float: left;
+            text-align: left;
+        }
+
+        #manager .form-control {
+            padding: 12px 20px;
+            height: auto;
+            border-radius: 2px;
+        }
+
+        #manager {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        #manager .gender {
+            width: 30%;
+            margin-top: 30px;
+            padding-left: 40px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #manager #btn {
+            width: 46%;
+            margin: 20px auto 0;
+            display: block;
+            outline: none;
+        }
+
+        @media screen and (max-width: 800px) {
+            #manager .form-group {
+                width: 45%;
+            }
+
+            #manager {
+                margin-top: 0;
+            }
+        }
+
+        @media screen and (max-width: 560px) {
+            #manager .form-group {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            #manager h2 {
+                text-align: center;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <h2>Lista de Administradores</h2>
+
+        <a href="#" class="btn btn-primary col-md-offset-3" data-toggle="modal" data-target="#myModal">Crear un nuevo
+            Administrador
+        </a>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header" align="center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Crear Administrador</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="human"
+                                       class="col-sm-2 control-label">{{ form_label(form.nombre,'Nombre') }}
+                                </label>
+                                <div class="col-sm-8">
+                                    {{ form_widget(form.nombre) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="human"
+                                       class="col-sm-2 control-label">{{ form_label(form.office,'Nombre') }}
+                                </label>
+                                <div class="col-sm-8">
+                                    {{ form_widget(form.office) }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table" id="manager">
+            <thead>
+            <tr class="text-center">
+                <th>{{ knp_pagination_sortable(managerOffices, 'ID', 'idManagerOffice') }}</th>
+                <th>{{ knp_pagination_sortable(managerOffices, 'Nombre', 'nombre') }}</th>
+                <th>{{ knp_pagination_sortable(managerOffices, 'Oficina', 'office') }}</th>
+                <th>{{ knp_pagination_sortable(managerOffices, 'Actions', '') }}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for managerOffice in managerOffices %}
+                <tr>
+                    <td>
+                        <a href="{{ path('timeclock_manageroffice_show', { 'idManagerOffice': managerOffice.idManagerOffice }) }}">{{ managerOffice.idManagerOffice }}</a>
+                    </td>
+                    <td>{{ managerOffice.nombre }}</td>
+                    <td>{{ managerOffice.office }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('timeclock_manageroffice_show', { 'idManagerOffice': managerOffice.idManagerOffice }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('timeclock_manageroffice_edit', { 'idManagerOffice': managerOffice.idManagerOffice }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

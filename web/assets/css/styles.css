@@ -1,0 +1,162 @@
+/* header */
+.espacioMenu{
+    margin-right: 5px;
+}
+.espacioSubMenu{
+    margin-right: 8px;
+}
+.sublink{
+    margin-left: 2em;
+}
+
+.navbar-collapse .avatar{
+    background: #ffffff;
+    border-radius: 500px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    float: left;
+    margin: -5px 12px 0 0;
+}
+.navbar-collapse .avatar img{
+    height: 100%;
+    text-align: center;
+}
+/* body */
+body{
+    background: #eee;
+}
+#content{
+    margin-bottom: 50px;
+}
+.footerfont {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+@media (max-width: 766px){
+    .footerfont {
+        font-size: 1.3em;
+        text-align: right;
+    }
+}
+@media (min-width: 767px){
+    .footerfont {
+        font-size: large;
+        text-align: center;
+    }
+}
+.footer {
+    height: 61px;
+    background: #CCCCCC;
+}
+/* Footer */
+/* Registro*/
+.box-form{
+    background: #ffffff;
+    border: 1px solid #ccc;
+    padding: 0px 20px 20px 20px;
+    margin: 0px auto;
+    float: none;
+}
+.box-form input{
+    margin-bottom: 10px;
+}
+.margenSuperiorBoton{
+    margin-top: 15px;
+}
+
+/* Estilos objetos en tablas*/
+.tablewithimages tr td img{
+    text-align: center;
+    width: 30px;
+    height: 30px;
+}
+
+.imagendesdelatabla{
+    text-align: center;
+    width: 50px;
+    height: 50px;
+}
+
+.imagenResponsiveTabla{
+    text-align: center;
+    /*width: 50px;*/
+    height: 50px;
+}
+
+.columnaimagen{
+    width: 100px;
+    text-align: center;
+}
+
+.btnsinpadding{
+    padding: 5px 15px;
+}
+
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
+.ocultoAnimar{
+    opacity: 0;
+}
+
+/* SORTEABLE -> agregado por @jdperea59 */
+
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#sortable li {
+    margin: 3px 3px 3px 0;
+    padding: 1px;
+    float: left;
+    width: 100%;
+    /*height: 90px;*/
+    font-size: 3em;
+    text-align: center;
+}
+
+#sortable li p{
+    margin: 3px 3px 3px 0;
+    padding: 1px;
+    float: left;
+    width: 100%;
+    /*height: 90px;*/
+    font-size: 0.4em;
+    text-align: center;
+}
+
+/* Listas conectadas */
+#sortabledisable, #sortableenabled {
+    border: 1px dotted #33333378;
+    width: 100%;
+    min-height: 60px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 15px 5px 5px;
+    float: left;
+    margin-right: 10px;
+
+}
+#sortabledisable li, #sortableenabled li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.fontXLarge{
+    font-size: x-large!important;
+}
+
+/* Separador Vertical */
+
+.separarDivs {
+    border-right: 1px dotted #33333378;
+}

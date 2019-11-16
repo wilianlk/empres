@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/sweetalert2/6.0.1/sweetalert2.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/6.0.1/sweetalert2.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        .outer {
+            padding: 2em 1em;
+            box-shadow: 5px 5px 5px #d9d9d9;
+        }
+
+        .headerbar {
+            background: #640326 !important;
+            color: #ffffff !important;
+            position: relative;
+            margin-bottom: 1.5em;
+            margin-right: -2.5em;
+            margin-left: -2.5em;
+            box-shadow: 5px 5px 5px #d9d9d9;
+        }
+
+        .headerbar:before {
+            content: "";
+            position: absolute;
+            border-bottom: 1.5em solid #333;
+            border-left: 1.5em solid transparent;
+            left: 0;
+            top: -1.5em;
+        }
+
+        .headerbar:after {
+            content: "";
+            position: absolute;
+            border-top: 1.5em solid #333;
+            border-right: 1.5em solid transparent;
+            right: 0;
+            bottom: -1.5em;
+        }
+
+        .headerbar:hover {
+            transform: scale(1, 1.1);
+        }
+
+        .swal2-container.swal2-in {
+            background-color: transparent;
+        }
+
+        .swal-wide{
+            top: 310px !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="site-wrapper">
+        <div class="jumbotron">
+            <div class="centerme text-center">
+
+                <img width="240" height="34"
+                     src="https://www.ropacolombiana.co/usa/wp-content/uploads/2013/08/Logo_RopaColombiana.jpg"
+                     class="img-responsive center-block" alt="ropacolombiana"/>
+
+                <div class="row">
+                    <div class="col-sm-5 col-sm-offset-2">
+                        <h1 class="text-center" style="padding: 50px 0px; color: #640326; "><u></u></h1>
+                        <div class="panel panel-default outer">
+                            <div class="panel-heading headerbar">
+                                <h3 class="text-center">{{ 'contacto_credito.title'|trans }}</h3>
+                            </div>
+                            <div class="panel-body text-justify">
+                                {{ 'contacto_credito.paragraph'|trans }}
+                            </div>
+                            <div>
+                                {{ 'contacto_credito.redirection'|trans }} www.colmodausa.com  <label id="countdown"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+    $(function () {
+
+        var seconds = 5; //número de segundos a contar
+        function secondPassed() {
+
+            var minutes = Math.round((seconds - 30)/60); //calcula el número de minutos
+            var remainingSeconds = seconds % 60; //calcula los segundos
+            //si los segundos usan sólo un dígito, añadimos un cero a la izq
+            if (remainingSeconds < 10) {
+                remainingSeconds = "0" + remainingSeconds;
+            }
+            document.getElementById('countdown').innerHTML = minutes + ":" +     remainingSeconds;
+            if (seconds == 0) {
+                clearInterval(countdownTimer);
+                location.href = "https://www.colmodausa.com";
+            } else {
+                seconds--;
+            }
+        }
+
+        var countdownTimer = setInterval(secondPassed, 1000);
+
+        {#swal({#}
+        {#    title: '<a href="https://www.colmodausa.com">Ropa Colombiana</a>',#}
+        {#    text:  "{{ 'contacto_credito.redirection'|trans }} " + 'www.colmodausa.com '+ '<br>' + '<label id="countdown"></label>' +' segundos.',#}
+        {#    showConfirmButton: false,#}
+        {#    customClass: 'swal-wide',#}
+        {#    timer:10000#}
+        {#}).then(#}
+        {#    function (dismiss) {#}
+        {#        if (dismiss === 'timer') {#}
+        {#            console.log('La alerta fue cerrada en 5 segundos')#}
+        {#        }#}
+        {#    }#}
+        {#)#}
+
+        {#$(".swal2-modal").css('background-color', '#000');#}
+        {#$(".swal2-container.in").css('background-color', 'rgba(43, 165, 137, 0.45)');#}
+    })
+</script>

@@ -1,0 +1,218 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <h1>lista Uso Beneficio</h1>
+
+        <a href="#" class="btn btn-primary pull pull-right" role="button" data-toggle="modal" data-target="#addBenefit">
+            <span class="glyphicon glyphicon-plus-sign"></span> Add UseBenefit</a>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Idusebenefit</th>
+                <th>Idemployee</th>
+                <th>Idbeneficio</th>
+                <th>Quantity</th>
+                <th>Unitmeasure</th>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for useBenefit in useBenefits %}
+                <tr>
+                    <td>
+                        <a href="{{ path('timeclock_usebenefit_show', { 'idUseBenefit': useBenefit.idUseBenefit }) }}">{{ useBenefit.idUseBenefit }}</a>
+                    </td>
+                    <td>{{ useBenefit.empfullname }}</td>
+                    <td>{{ useBenefit.namebenefit }}</td>
+                    <td>{{ useBenefit.quantity }}</td>
+                    <td>{{ useBenefit.unitMeasure }}</td>
+                    <td>{% if useBenefit.startDate %}{{ useBenefit.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if useBenefit.endDate %}{{ useBenefit.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{{ useBenefit.createdAt }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('timeclock_usebenefit_show', { 'idUseBenefit': useBenefit.idUseBenefit }) }}">show</a>
+                            </li>
+                            {#<li>#}
+                                {#<a href="{{ path('timeclock_usebenefit_edit', { 'idUseBenefit': useBenefit.idUseBenefit }) }}">edit</a>#}
+                            {#</li>#}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="addBenefit">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-plus-sign"></span> Add UseBenefit </h4>
+                    </div>
+
+                    <form class="form-horizontal" method="post" id="useform">
+                        <div class="modal-body">
+                            {#{{ form_widget(form) }}#}
+                            <div class="form-group">
+                                {{ form_label(form.idEmployee, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.idEmployee) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.idBeneficio, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.idBeneficio) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-10" style="margin-left: 100px">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Beneficio Otorgado</div>
+                                        <div class="panel-body">
+                                            <p id="usebenet"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.quantity, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.quantity) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.unitMeasure, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.unitMeasure) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="human"
+                                       class="col-sm-2 control-label">{{ form_label(form.startDate) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-append date" id="datePicker">
+                                        {{ form_widget(form.startDate) }}
+                                        <span class="input-group-addon add-on">
+                                            <span class="glyphicon glyphicon-calendar">
+
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="human"
+                                       class="col-sm-2 control-label">{{ form_label(form.endDate) }}
+                                </label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-append date" id="datePicker">
+                                        {{ form_widget(form.endDate) }}
+                                        <span class="input-group-addon add-on">
+                                            <span class="glyphicon glyphicon-calendar">
+
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.createdAt, {'value' : user }) }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <a class="btn btn-primary" role="button" id="submit">Guardar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#appbundle_usebenefit_idEmployee').on('change', function () {
+                let employee = $(this).val();
+                if (employee) {
+                    $.ajax(
+                        {
+                            method: 'POST',
+                            url: '{{ url('timeclock_usebenefit_ajaxbenefit') }}',
+                            success: function (data) {
+                                $('#usebenet').html(data)
+                            }
+                        }
+                    )
+                }
+            });
+
+
+            $('#submit').click(function (evt) {
+                evt.preventDefault();
+
+                let useform = $('#useform').serializeArray();
+                var result = {};
+
+                $.each(useform, function () {
+                    result[this.name] = this.value;
+                });
+
+                $.ajax(
+                    {
+                        method: 'POST',
+                        url: '{{ url('timeclock_usebenefit_new') }}',
+                        data:
+                            {
+                                idEmployee: result['appbundle_usebenefit[idEmployee]'],
+                                idBeneficio: result['appbundle_usebenefit[idBeneficio]'],
+                                quantity: result['appbundle_usebenefit[quantity]'],
+                                unitMeasure: result['appbundle_usebenefit[unitMeasure]'],
+                                startDate: result['appbundle_usebenefit[startDate]'],
+                                endDate: result['appbundle_usebenefit[endDate]'],
+                                createdAt: result['appbundle_usebenefit[createdAt]'],
+                            },
+                        dataType: 'json',
+                        before: function () {
+                        },
+                        success: function (data) {
+                            $('.modal').modal('toggle');
+                            window.location.reload()
+                        }
+                    }
+                );
+            });
+        });
+
+        $(document).on('click', '#datePicker', function () {
+            $.each($(this), function (i) {
+                $($(this)).datepicker({
+                    format: 'yyyy-mm-dd'
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,328 @@
+timeclock_index:
+  path: /timeclock
+  defaults: { _controller: AppBundle:Timeclock:index}
+
+timeclock_attempt_index:
+  path: /timeclock_attempt
+  defaults: { _controller: AppBundle:Timeclock:attempt}
+
+
+timeclock_listemployee:
+  path: /timeclock_listemployee
+  defaults: { _controller: AppBundle:Timeclock:listemployee}
+
+timeclock_create:
+  path: /timeclock_create
+  defaults: { _controller: AppBundle:Timeclock:create}
+
+timeclock_validateselect:
+  path: /validateselect
+  defaults: { _controller: AppBundle:Timeclock:validate}
+
+#################
+
+timeclock_benefits_index:
+  path:     /benefits
+  defaults: { _controller: AppBundle:Benefits:index }
+  methods:  GET
+
+timeclock_benefits_show:
+  path:     /{idBeneficio}/showbenefits
+  defaults: { _controller: AppBundle:Benefits:show }
+  methods:  GET
+
+timeclock_benefits_new:
+  path:     /benefits_new
+  defaults: { _controller: AppBundle:Benefits:new }
+  methods:  [GET, POST]
+
+timeclock_benefits_edit:
+  path:     /{idBeneficio}/editbenefits
+  defaults: { _controller: AppBundle:Benefits:edit }
+  methods:  [GET, POST]
+
+timeclock_benefits_delete:
+  path:     /{idBeneficio}/delete
+  defaults: { _controller: AppBundle:Benefits:delete }
+  methods:  DELETE
+
+###############
+
+timeclock_configuracion_index:
+  path: /configuracion
+  defaults: { _controller: AppBundle:Configuracion:index}
+
+timeclock_configuracion_show:
+  path:     /{idConfig}/showconfiguracion
+  defaults: { _controller: AppBundle:Configuracion:show }
+  methods:  GET
+
+timeclock_configuracion_new:
+  path:     /configuration_new
+  defaults: { _controller: AppBundle:Configuracion:new }
+  methods:  [GET, POST]
+
+timeclock_configuracion_edit:
+  path:     /{idConfig}/editconfiguracion
+  defaults: { _controller: AppBundle:Configuracion:edit }
+  methods:  [GET, POST]
+
+timeclock_configuracion_delete:
+  path:     /{idConfig}/delete
+  defaults: { _controller: AppBundle:Configuracion:delete }
+  methods:  DELETE
+
+###############
+
+timeclock_contracttypes_index:
+  path:     /contracttypes
+  defaults: { _controller: AppBundle:ContractTypes:index }
+  methods:  GET
+
+timeclock_contracttypes_show:
+  path:     /{idTypeContract}/show_contracttypes
+  defaults: { _controller: AppBundle:ContractTypes:show }
+  methods:  GET
+
+timeclock_contracttypes_new:
+  path:     /contracttypes_new
+  defaults: { _controller: AppBundle:ContractTypes:new }
+  methods:  [GET, POST]
+
+timeclock_contracttypes_edit:
+  path:     /{idTypeContract}/edit_contracttypes
+  defaults: { _controller: AppBundle:ContractTypes:edit }
+  methods:  [GET, POST]
+
+timeclock_contracttypes_delete:
+  path:     /{idTypeContract}/delete
+  defaults: { _controller: AppBundle:ContractTypes:delete }
+  methods:  DELETE
+
+##############################
+
+timeclock_contracthistory_index:
+  path:     /contracthistory
+  defaults: { _controller: AppBundle:ContractHistory:index }
+  methods:  GET
+
+timeclock_contracthistory_show:
+  path:     /{idContractHistory}/showcontracthistory
+  defaults: { _controller: AppBundle:ContractHistory:show }
+  methods:  GET
+
+timeclock_contracthistory_show_idCliente:
+  path:     /contracthistory/tIdcliente
+  defaults: { _controller: AppBundle:ContractHistory:showIdCliente}
+  methods:  GET
+
+timeclock_contracthistory_new:
+  path:     /contracthistory_new
+  defaults: { _controller: AppBundle:ContractHistory:new }
+  methods:  [GET, POST]
+
+timeclock_contracthistory_edit:
+  path:     /{idContractHistory}/editcontracthistory
+  defaults: { _controller: AppBundle:ContractHistory:edit }
+  methods:  [GET, POST]
+
+timeclock_contracthistory_delete:
+  path:     /{idContractHistory}/delete
+  defaults: { _controller: AppBundle:ContractHistory:delete }
+  methods:  DELETE
+
+##############################
+
+timeclock_configbeneficios_index:
+  path:     /configbeneficios
+  defaults: { _controller: AppBundle:ConfigBeneficios:index }
+  methods:  GET
+
+timeclock_configbeneficios_show:
+  path:     /{idConfigBeneficios}/show
+  defaults: { _controller: AppBundle:ConfigBeneficios:show }
+  methods:  GET
+
+timeclock_configbeneficios_edit:
+  path:     /{idConfigBeneficios}/editconfigbeneficios
+  defaults: { _controller: AppBundle:ConfigBeneficios:edit }
+  methods:  [GET, POST]
+
+timeclock_configbeneficios_new:
+  path:     /timeclock/newconfigbeneficios
+  defaults: { _controller: AppBundle:ConfigBeneficios:new }
+  methods:  [GET, POST]
+
+timeclock_configbeneficios_delete:
+  path:     /{idConfigBeneficios}/delete
+  defaults: { _controller: AppBundle:ConfigBeneficios:delete }
+  methods:  DELETE
+
+##############################
+
+timeclock_usebenefit_index:
+  path:     /usebenefit
+  defaults: { _controller: AppBundle:UseBenefit:index }
+  methods:  [GET, POST]
+
+timeclock_usebenefit_show:
+  path:     /{idUseBenefit}/showusebenefit
+  defaults: { _controller: AppBundle:UseBenefit:show }
+  methods:  GET
+
+timeclock_usebenefit_new:
+  path:     /newusebenefit
+  defaults: { _controller: AppBundle:UseBenefit:new }
+  methods:  [GET, POST]
+
+timeclock_usebenefit_edit:
+  path:     /{idUseBenefit}/edit
+  defaults: { _controller: AppBundle:UseBenefit:edit }
+  methods:  [GET, POST]
+
+timeclock_usebenefit_delete:
+  path:     /{idUseBenefit}/delete
+  defaults: { _controller: AppBundle:UseBenefit:delete }
+  methods:  DELETE
+
+timeclock_usebenefit_ajaxbenefit:
+  path:     /usebenefit_ajaxbenefit
+  defaults: { _controller: AppBundle:UseBenefit:ajaxBenefit }
+  methods:  [GET, POST]
+
+##############################
+
+timeclock_groupschedule_index:
+  path:     /groupschedule
+  defaults: { _controller: AppBundle:GroupSchedule:index }
+  methods:  GET
+
+timeclock_groupschedule_new:
+  path:     /newgroupschedule
+  defaults: { _controller: AppBundle:GroupSchedule:new}
+  methods:  [GET, POST]
+
+##############################
+
+timeclock_dayschedulegroup_index:
+  path:     /dayschedulegroup
+  defaults: { _controller: AppBundle:DayScheduleGroup:index }
+  methods:  GET
+
+timeclock_dayschedulegroup_new:
+  path:     /newdayschedulegroup
+  defaults: { _controller: AppBundle:DayScheduleGroup:new }
+  methods:  [GET, POST]
+
+##############################
+
+timeclock_employeetimegroup_index:
+  path:     /employeetimegroup
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:index }
+  methods:  GET
+
+timeclock_employeetimegroup_new:
+  path:     /timeclock/newemployeetimegroup
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:new }
+  methods:  [GET, POST]
+
+timeclock_employeegroup_index:
+  path:     /employeegroup
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:group }
+  methods:  [GET, POST]
+
+timeclock_employeegroup_edit:
+  path:     /{idEmployeeTimeGroup}/editemployeegroup
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:edit }
+  methods:  [GET, POST]
+
+timeclock_employeegroupasignacion:
+  path:     /timeclock/employeegroup_asignacion
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:asignacion }
+  methods:  [GET, POST]
+
+timeclock_employeegroupaedicion:
+  path:     /timeclock/employeegroup_edicion
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:edicion }
+  methods:  [GET, POST]
+
+timeclock_employeegroupaedicionupdate:
+  path:     /timeclock/employeegroup_edicionupdate
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:edicionupdate }
+  methods:  [GET, POST]
+
+timeclock_employeegroupasignacionmultiple:
+  path:     /timeclock/employeegroup_asignacion_multiple
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:asignacionmultiple }
+  methods:  [GET, POST]
+
+timeclock_employeegrupoasignacion:
+  path:     /timeclock/employeegrupoasignacion
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:grupoasignacion }
+  methods:  [GET, POST]
+
+timeclock_employeegrupoasignacionmultiple:
+  path:     /timeclock/employeegrupoasignacionmultiple
+  defaults: { _controller: AppBundle:EmployeeTimeGroup:grupoasignacionmultiple }
+  methods:  [GET, POST]
+
+##############################
+
+timeclock_manageroffice_index:
+  path:     /manageroffice
+  defaults: { _controller: AppBundle:ManagerOffice:index }
+  methods:  GET
+
+timeclock_manageroffice_show:
+  path:     /{idManagerOffice}/show
+  defaults: { _controller: AppBundle:ManagerOffice:show }
+  methods:  GET
+
+timeclock_manageroffice_new:
+  path:     /newmanageroffice
+  defaults: { _controller: AppBundle:ManagerOffice:new }
+  methods:  [GET, POST]
+
+timeclock_manageroffice_edit:
+  path:     /{idManagerOffice}/edit
+  defaults: { _controller: AppBundle:ManagerOffice:edit }
+  methods:  [GET, POST]
+
+##############################
+
+timeclock_supervisornotification_index:
+  path:     /supervisornotification_index
+  defaults: { _controller: AppBundle:SupervisorNotification:index }
+  methods:  GET
+
+timeclock_supervisornotification_notifi:
+  path:     /supervisornotificationes
+  defaults: { _controller: AppBundle:SupervisorNotification:notification }
+  methods:  GET
+
+timeclock_supervisornotification_edit:
+  path:     /editsupervisornotification
+  defaults: { _controller: AppBundle:SupervisorNotification:edit }
+  methods:  [GET, POST]
+
+timeclock_supervisornotificationn_edit:
+  path:     /{idSupervisorNotification}/editsupervisornotification
+  defaults: { _controller: AppBundle:SupervisorNotification:editt }
+  methods:  [GET, POST]
+
+##############################
+
+timeclock_permits_index:
+  path:     /permits
+  defaults: { _controller: AppBundle:SupervisorNotification:permit }
+  methods:  GET
+
+timeclock_permitsrequired_new:
+  path:     /newpermitsrequired
+  defaults: { _controller: AppBundle:SupervisorNotification:permitnew }
+  methods:  [GET, POST]
+
+timeclock_permitsrequired_edit:
+  path:     /{idTypeOfPermits}/editpermitsrequired
+  defaults: { _controller: AppBundle:SupervisorNotification:permitedit }
+  methods:  [GET, POST]

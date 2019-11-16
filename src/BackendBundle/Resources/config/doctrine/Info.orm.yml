@@ -1,0 +1,78 @@
+BackendBundle\Entity\Info:
+    type: entity
+    table: info
+    id:
+        idInfo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_info
+            generator:
+                strategy: IDENTITY
+    fields:
+        idEmployee:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_employee
+        fullname:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+        inout:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+        timestamp:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+        notes:
+            type: string
+            nullable: true
+            length: 250
+            options:
+                fixed: false
+        ipaddress:
+            type: string
+            nullable: false
+            length: 39
+            options:
+                fixed: false
+                default: ''
+        os:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        browser:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        screenResolu:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: screen_resolu
+        device:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

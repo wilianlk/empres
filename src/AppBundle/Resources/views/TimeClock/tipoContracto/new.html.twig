@@ -1,0 +1,33 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <strong>Crear Tipo de Contracto</strong>
+                <hr>
+                {{ form_start(form,{'attr':{'well class':'form-horizontal'}}) }}
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Nombre de Contracto</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-folder-close"></i></span>
+                            {{ form_widget(form.contractName) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-info">Enviar <span
+                                    class="glyphicon glyphicon-file"></span>
+                        </button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

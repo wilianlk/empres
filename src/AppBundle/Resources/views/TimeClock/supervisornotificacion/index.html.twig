@@ -1,0 +1,108 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+    <div class="container">
+        <div id="users">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(supervisorNotifications, 'ID', 'Idsupervisornotification') }}</th>
+                    <th>{{ knp_pagination_sortable(supervisorNotifications, 'Nombre','nombre') }}</th>
+                    <th>{{ knp_pagination_sortable(supervisorNotifications, 'Estado', 'Estado') }}</th>
+                    <th>{{ knp_pagination_sortable(supervisorNotifications, 'Inout', 'inout') }}</th>
+                    <th>{{ knp_pagination_sortable(supervisorNotifications, 'Nota', 'nota') }}</th>
+                    <th>{{ knp_pagination_sortable(supervisorNotifications, 'Tipo permiso', 'TipoDepermiso') }}</th>
+                    <th>Acciones <input class="search" id="searchText" value="" placeholder="Search" onkeyup="url()"/>
+                        <button id="searchT">reinicializar</button>
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+
+                {% for supervisorNotification in supervisorNotifications %}
+                <tr>
+                <td class="solicitud">{{ supervisorNotification.idSupervisorNotification }}</td>
+                <td>{{ supervisorNotification.empfullname }}</td>
+                <td>{{ supervisorNotification.state ? 'Revisado':'No Revisado' }}</td>
+                <td>{{ supervisorNotification.inout }}</td>
+                <td>{{ supervisorNotification.nota }}</td>
+                <td>{{ supervisorNotification.permiso }}</td>
+                <td>
+                <a href="{{ path('timeclock_supervisornotificationn_edit', { 'idSupervisorNotification': supervisorNotification.idSupervisorNotification }) }}"
+                class="btn btn-warning">edit</a>
+                </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(supervisorNotifications) }}
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+        function url() {
+            let search = $(".search").val();
+
+            $('.pagination li a').each(function () {
+                var _href = $(this).attr("href");
+                if (_href.indexOf("&ref=") > -1) {
+                    var temp = _href.split('&ref=');
+                    var newUrl = temp[0] + "&ref=" + search.replace(/[^-A-Za-z0-9]+/g, '').toLowerCase();
+                } else {
+                    var newUrl = _href + "&ref=" + search.replace(/[^-A-Za-z0-9]+/g, '').toLowerCase();
+                }
+
+                $(this).attr("href", newUrl);
+            });
+        }
+
+
+    </script>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function () {
+            $('.search').val('{{ ref }}')
+        });
+
+        $(document).ready(function () {
+            $("#searchT").click(function () {
+
+                var originalURL = window.location.href;
+                var alteredURL = removeParam("ref", originalURL);
+
+                function removeParam(key, sourceURL) {
+                    var rtn = sourceURL.split("?")[0],
+                        param,
+                        params_arr = [],
+                        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+                    if (queryString !== "") {
+                        params_arr = queryString.split("&");
+                        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+                            param = params_arr[i].split("=")[0];
+                            if (param === key) {
+                                params_arr.splice(i, 1);
+                            }
+                        }
+                        rtn = rtn + "?" + params_arr.join("&");
+                    }
+                    return rtn;
+                }
+
+                window.open(alteredURL, '_self');
+            })
+
+
+        });
+
+
+    </script>
+{% endblock %}

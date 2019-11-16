@@ -1,0 +1,47 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <div class="container">
+        <h3>Configuracion Beneficios</h3>
+        <div class="col-md-2 col-md-offset-4">
+            <a href="{{ path('timeclock_configbeneficios_new') }}" class="btn btn-primary" role="button">Crear Nuevo
+                Beneficio</a>
+        </div>
+        <div class="row"></div>
+        <br>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(configBeneficios, 'ID', 'Idconfigbeneficios') }}</th>
+                <th>{{ knp_pagination_sortable(configBeneficios, 'Nombre Beneficio', 'nombre') }}</th>
+                <th>{{ knp_pagination_sortable(configBeneficios, 'Configuracion', 'Idconfig') }}</th>
+                <th>{{ knp_pagination_sortable(configBeneficios, 'Cantidad', 'Cantidad') }}</th>
+                <th>{{ knp_pagination_sortable(configBeneficios, 'Unidad de Medida', 'Unidadmedida') }}</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for configBeneficio in configBeneficios %}
+                <tr>
+                    <td>
+                        <a href="{{ path('timeclock_configbeneficios_show', { 'idConfigBeneficios': configBeneficio.idConfigBeneficios }) }}">{{ configBeneficio.idConfigBeneficios }}</a>
+                    </td>
+                    <td>{{ configBeneficio.nombre }}</td>
+                    <td>{{ configBeneficio.nombreConfig }}</td>
+                    <td>{{ configBeneficio.cantidad }}</td>
+                    <td>{{ configBeneficio.unidadMedida }}</td>
+                    <td>
+                        <a href="{{ path('timeclock_configbeneficios_edit', { 'idConfigBeneficios': configBeneficio.idConfigBeneficios }) }}"
+                           class="btn btn-warning">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(configBeneficios) }}
+        </div>
+    </div>
+{% endblock %}

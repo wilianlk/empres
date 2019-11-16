@@ -1,0 +1,74 @@
+BackendBundle\Entity\ProdMarcaProveedor:
+    type: entity
+    table: prod_marca_proveedor
+    indexes:
+        id_marca_idx:
+            columns:
+                - id_marca
+        id_proveedor_idx:
+            columns:
+                - id_proveedor
+    uniqueConstraints:
+        id_marca:
+            columns:
+                - id_marca
+                - id_proveedor
+    id:
+        idMarcaProveedor:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_marca_proveedor
+            generator:
+                strategy: IDENTITY
+    fields:
+        idMarca:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_marca
+        idProveedor:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_proveedor
+        estado:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

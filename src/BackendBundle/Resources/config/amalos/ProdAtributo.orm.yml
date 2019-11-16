@@ -1,0 +1,44 @@
+BackendBundle\Entity\ProdAtributo:
+    type: entity
+    table: prod_atributo
+    indexes:
+        FK_prod_atributo_prod_referencia:
+            columns:
+                - id_producto_referencia
+    id:
+        idAtributo:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_atributo
+        idProductoReferencia:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_producto_referencia
+    fields:
+        createdBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: updated_by
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    lifecycleCallbacks: {  }

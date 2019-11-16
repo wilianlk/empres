@@ -1,0 +1,30 @@
+{# 
+# Created by PhpStorm.
+# User: @jdperea59 
+# PC: gerencia-ti
+# Date: 4/06/18
+# Time: 11:35 AM
+#}
+{% if contexto == 'mostrarTipos' %}
+{% for item in prod if item['orden'] == false %}
+    {#{{ dump(item) }}#}
+    {#{{ item['id'] }}#}
+        {#<input type="checkbox" name="check{{ item['id'] }}" id="check{{ item['id'] }}" value="{{ item['id'] }}"{% if item['orden'] is not null %} checked{% endif %} onclick="modificarTipoAtributos({{ item['id'] }})">{{ item['nombre'] }}#}
+        <li id='li_{{ item['id'] }}' class="ui-state-default">{{ item['nombre'] }}</li>
+    {% else %}
+        <li id="li_0" class="ui-state-default disabled">No disponible</li>
+{% endfor %}
+
+{#{{ dump(prod) }}#}
+{% elseif contexto == 'mostrarOrdenTipos'%}
+    {% for item in prod %}
+                <li id='li_{{ item['id'] }}' class="ui-state-default">{{ item['nombre'] }}</li>
+    {% else %}
+
+                <li id="li_0" class="ui-state-default">No hay tipos de atributos en este departamento, por ende no se pueden ordenar.</li>
+    {% endfor %}
+{% elseif contexto == 'update'%}
+{{ resultado|replace({' ': ''}) }}
+{% else %}
+ Entro al ultimo else de la vista
+{% endif %}

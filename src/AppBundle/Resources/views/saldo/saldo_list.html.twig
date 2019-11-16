@@ -1,0 +1,140 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h4>Crear Saldo a Favor</h4>
+            </div>
+
+            <div class="col-sm-3 col-sm-offset-3">
+                <div class="form-group has-feedback">
+                    <label for="search" class="sr-only">Search</label>
+                    <input type="text" class="form-control" name="search" id="search" placeholder="search"
+                           onkeyup="">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="tabla_resultado">
+
+        </div>
+    </div
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        // $(obtener_registros());
+
+        function obtener_registros(clientes) {
+            $.ajax(
+                {
+                    method: 'GET',
+                    url: '{{ url('saldoshow') }}',
+                    data: {cliente: clientes},
+                    dataType: 'json',
+                    complete: function () {
+                        setTimeout(function () {
+                            document.getElementById("search").value = "";
+                        }, 10000);
+
+                    },
+                    error: function (jqXHR, exception) {
+                        if (jqXHR.status === 500) {
+                            alert('error. del sistema')
+                        }
+                    }
+                })
+
+                .done(function (resultado) {
+                    if (resultado.hasOwnProperty("response") && resultado.response === "success") {
+                        if (resultado.hasOwnProperty("cliente")) {
+                            let clientes = JSON.parse(resultado.cliente);
+
+                            if (clientes.length > 0) {
+                                var html = "";
+                                for (clie in clientes) {
+                                    html += '<div class="container">';
+                                    html += '<form class="form-horizontal" id="formClient">';
+                                    html += '<div class="form-group">';
+                                    html += '<label class="control-label col-sm-2" for="email">ID:</label>';
+                                    html += '<div class="col-sm-5">';
+                                    html += '<input type="text" class="form-control" id="id_cliente" value="' + clientes[clie]["idCliente"] + '" name="id_cliente" readonly>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '<div class="form-group">';
+                                    html += '<label class="control-label col-sm-2" for="email">NOMBRE:</label>';
+                                    html += '<div class="col-sm-5">';
+                                    html += '<input type="text" class="form-control" id="nom_cliente" value="' + clientes[clie]["nombre"] + '" name="nom_cliente" disabled>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '<div class="form-group">';
+                                    html += '<label class="control-label col-sm-2" for="email">APELLIDO:</label>';
+                                    html += '<div class="col-sm-5">';
+                                    html += '<input type="text" class="form-control" id="ape_cliente" value="' + clientes[clie]["apellido"] + '" name="ape_cliente" disabled>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '<div class="form-group">';
+                                    html += '<label class="control-label col-sm-2" for="email">VALOR:</label>';
+                                    html += '<div class="col-sm-5">';
+                                    html += '<input type="number" pattern="^[0-9]+" min="0" class="form-control" id="valor" value="" placeholder="Ingrese value" name="valor" >';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '<div class="form-group">';
+                                    html += '<label class="control-label col-sm-2" for="email">MOTIVO:</label>';
+                                    html += '<div class="col-sm-5">';
+                                    html += '<textarea class="form-control" rows="5" name="motivo" placeholder="Ingrese el motivo por el cual asignara este credito a favor" id="motivo"></textarea>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '<div class="form-group">';
+                                    html += '<div class="col-sm-offset-2 col-sm-10">';
+                                    html += '<button type="button" id="submit" class="btn btn-primary">Submit</button>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '</form>';
+                                    html += '</div>';
+                                }
+                                $('#tabla_resultado').html(html)
+
+                            } else {
+                                // alert('Cliente no se Encuentra')
+                            }
+                        }
+                    }
+                })
+        }
+
+        $(document).on('keyup', '#search', function () {
+            let valorBusqueda = $(this).val();
+            if (valorBusqueda != '') {
+                obtener_registros(valorBusqueda)
+            } else {
+                obtener_registros()
+            }
+        });
+
+        $(document).on('click', '#submit', function () {
+
+           if ($('#valor').val().length  === 0)
+           {
+               alert('dato requerido para campo valor');
+           }else if ($('#motivo').val().length === 0)
+           {
+               alert('dato requerido para campo motivo');
+           }else {
+               let cli_saldo = $('#formClient').serialize();
+               // console.log(cli_saldo);
+               $.post('{{ url('saldocreate') }}', cli_saldo, function (data,status) {
+                   if (status === 'success')
+                   {
+                       swal('',data)
+                           .then((value) => {
+                               window.location = '{{ path('saldolist') }}';
+                           });
+                   }
+               });
+           }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+# User: @jdperea59 
+# PC: gerencia-ti
+# Date: 23/04/18
+# Time: 08:37 AM
+
+#Validacion de campos obligatorios para un User
+BackendBundle\Entity\User:
+    properties:
+        name:
+            - NotBlank: {message: "El nombre no puede estar vacio"}
+        surname:
+            - NotBlank: {message: "El apellido no puede estar vacio"}
+        username:
+            - NotBlank: {message: "El usuario no puede estar vacio"}
+        email:
+            - NotBlank: {message: "El usuario no puede estar vacio"}
+            - Email:
+                message: El email {{ value }} no es valido.
+                checkMX: true
+
+#Validacion de campos obligatorios para un ProdDeptoTipoAtributo
+BackendBundle\Entity\ProdDeptoTipoAtributo:
+    properties:
+        nombre:
+            - NotBlank: {message: "El nombre en español no puede estar vacio"}
+        nombreIng:
+            - NotBlank: {message: "El nombre en ingles no puede estar vacio"}
+
+#Validacion de campos obligatorios para un ProdDeptoAtributo
+BackendBundle\Entity\ProdDeptoAtributo:
+    properties:
+        nombre:
+            - NotBlank: {message: "El nombre en español no puede estar vacio"}
+        nombreIng:
+            - NotBlank: {message: "El nombre en ingles no puede estar vacio"}
+        descripcion:
+            - NotBlank: {message: "La descripcion en español no puede estar vacia"}
+        descripcionIng:
+            - NotBlank: {message: "La descripcion en ingles no puede estar vacia"}

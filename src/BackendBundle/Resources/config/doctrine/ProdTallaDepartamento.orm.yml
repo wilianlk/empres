@@ -1,0 +1,95 @@
+BackendBundle\Entity\ProdTallaDepartamento:
+    type: entity
+    table: prod_talla_departamento
+    indexes:
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+        id_departamento_idx:
+            columns:
+                - id_departamento
+        id_talla_idx:
+            columns:
+                - id_talla
+    uniqueConstraints:
+        id_departamento:
+            columns:
+                - id_departamento
+                - id_talla
+    id:
+        idTallaDepartamento:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_talla_departamento
+            generator:
+                strategy: IDENTITY
+    fields:
+        idDepartamento:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_departamento
+        idTalla:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_talla
+        tallaEs:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: false
+            column: talla_es
+        tallaIng:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: false
+            column: talla_ing
+        orden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                default: '0'
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

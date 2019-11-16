@@ -1,0 +1,35 @@
+{# 
+# Created by PhpStorm.
+# User: @jdperea59 
+# PC: gerencia-ti
+# Date: 4/06/18
+# Time: 11:35 AM
+#}
+{% if contexto == 'mostrarTipos' %}
+{% if resultado != 'error' %}
+    {#{{ dump(tiposAt) }}#}
+{% for item in tiposAt %}
+    {#{{ dump(item) }}#}
+    <option value="{{ item.id }}">{{ item.nombre }}</option>
+    {% else %}
+        <option value="0">No hay Tipos de atributos asociados a este departamento</option>
+{% endfor %}
+
+{#{{ dump(prod) }}#}
+    {% else %}
+    Error al procesar la petición
+{% endif %}
+{% elseif contexto == 'mostrarOrdenTipos'%}
+    {#
+    {% for item in prod %}
+                <li id='li_{{ item['id'] }}' class="ui-state-default">{{ item['nombre'] }}</li>
+    {% else %}
+
+                <li id="li_0" class="ui-state-default">No hay tipos de atributos en este departamento, por ende no se pueden ordenar.</li>
+    {% endfor %}
+
+    #}
+{% elseif contexto == 'update'%}
+{{ resultado }}{% else %}{# debemos ponerlo asi porque sino en la vista se imprime un salto de linea#}
+   Entro al ultimo else de la vista
+{% endif %}

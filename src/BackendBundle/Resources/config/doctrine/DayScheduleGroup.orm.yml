@@ -1,0 +1,42 @@
+BackendBundle\Entity\DayScheduleGroup:
+    type: entity
+    table: day_schedule_group
+    id:
+        idDayScheduleGroup:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_day_schedule_group
+            generator:
+                strategy: IDENTITY
+    fields:
+        dayOfWeek:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: day_of_week
+        idGroupSchedule:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_group_schedule
+        hourIn:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: hour_in
+        hourOut:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: hour_out
+    lifecycleCallbacks: {  }

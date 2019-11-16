@@ -1,0 +1,8 @@
+#Para generar los YML desde lo que esta en la base de datos
+php bin/console doctrine:mapping:import BackendBundle yml -- En el BackendBundle va el bundle al que se desean importar las tablas
+
+
+php bin/console doctrine:generate:entities BackendBundle -- Generar los entities
+
+
+php bin/console cache:clear -- limpiar cache

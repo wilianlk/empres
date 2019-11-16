@@ -1,0 +1,72 @@
+#Rutas para ejecucion de CRUD TipoAtributo
+tipos_atributos_create:
+  path: /tipoatributo/create
+  defaults: { _controller: AppBundle:TipoAtributo:create }
+
+tipos_atributos_view:
+  path: /tipoatributo/show/{id}
+  defaults: { _controller: AppBundle:TipoAtributo:show }
+
+tipos_atributos_edit:
+  path: /tipoatributo/edit/{id}
+  defaults: { _controller: AppBundle:TipoAtributo:edit }
+
+tipos_atributos_delete:
+  path: /tipoatributo/delete/{id}
+  defaults: { _controller: AppBundle:TipoAtributo:delete }
+
+tipos_atributos_list:
+  path: /tipoatributo
+  defaults: { _controller: AppBundle:TipoAtributo:index }
+
+#Rutas para Asociar los tipos de atributos a un departamento
+tipo_asociar_departamento:
+  path: /tipoatributo/asociar
+  defaults: { _controller: AppBundle:TipoAtributo:show }
+
+ajax_tipo_asociar_departamento:
+  path: /tipoatributo/ajax
+  defaults: { _controller: AppBundle:TipoAtributo:ajaxasociartipo }
+# Fin rutas TipoAtributo
+
+#Rutas para ejecucion de CRUD Atributo
+atributos_create:
+  path: /atributos/create
+  defaults: { _controller: AppBundle:Atributo:create}
+
+atributos_view:
+  path: /atributos/show/{id}
+  defaults: { _controller: AppBundle:Atributo:show }
+
+atributos_edit:
+  path: /atributos/edit
+  defaults: { _controller: AppBundle:Atributo:edit }
+
+atributos_delete:
+  path: /atributos/delete/{id}
+  defaults: { _controller: AppBundle:Atributo:delete }
+
+atributos_list:
+  path: /atributos
+  defaults: { _controller: AppBundle:Atributo:index }
+
+# Ruta para usar en los AJAX
+ajax_atributos:
+  path: /atributo/ajax
+  defaults: { _controller: AppBundle:Atributo:ajax }
+# Fin rutas Atributo
+
+# Rutas para asociar los atributos a una referencia (AtributoReferencia)
+atributo_referencia:
+  path: /atributoareferencia/
+  defaults: { _controller: AppBundle:AtributoRefenrencia:index }
+
+atributos_referencia_edit:
+  path: /atributoareferencia/edit/{id}
+  defaults: { _controller: AppBundle:AtributoRefenrencia:edit }
+
+ajax_atributo_referencia:
+  path: /atributoreferencia/ajax
+  defaults: { _controller: AppBundle:AtributoRefenrencia:ajax }
+# Fin Asociar atributos a una referencia
+

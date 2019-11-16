@@ -1,0 +1,102 @@
+BackendBundle\Entity\ProdDeptoAtributoLog:
+    type: entity
+    table: prod_depto_atributo_log
+    id:
+        idAtributo:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_atributo
+            generator:
+                strategy: IDENTITY
+    fields:
+        idDepartamento:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_departamento
+        nombre:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        nombreIng:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: nombre_ing
+        descripcion:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        descripcionIng:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: descripcion_ing
+        idTipo:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_tipo
+        linkFotoDescripcion:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: link_foto_descripcion
+        keywordsEsp:
+            type: string
+            nullable: true
+            length: 60
+            options:
+                fixed: false
+            column: keywords_esp
+        keywordsIng:
+            type: string
+            nullable: true
+            length: 60
+            options:
+                fixed: false
+            column: keywords_ing
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: updated_at
+        ordenTipo:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: orden_tipo
+    lifecycleCallbacks: {  }

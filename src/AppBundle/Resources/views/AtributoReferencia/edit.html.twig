@@ -1,0 +1,158 @@
+{# 
+# Created by PhpStorm.
+# User: @jdperea59 
+# PC: gerencia-ti
+# Date: 24/04/18
+# Time: 02:28 PM
+#}
+
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container-fluid">
+        {#{{ dump(huerfanos) }}#}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-lg-8 box-form">
+
+                    <h3>Editar Atributos de la Referencia {{ referencia.referencia }}</h3>
+                    <span id="descripcion">{{ referencia.descripcion }}</span>
+                    <input type="hidden" id="idreferencia" value="{{ referencia.idProductoReferencia }}">
+                    <input type="hidden" id="idshuerfanos" value="{{ idshuerfanos }}">
+                    <hr/>
+                    {% if huerfanos|length > 0 %}
+                    <div class="row">
+                        <div class="col-xs-12" id="tablaHuerfanos">
+                        <table border="1" class="table table-condensed">
+
+                            <tr>
+                                <th aria-rowspan="{{ (huerfanos|length)+1 }}" rowspan="{{ (huerfanos|length)+1 }}" style="text-align: center;vertical-align: middle;"><a href="#" class="btn btn-danger btn-lg" role="button" onclick="borrarAtributosHuerfanos()">Borrar Atributos Huerfanos</a></th>
+                                <th>ID</th>
+                                <th>Atributo</th>
+                                <th>Tipo Atributo</th>
+                                <th>Acciones</th>
+                            </tr>
+
+                            {% for datosh in huerfanos %}
+                                <tr class="danger">
+                                    <td>{{ datosh['id_atributo'] }}</td>
+                                    <td>{{ datosh['nombre'] }}</td>
+                                    <td>{{ datosh['nombreattipo'] }}</td>
+                                    <td><a class="btn btn-default" href="{{ datosh['url'] }}" role="button" target="_blank">Ver Atributo</a></td>
+                                    {#{{ dump(datosh) }}#}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="row">
+                        {% for i in tipos %}
+                            <div class="col-xs-6 col-sm-3 {% if atributos[i[0].id]|length == 0 %}hide{% endif %}">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">{{ i[0].nombre }}</div>
+                                    <div class="panel-body">
+                                        {% for conten in atributos[i[0].id] %}
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="att{{ conten.idAtributo }}" type="checkbox" value="{{ conten.idAtributo }}"{% if conten.idAtributo in atributosproducto %} checked{% endif %} onclick="registrarAtributosProducto({{ conten.idAtributo }})"> {{ conten.nombre }}
+                                                </label>
+                                            </div>
+                                        {%  endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {%  endfor %}
+                    </div>
+                    <span id="respuestaAjax"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        {% if huerfanos|length > 0 %}
+        function borrarAtributosHuerfanos() {
+            var operacion = "borrarHuerfanos";
+            var id_referencia = $("#idreferencia").val();
+            var idshuerfanos = $("#idshuerfanos").val();
+
+            $.ajax({
+                url: "{{ path('ajax_atributo_referencia') }}",
+                type: 'POST',
+                data: {operacion: operacion, idshuerfanos: idshuerfanos, id_referencia: id_referencia},
+                success: function (data) {
+                    console.debug(data);
+                    if(data=='ok'){
+                        $('#tablaHuerfanos').empty();
+                        $('#tablaHuerfanos').html("<div class=\"alert alert-success\" role=\"alert\">Se eliminaron correctamente los atributos mal asociados.</div>");
+                    }
+                }
+            });
+        }
+        {% else %}
+        function borrarAtributosHuerfanos() {
+
+        }
+        {% endif %}
+
+        function registrarAtributosProducto(id_atributo){
+            /*
+             * @jdperea59
+             * Funcion para registrar o eliminar atributos a los productos
+             */
+            var id_referencia = $("#idreferencia").val();
+            var check = $('#att'+id_atributo).is(':checked');
+
+            var operacion = "";
+
+            if(check===false){
+                // para borrar
+                operacion = "b";
+            }else{
+                // para agregar
+                operacion = "a";
+            }
+            console.log(operacion);
+
+            $.ajax({
+                url: "{{ path('ajax_atributo_referencia') }}",
+                type: 'POST',
+                data: {operacion: operacion, idAtt: id_atributo, id_referencia: id_referencia},
+                success: function (data) {
+                    console.debug(data);
+                    if(data=='error'){
+                        $('#idTipo').html(data);
+                    }else{
+                        $('#statusAjax').append("<div id='ajax"+operacion+id_atributo+"' class=\"alert alert-success\" role=\"alert\"><strong>Correcto!</strong></div>");
+                        console.debug("aqui esta");
+                        //$('#statusAjax').html("Holi");
+                        console.debug("inicio");
+                        setTimeout(function() { ocultar(operacion,id_atributo)},1400);
+
+
+                        setTimeout(function() { notificar(operacion,id_atributo)},1900);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#statusAjax').html("<div class=\"alert alert-danger\" role=\"alert\">Error</div>");
+                    $('input[type=checkbox]').attr('disabled','true');
+                    setTimeout(function() {alert("Ha ocurrido un error, Revise su conexion a internet o contacte al Departamento de Sistemas.")},1400);
+                }
+            });
+        }
+        function ocultar(operacion,id_atributo) {
+
+            console.debug("hide");
+            $('#ajax'+operacion+id_atributo).hide("fast");
+        }
+
+        function notificar(operacion,id_atributo) {
+
+            console.debug("final");
+            $('#ajax'+operacion+id_atributo).remove();
+        }
+    </script>
+{% endblock %}

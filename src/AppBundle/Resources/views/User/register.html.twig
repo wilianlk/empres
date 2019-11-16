@@ -1,0 +1,23 @@
+{# 
+# Created by PhpStorm.
+# User: @jdperea59 
+# PC: gerencia-ti
+# Date: 16/04/18
+# Time: 12:48 PM
+#}
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/custom/username-test.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-8 box-form">
+        <h2>{{ titulo }}</h2>
+        <hr/>
+        {{ form_start(form,{'action':'','method':'POST'}) }}
+        {{ form_errors(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

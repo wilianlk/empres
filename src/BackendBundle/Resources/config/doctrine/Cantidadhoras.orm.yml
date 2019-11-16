@@ -1,0 +1,26 @@
+BackendBundle\Entity\Cantidadhoras:
+    type: entity
+    table: cantidadhoras
+    id:
+        idCantidadhoras:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_cantidadhoras
+            generator:
+                strategy: IDENTITY
+    fields:
+        idEmployee:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_employee
+        cantidadhoras:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,59 @@
+{#
+# Created by PhpStorm.
+# User: @jdperea59
+# PC: gerencia-ti
+# Date: 16/04/18
+# Time: 11:23 AM
+#}
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="col-lg-4 box-form">
+        <h2>Identificarse</h2>
+        <hr/>
+
+        {% for flash_message in app.session.flashbag.get('logout') %}
+            <div class="mt20 container abso col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="rows text-center">
+                    <div class="h alert alert-danger alert-dismissible">
+                        <h4>{{ flash_message }}</h4>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {%   if is_granted('ROLE_USER') %}
+            {{ dump(app.user) }}
+        {% endif %}
+        {% if error != "" %}
+            {% if last_username != "" %}
+            <div class="alert alert-danger" role="alert">
+                El usuario <b>{{ last_username }}</b> o la Contraseña no coincide con nuestros registros.<br>Intenta de nuevo.
+            </div>
+            {% else %}
+            <div class="alert alert-danger" role="alert">
+                El <b>Usuario</b> o la <b>Contraseña</b> no coincide con nuestros registros.<br>Intenta de nuevo.
+            </div>
+            {% endif %}
+        {% endif %}
+        {% for message in app.session.flashbag().get('danger') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <form action="{{ path('login_check') }}" method="POST">
+            <label>Email</label>
+            <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control" />
+            <label>Contraseña</label>
+            <input type="password" id="password" name="_password" class="form-control" />
+            <input type="submit" value="Entrar" class="btn btn-success" />
+            <input type="hidden" name="_target_path" value="/home">
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('#username').focus();
+        });
+    </script>
+{% endblock %}

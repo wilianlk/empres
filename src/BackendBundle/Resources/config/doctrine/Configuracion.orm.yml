@@ -1,0 +1,22 @@
+BackendBundle\Entity\Configuracion:
+    type: entity
+    table: configuracion
+    id:
+        idConfig:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_config
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreConfig:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: nombre_config
+    lifecycleCallbacks: {  }

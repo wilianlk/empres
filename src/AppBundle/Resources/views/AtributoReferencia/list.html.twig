@@ -1,0 +1,131 @@
+{#
+ # Created by PhpStorm.
+ # User: @jdperea59
+ # PC: gerencia-ti
+ # Date: 16/04/18
+ # Time: 11:23 AM
+ #}
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>Sidemenu</h2>
+            <hr/>
+            <form method="get" class="form-horizontal">
+                <div class="form-group">
+                    <label for="idDepartamento" class="col-sm-4 control-label">Departamento</label>
+                    <div class="col-sm-8">
+                        <select id="idDepartamento" name="idDepartamento" class="form-control">
+                            {% for item in departamento %}
+                                <option value="{{ item.idDepartamento }}"{% if item.idDepartamento == deptoSub %} selected{% endif %}>{{ item.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="backendbundle_presentacion_nombre_presentacion" class="col-sm-4 control-label">Referencia</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="nombreRef" name="nombreRef" class="form-control" value="{{ refSub }}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default btn-block">Buscar Referencia</button>
+            </form>
+        </div>
+        <div class="col-lg-8">
+            <h2>Referencias</h2>
+            <table class="table table-striped">
+                <thead>
+                <th>Referencia</th>
+                <th>Departamento</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+                </thead>
+                <tbody class="">
+                {% for item in referencias %}
+                    <tr id="trtable_{{ item.idProductoReferencia }}">
+                        <td>{{ item.referencia }}</td>
+                        <td>{{ item.deptonombre }}</td>
+                        <td>{{ item.descripcion|length > 50 ? item.descripcion|slice(0,50) ~ '...' : item.descripcion}}</td>
+                        <td>
+                            <a href="{{ path('atributos_referencia_edit',{'id':item.idProductoReferencia}) }}" class="btn btn-xs btn-default btn-block btnsinpadding" role="button"><span class="glyphicon glyphicon-edit espacioMenu" aria-hidden="true"></span>Editar</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">No hay productos que coincidan con el filtro</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation text-center">
+                {{ knp_pagination_render(referencias) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $( function() {
+            $( "#dialog" ).dialog({
+                autoOpen: false,
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: [ {
+                    text: "Delete all items",
+                    icon: "glyphicon glyphicon-remove",
+                    class: "btn btn-danger",
+                    click: function() {
+                        deleteSubmit(this);
+                    }
+                },{
+                    text: "Cancel",
+                    icon: "ui-icon-heart",
+                    class: "btn btn-primary",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+                ]
+            });
+        } );
+        $( document ).ready(function() {
+            $( ".ui-dialog-titlebar-close" ).html("<i class='glyphicon glyphicon-remove text-center'></i>");//
+        });
+        function borrarTipoAtributo(id){
+            var urlBorrarAtributo = "{{ path('tipos_atributos_delete',{'id':0}) }}";
+            var ultimoCaracter = urlBorrarAtributo.substring(urlBorrarAtributo.length-1);
+            if (ultimoCaracter == 0){
+                urlBorrarAtributo = urlBorrarAtributo.substring(0,urlBorrarAtributo.length-1);
+            }
+            var texto = $( "#badgeborrar_"+id).text();
+            var numale = Math.floor((Math.random() * 100) + 1);
+            $( "#textdialogdelete").html('Desea borrar este <b>Tipo de Atributo</b> que tiene <b>'+texto+'</b> atributos asociados?<br><br>Para confimar ingrese este valor '+numale+'.');
+            $( "#formconfirmrandom").val(numale);
+            $( "#formconfirmidtipoatributo").val(id);
+            urlBorrarAtributo = urlBorrarAtributo+""+id;
+            $( "#formconfirmconfirmar").val('');
+            $( "#dialog" ).dialog( "open" );
+            $( "#formconfirmconfirmar").focus();
+        }
+
+        function deleteSubmit(dialog) {
+            var idrow = $( "#formconfirmidtipoatributo").val();
+            if($( "#formconfirmrandom").val() == $( "#formconfirmconfirmar").val()){
+                $( "#trtable_"+idrow).remove();
+                //console.log("SI"+idrow);
+                $( dialog ).dialog( "close" );
+            }else{
+                console.log($( "#formconfirmrandom").val());
+                console.log($( "#formconfirmidtipoatributo").val());
+                console.log($( "#formconfirmconfirmar").val());
+            }
+        }
+
+    </script>
+{% endblock %}

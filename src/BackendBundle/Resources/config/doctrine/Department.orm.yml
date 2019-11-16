@@ -1,0 +1,21 @@
+BackendBundle\Entity\Department:
+    type: entity
+    table: department
+    id:
+        idDepartment:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_department
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

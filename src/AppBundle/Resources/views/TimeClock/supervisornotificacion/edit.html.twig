@@ -1,0 +1,63 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+
+        <form class="well form-horizontal" action=" " method="post" id="contact_form">
+            <fieldset>
+                <legend><strong>Supervisor</strong></legend>
+
+                {{ form_start(edit_form) }}
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Tipo de Permiso Requerido</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+                            {{ form_widget(edit_form.typeOfPermit) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Empleado</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            {{ form_widget(edit_form.idEmployee) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Check</label>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            {{ form_widget(edit_form.state) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Nota</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            {{ form_widget(edit_form.nota) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-warning">Send <span
+                                    class="glyphicon glyphicon-send"></span></button>
+                    </div>
+                </div>
+                {{ form_end(edit_form) }}
+
+            </fieldset>
+        </form>
+    </div>
+
+{% endblock %}

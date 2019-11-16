@@ -1,0 +1,68 @@
+BackendBundle\Entity\GeoPais:
+    type: entity
+    table: geo_pais
+    indexes:
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idPais:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_pais
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        isoCode2:
+            type: string
+            nullable: false
+            length: 2
+            options:
+                fixed: false
+            column: iso_code_2
+        isoCode3:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: false
+            column: iso_code_3
+        addressFormatId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: address_format_id
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+    lifecycleCallbacks: {  }

@@ -1,0 +1,149 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+
+    <div class="container" id="">
+        <h2>Empleado Horario Grupo</h2>
+        <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">Crear Grupo Horario
+        </button>
+        <div id="filas"></div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Crear Empleado Grupo Horario</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="idEmployee"
+                                   class="col-sm-2 control-label">{{ form_label(form.idEmployee,'Empleado') }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.idEmployee) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idGroupSchedule"
+                                   class="col-sm-2 control-label">{{ form_label(form.idGroupSchedule,'Grupo Horario') }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.idGroupSchedule) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="human"
+                                   class="col-sm-2 control-label">{{ form_label(form.startDate,'Fecha de Inicio') }}</label>
+                            <div class="col-sm-5">
+                                <input type="date" class="form-control" id="startDate">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" id="submit">Enviar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#submit').click(function () {
+                let empleado = $('#appbundle_employeetimegroup_idEmployee').val();
+                let idGroupSchedule = $('#appbundle_employeetimegroup_idGroupSchedule').val();
+                let start_date = document.getElementById("startDate").value;
+                var Sdate = moment(start_date).format("YYYY-MM-DD");
+
+                $.ajax(
+                    {
+                        type: 'GET',
+                        url: '{{ url('timeclock_employeetimegroup_new') }}',
+                        data:
+                            {
+                                'empleado': empleado,
+                                'idGroupSchedule': idGroupSchedule,
+                                'start_date': Sdate,
+                            },
+                        dataType: 'json',
+                    })
+                    .done(function (data) {
+                        $('.modal').modal('toggle');
+                    })
+            });
+
+            function ajaxgroup() {
+                $.ajax(
+                    {
+                        url: '{{ url('timeclock_employeetimegroup_index') }}',
+                        dataType: 'json'
+                    })
+                    .done(function (data) {
+
+                        let datas = JSON.parse(data.data);
+
+                        var html = "";
+                        html += '<br>';
+                        html += '<br>';
+                        html += '<table class="table table-bordered" id="mytable">';
+                        html += '<thead>';
+                        html += '<tr class="text-center">';
+                        html += '<th>ID</th>';
+                        html += '<th>Empleado</th>';
+                        html += '<th>Grupo Horario</th>';
+                        html += '<th>Fecha de Inicio</th>';
+                        html += '<th>Fecha Final</th>';
+                        html += '</tr>';
+                        html += '</thead>';
+                        html += '<tbody>';
+
+                        for (dd in datas) {
+                            let group = datas[dd];
+                            let startD = group['startDate']['timestamp'];
+                            let startDate = moment.unix(startD).format('YYYY-MM-DD');
+
+                            let endD = group['endDate'];
+
+                            let data = '';
+                            if (endD == null)
+                            {
+                                data = null;
+                            }else
+                                {
+                                    let endDa = group['endDate']['timestamp'];
+                                    data = moment.unix(endDa).format('YYYY-MM-DD');
+                                }
+                            let endDate = data;
+
+                            html += '<tr>';
+                            html += '<td>' + group['idEmployeeTimeGroup'] + '</td>';
+                            html += '<td>' + group['empfullname'] + '</td>';
+                            html += '<td>' + group['grupo'] + '</td>';
+                            html += '<td>' + startDate + '</td>';
+                            html += '<td>' + endDate+ '</td>';
+                            html += '</tr>';
+                        }
+
+                        html += '</tbody>';
+                        html += '</table>';
+
+                        $('#filas').html(html);
+                    })
+            }
+
+            setInterval(function () {
+                ajaxgroup();
+            }, 1000);
+        });
+    </script>
+{% endblock %}

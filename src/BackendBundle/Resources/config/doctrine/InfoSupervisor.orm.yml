@@ -1,0 +1,41 @@
+BackendBundle\Entity\InfoSupervisor:
+    type: entity
+    table: info_supervisor
+    id:
+        idInfoSupervisor:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_info_supervisor
+            generator:
+                strategy: IDENTITY
+    fields:
+        idSupervisor:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_supervisor
+        revisedSupervisor:
+            type: simple_array
+            nullable: false
+            length: null
+            options:
+                fixed: false
+            column: revised_supervisor
+        supervisorNotes:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+            column: supervisor_notes
+        options:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

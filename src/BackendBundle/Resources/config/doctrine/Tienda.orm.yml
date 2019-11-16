@@ -1,0 +1,166 @@
+BackendBundle\Entity\Tienda:
+    type: entity
+    table: tienda
+    indexes:
+        id_ciudad_idx:
+            columns:
+                - id_ciudad
+        id_tienda_tipo_idx:
+            columns:
+                - id_tienda_tipo
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idTienda:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_tienda
+            generator:
+                strategy: IDENTITY
+    fields:
+        idCiudad:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_ciudad
+        idTiendaTipo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_tienda_tipo
+        codigo:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        direccion:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        zipCode:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: zip_code
+        telefono1:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        telefono2:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        url:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        webservices:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        polizaVenta:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: poliza_venta
+        polizaDevolucion:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: poliza_devolucion
+        polizaSeparado:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: poliza_separado
+        nroFacturaIni:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '1'
+            column: nro_factura_ini
+        vigenciaSeparado:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '30'
+            column: vigencia_separado
+        estado:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+        backgroundImage:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+            column: background_image
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

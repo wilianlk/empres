@@ -1,0 +1,152 @@
+BackendBundle\Entity\Producto:
+    type: entity
+    table: producto
+    indexes:
+        id_producto_referencia_idx:
+            columns:
+                - id_producto_referencia
+        id_color_idx:
+            columns:
+                - id_color
+        id_talla_idx:
+            columns:
+                - id_talla
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idProducto:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_producto
+            generator:
+                strategy: IDENTITY
+    fields:
+        idProductoReferencia:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_producto_referencia
+        idColor:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_color
+        idTalla:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_talla
+        campo1:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        campo2:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        campo3:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        campo4:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        codigoBarras:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: false
+            column: codigo_barras
+        costo:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+        precioBodega:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            column: precio_bodega
+        precioDetal:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            column: precio_detal
+        precioWeb:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            column: precio_web
+        tax:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+        descuento:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+            options:
+                default: '0.00'
+        peso:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

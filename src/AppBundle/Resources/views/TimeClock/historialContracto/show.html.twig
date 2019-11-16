@@ -1,0 +1,44 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <h1>Contract history</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idcontracthistory</th>
+                <td>{{ contractHistory.idContractHistory }}</td>
+            </tr>
+            <tr>
+                <th>Idemployee</th>
+                <td>{{ contractHistory.idEmployee }}</td>
+            </tr>
+            <tr>
+                <th>Startdate</th>
+                <td>{% if contractHistory.startDate %}{{ contractHistory.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Enddate</th>
+                <td>{% if contractHistory.endDate %}{{ contractHistory.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Idtypecontract</th>
+                <td>{{ contractHistory.idTypeContract }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('contracthistory_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('contracthistory_edit', { 'idContractHistory': contractHistory.idContractHistory }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

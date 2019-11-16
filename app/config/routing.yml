@@ -1,0 +1,4 @@
+#Se llama el archivo que contiene las rutas en el AppBundle
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /

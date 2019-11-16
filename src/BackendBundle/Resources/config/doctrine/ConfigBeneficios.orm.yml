@@ -1,0 +1,39 @@
+BackendBundle\Entity\ConfigBeneficios:
+    type: entity
+    table: config_beneficios
+    id:
+        idConfigBeneficios:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_config_beneficios
+            generator:
+                strategy: IDENTITY
+    fields:
+        idBeneficio:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_beneficio
+        idConfig:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_config
+        cantidad:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        unidadMedida:
+            type: string
+            nullable: false
+            length: 11
+            options:
+                fixed: false
+            column: unidad_medida
+    lifecycleCallbacks: {  }

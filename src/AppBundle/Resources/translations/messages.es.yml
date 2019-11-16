@@ -1,0 +1,145 @@
+translate.texto1:
+  languages: Idiomas
+  spanish: Español
+  english: Ingles
+
+modal:
+  1:
+    close: COMENZAR MI APLICACION DE CREDITO
+
+panel:
+  1:
+    title: Aplica para tu Credito
+  2:
+    title: Imformacion De la Compañia
+  3:
+    title: Referencias Personales
+  4:
+    title: Informacion Personal
+  5:
+    title: Terminos y Condiciones
+  6:
+    title: Es dueño de Negocio ?
+
+contact_panel:
+  1:
+    form:
+      name: Nombre
+      lastname: Apellido
+      mobile: Numero Celular
+      gender: Genero
+      language: Idioma
+      birthDate: Fecha Nacimiento
+      email: Email
+      income: Ingreso Anual
+  2:
+    form:
+      name: Nombre de Negocio
+      tax_id: Identificación Federal
+      bussines_type: Tipo de Negocio
+      address: Dirección del Negocio
+      mobile: Telefono del Negocio
+      state: Estado
+      city: Ciudad
+      Apt/Suit/Piso: Apt/Suit/Piso
+      zip_code: Codigo postal
+      time_bussines: Años en el Negocio
+      income: Ingreso Anual del Negocio
+      government_id_number: Numero de licencia/Pasaporte
+      tipo_id: Seleccione tipo Identificacion
+      passport: Numero de pasaporte
+      licence: Licencia de Conduccion
+      ####
+      passport_country: Pais
+      passport_number: Numero de pasaporte
+      passport_due_date: Fecha de expiracion
+
+      licence_state: Estado
+      licence_number: Número de licencia de conducir
+      licence_due_date: Fecha de expiracion
+
+  3:
+    form:
+      name: Nombre
+      lastname: Apellido
+      mobile: Numero Celular
+      relation: Parentesco
+      name2: Nombre
+      lastname2: Apellido
+      mobile2: Numero Celular
+      relation2: Parentesco
+
+  4:
+    form:
+      country: País
+      state: Estado
+      city: Ciudad
+      address: Direccón de residencia
+      Apt/Suit/Piso: Apt/Suit/Piso
+      zip_code: Codigo postal
+
+
+placeholder:
+  1:
+    form:
+      enter: Ingrese su
+      registerinfo: Enviar
+
+terms:
+  title: Señor Comerciante,
+  paragraph:
+    1: Queremos agradecer su interés en continuar relaciones comerciales con nosotros; asimismo, le reiteramos que estamos trabajando constantemente para mejorar y cumplir con sus expectativas al igual que las de sus clientes. Como parte de dichas mejoras en nuestro Servicio de Atención al Cliente, hemos logrado un acuerdo financiero para ofrecerle crédito a usted, con el cual esperamos servirle de apoyo para que pueda aumentar sus ventas en esta temporada. Lo invitamos a aplicar para nuestro cupo de credito y le ofrecemos un beneficio adicional; nuestra aplicacion NO afectará su puntaje de credito.
+    2: Para lo anterior. Es indispensable cumplir con los siguientes requisitos
+    3: Los términos y condiciones para hacer efectivo su crédito son los siguientes
+    4: Líneas de crédito
+    5: ACUERDO
+    requirements:
+      1: Tener a la mano su Licencia de conducción o pasaporte.
+      2: Si es dueño de negocio, tener a la mano la identificacion federal del mismo
+      3: Llenar nuestra Aplicación de crédito En Linea.
+      4: Pago del 50% de la factura al momento de la compra.
+      conditions:
+        1: La empresa tiene para ofrecer planes de crédito que van desde $500 hasta $2000 dólares.
+        2: El acuerdo de pago se realiza, con el 50% del monto total pagado al momento de la compra y el resto, en cuotas semanales que van desde 5 hasta 8 semanas dependiendo del monto de crédito adquirido.
+        3: Para el pago del crédito se requiere de una tarjeta debito o crédito en nuestro sistema y solo se acepta este tipo de pago para los abonos al crédito.
+        4: La solicitud de crédito debe estar previamente diligenciada y acompañada de todos los requisitos antes de hacerlo efectivo.
+        5: El cobro de estos será automático cargado a la tarjeta de crédito/debito suministrada el día estipulado según su acuerdo de pago con un cargo por transacción declinada de $35 dólares al igual que se le aplica este cargo por incumplimiento en el pago la fecha estipulada.
+        6: El no pago o el pago tardío de esto generara el cierre permanente del crédito con Colmodausa y será reportado a los buro de crédito.
+        7: Antes de solicitar un nuevo crédito, debe estar a paz y salvo con el balance anterior.
+    Credit_Lines:
+      1: Por compras desde $500 hasta $749.99 obtén $500 de crédito para compras adicionales, pagaderos en un máximo de 5 semanas en cuotas de $100 semanales.
+      2: Por compras desde $750 hasta $999.99 obtén $750 de crédito para compras adicionales, pagaderos en un máximo de 5 semanas en cuotas de $150 semanales
+      3: Por compras desde $1000 hasta $1999.99 obtén $1000 de crédito para compras adicionales, pagaderos en un máximo de 8 semanas en cuotas de $125 semanales
+      4: Por compras mayores a $2000 obtén $2000 de crédito para compras adicionales, pagaderos en un máximo de 8 semanas en cuotas de $250 semanales
+    agreement:
+      1: Todas las facturas deben ser pagas entre 5 y 8 semanas empezando desde el día de la factura.
+      2: Cualquier tipo de reclamo debe hacerse en los primeros siete días hábiles.
+      3: Al presentar esta aplicación, usted autoriza a Colmodausa de averiguar acerca de las referencias bancarias y de negocios que usted ha suministrado
+      4: Los cobros de estos acuerdos serán automáticamente cargadas a la tarjeta de crédito suministrada en las fechas estipuladas en el plan de pagos acordados, con cargos por transacción declinada o por incumplimiento de pago por un valor de $35.00
+    condicions_andterm:
+      1: Acepta términos y Condiciones (Esto NO afectará su puntaje de credito)
+      name: Ingrese su nombre completo
+      placeholder: Nombres y Apellidos
+
+valid-feedback:
+  register: Registro
+  successful: exitoso
+
+invalid-feedback:
+  enter: Ingrese su
+  choose: Escoge
+  please: por favor
+
+contacto_credito:
+  title: Muchas Gracias !
+  paragraph: Su informacion fue recibida con exito, por favor contacte su asesor de ventas al (908) 344 -3549
+  redirection: Sera redirigido a
+
+deal:
+  1: Si
+  2: No
+
+progress_bar:
+  next: Siguiente
+  previous : Anterior
+  finish : Terminar

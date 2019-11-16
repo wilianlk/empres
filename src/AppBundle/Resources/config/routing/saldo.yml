@@ -1,0 +1,15 @@
+saldolist:
+  path: /saldolist
+  defaults: { _controller: AppBundle:saldo:index}
+
+saldocreate:
+  path: /saldo/create
+  defaults: { _controller: AppBundle:saldo:create}
+
+saldoshow:
+  path: /saldo/show
+  defaults: { _controller: AppBundle:saldo:show}
+
+saldoedit:
+  path: /saldo/{id}/edit
+  defaults: { _controller: AppBundle:saldo:edit,id: 0}

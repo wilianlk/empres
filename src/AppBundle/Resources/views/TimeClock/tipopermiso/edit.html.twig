@@ -1,0 +1,28 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <div class="container">
+        <h1>Editar Permiso Requerido</h1>
+
+        {{ form_start(edit_form,{'attr':{'class':'well form-horizontal'}}) }}
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">{{ form_label(edit_form.name,'Nombre Permiso') }}</label>
+            <div class="col-md-6 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-plus"></i></span>
+                    {{ form_widget(edit_form.name) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-warning">Editar<span
+                            class="glyphicon glyphicon-send"></span>
+                </button>
+            </div>
+        </div>
+        {{ form_end(edit_form) }}
+    </div>
+{% endblock %}

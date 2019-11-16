@@ -1,0 +1,57 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <div class="container">
+        <h1>Lista de Configuracion</h1>
+
+        <div class="col-md-2 col-md-offset-4">
+
+                <a href="{{ path('timeclock_configuracion_new') }}" class="btn btn-primary" role="button">Crear Nueva
+                    Configuracion</a>
+        </div>
+
+        <div class="row">
+        </div>
+
+
+        <div class="">
+        <span class="label label-info">
+            Entradas Totales : {{ pagination.getTotalItemCount }}
+        </span>
+        </div>
+
+
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'ID', 'idConfig') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Nombre', 'nombreConfig') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Actions', '') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for configuracion in pagination %}
+                <tr>
+                    <td>
+                        <a href="{{ path('timeclock_configuracion_show', { 'idConfig': configuracion.idConfig }) }}">{{ configuracion.idConfig }}
+                        </a>
+                    </td>
+                    <td>{{ configuracion.nombreConfig }}</td>
+                    <td>
+                        <a href="{{ path('timeclock_configuracion_show', { 'idConfig': configuracion.idConfig }) }}"
+                           class="btn btn-primary">show</a>
+                        <a href="{{ path('timeclock_configuracion_edit', { 'idConfig': configuracion.idConfig }) }}"
+                           class="btn btn-warning">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+
+{% endblock %}

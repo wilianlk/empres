@@ -1,0 +1,76 @@
+BackendBundle\Entity\ProdColor:
+    type: entity
+    table: prod_color
+    indexes:
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+    id:
+        idColor:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_color
+            generator:
+                strategy: IDENTITY
+    fields:
+        codigo:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+        nombre:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        nombreIng:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: nombre_ing
+        estado:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

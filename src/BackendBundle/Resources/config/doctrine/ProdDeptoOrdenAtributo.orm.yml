@@ -1,0 +1,49 @@
+BackendBundle\Entity\ProdDeptoOrdenAtributo:
+    type: entity
+    table: prod_depto_orden_atributo
+    indexes:
+        id_tipo_atributo:
+            columns:
+                - id_tipo_atributo
+    id:
+        idDepartamento:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_departamento
+        orden:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+    fields:
+        idTipoAtributo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_tipo_atributo
+        createdBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: updated_by
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    lifecycleCallbacks: {  }

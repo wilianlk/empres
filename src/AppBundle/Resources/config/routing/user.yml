@@ -1,0 +1,40 @@
+#Rutas que se ejecutan para el inicio y fin de sesion
+login:
+  path: /login
+  defaults: { _controller: AppBundle:User:login}
+
+login_check:
+  path: /login_check
+
+logout:
+  path: /logout
+  defaults: { _controller: AppBundle:User:logout}
+
+#Rutas para ejecucion de CRUD User
+register:
+  path: /register
+  defaults: { _controller: AppBundle:User:register}
+
+username_test:
+  path: /username_test
+  defaults: { _controller: AppBundle:User:usernameTest}
+  methods: [POST]
+
+useredit:
+  path: /user/{id}/edit
+  defaults: { _controller: AppBundle:User:editUser,id: 0}
+
+userview:
+  path: /user/{id}/view
+  defaults: { _controller: AppBundle:User:viewUser,id: 0}
+
+#Ruta principal una vez logueado
+user_home:
+  path: /home
+  defaults: { _controller: AppBundle:User:home}
+
+# Ruta para ver el listado de usuarios
+users:
+  path: /userlist
+  defaults: { _controller: AppBundle:User:listUser}
+  methods: [GET]

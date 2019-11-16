@@ -1,0 +1,67 @@
+BackendBundle\Entity\PresentacionDetalle:
+    type: entity
+    table: presentacion_detalle
+    indexes:
+        FK_presentacion_detalle_prod_referencia:
+            columns:
+                - id_referencia
+    uniqueConstraints:
+        id_presentacion:
+            columns:
+                - id_presentacion
+                - orden
+    id:
+        idPresentacionDetalle:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_presentacion_detalle
+            generator:
+                strategy: IDENTITY
+    fields:
+        idPresentacion:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_presentacion
+        idColeccion:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_coleccion
+        idReferencia:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: id_referencia
+        orden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: true
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updateAt:
+            type: datetime
+            nullable: false
+            column: update_at
+        createdBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: updated_by
+    lifecycleCallbacks: {  }

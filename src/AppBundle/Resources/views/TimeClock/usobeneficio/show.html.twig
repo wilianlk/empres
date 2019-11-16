@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Usebenefit</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idusebenefit</th>
+                <td>{{ useBenefit.idUseBenefit }}</td>
+            </tr>
+            <tr>
+                <th>Idemployee</th>
+                <td>{{ useBenefit.idEmployee }}</td>
+            </tr>
+            <tr>
+                <th>Idbeneficio</th>
+                <td>{{ useBenefit.idBeneficio }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ useBenefit.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Unitmeasure</th>
+                <td>{{ useBenefit.unitMeasure }}</td>
+            </tr>
+            <tr>
+                <th>Startdate</th>
+                <td>{% if useBenefit.startDate %}{{ useBenefit.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Enddate</th>
+                <td>{% if useBenefit.endDate %}{{ useBenefit.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ useBenefit.createdAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('timeclock_usebenefit_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('timeclock_usebenefit_edit', { 'idUseBenefit': useBenefit.idUseBenefit }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

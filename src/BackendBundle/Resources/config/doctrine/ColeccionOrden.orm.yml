@@ -1,0 +1,35 @@
+BackendBundle\Entity\ColeccionOrden:
+    type: entity
+    table: coleccion_orden
+    uniqueConstraints:
+        id_departamento:
+            columns:
+                - id_departamento
+    id:
+        idColeccionOrden:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_coleccion_orden
+            generator:
+                strategy: IDENTITY
+    fields:
+        posicion:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+    manyToOne:
+        idDepartamento:
+            targetEntity: ProdDepartamento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_departamento:
+                    referencedColumnName: id_departamento
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

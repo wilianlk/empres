@@ -1,0 +1,120 @@
+BackendBundle\Entity\ClienteAplicacionCreditoCompanyInformation:
+    type: entity
+    table: cliente_aplicacion_credito_company_information
+    id:
+        idCreditoClienteCompanyInformation:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_credito_cliente_company_information
+            generator:
+                strategy: IDENTITY
+    fields:
+        idCreditoClientes:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_credito_clientes
+        bussinesType:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: bussines_type
+        bussinesName:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: bussines_name
+        taxId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tax_Id
+        businessAddress:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: business_address
+        floor:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        state:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        zipCode:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: zip_code
+        businessPhoneNumber:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: business_phone_number
+        yearsInBussines:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: years_in_bussines
+        bussinesAnnualNetIncome:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: bussines_annual_net_Income
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        deletedBy:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        createdBy:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+    lifecycleCallbacks: {  }

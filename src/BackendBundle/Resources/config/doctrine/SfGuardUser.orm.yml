@@ -1,0 +1,95 @@
+BackendBundle\Entity\SfGuardUser:
+    type: entity
+    table: sf_guard_user
+    indexes:
+        is_active_idx_idx:
+            columns:
+                - is_active
+    uniqueConstraints:
+        email_address:
+            columns:
+                - email_address
+        username:
+            columns:
+                - username
+    id:
+        id:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        firstName:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: first_name
+        lastName:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: last_name
+        emailAddress:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: email_address
+        username:
+            type: string
+            nullable: false
+            length: 128
+            options:
+                fixed: false
+        algorithm:
+            type: string
+            nullable: false
+            length: 128
+            options:
+                fixed: false
+                default: sha1
+        salt:
+            type: string
+            nullable: true
+            length: 128
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: true
+            length: 128
+            options:
+                fixed: false
+        isActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: is_active
+        isSuperAdmin:
+            type: boolean
+            nullable: true
+            options:
+                default: '0'
+            column: is_super_admin
+        lastLogin:
+            type: datetime
+            nullable: true
+            column: last_login
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    lifecycleCallbacks: {  }

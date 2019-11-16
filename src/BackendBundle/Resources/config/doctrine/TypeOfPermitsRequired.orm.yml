@@ -1,0 +1,21 @@
+BackendBundle\Entity\TypeOfPermitsRequired:
+    type: entity
+    table: type_of_permits_required
+    id:
+        idTypeOfPermits:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_type_of_permits
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

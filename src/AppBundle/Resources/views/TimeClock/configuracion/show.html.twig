@@ -1,0 +1,30 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <div class="panel-body">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Configuracion</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="container">
+                            <div class="col-xs-4 col-md-4">
+                                <p>ID : {{ configuracion.idConfig }}</p>
+                                <p>Nombre : {{ configuracion.nombreConfig }}</p>
+                            </div>
+                            <div>
+                                <a href="{{ path('timeclock_configuracion_index') }}"
+                                   class="btn btn-primary" role="button">Back to the list</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

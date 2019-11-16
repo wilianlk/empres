@@ -1,0 +1,32 @@
+BackendBundle\Entity\Metars:
+    type: entity
+    table: metars
+    uniqueConstraints:
+        station:
+            columns:
+                - station
+    id:
+        station:
+            type: string
+            nullable: false
+            length: 4
+            options:
+                fixed: false
+                default: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        metar:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                default: ''
+        timestamp:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+    lifecycleCallbacks: {  }

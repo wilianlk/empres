@@ -1,0 +1,148 @@
+BackendBundle\Entity\TiendaInventario:
+    type: entity
+    table: tienda_inventario
+    indexes:
+        id_producto_idx:
+            columns:
+                - id_producto
+        id_tienda_idx:
+            columns:
+                - id_tienda
+        created_by_idx:
+            columns:
+                - created_by
+        updated_by_idx:
+            columns:
+                - updated_by
+    uniqueConstraints:
+        id_producto_uniq:
+            columns:
+                - id_producto
+                - id_tienda
+    id:
+        idTiendaInventario:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_tienda_inventario
+            generator:
+                strategy: IDENTITY
+    fields:
+        idProducto:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_producto
+        idTienda:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_tienda
+        precio:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+        precioPromocion:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            options:
+                default: '0'
+            column: precio_promocion
+        tax:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            options:
+                default: '0'
+        inventarioStock:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+            column: inventario_stock
+        inventarioHold:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+            column: inventario_hold
+        inventarioVendido:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+            column: inventario_vendido
+        inventarioTotal:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+            column: inventario_total
+        enVenta:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: en_venta
+        enPromocion:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+            column: en_promocion
+        locacion:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+        descuento:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+            options:
+                default: '0.00'
+    lifecycleCallbacks: {  }

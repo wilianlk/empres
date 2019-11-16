@@ -1,0 +1,142 @@
+translate.texto1:
+  languages: Languages
+  spanish: Spanish
+  english: English
+
+modal:
+  1:
+    close: FILL OUT MY CREDIT APPLICATION
+
+panel:
+  1:
+    title: Credit Application
+  2:
+    title: Company Information
+  3:
+    title: Personal References
+  4:
+    title: Personal Information
+  5:
+    title: terms and Conditions
+  6:
+    title: Do you own a business?
+
+contact_panel:
+  1:
+    form:
+      name: Name
+      lastname: Last Name
+      mobile: Mobile Number
+      gender: Gender
+      language: Language
+      birthDate: BirthDate
+      email: E-mail
+      income: Annual Net Income
+  2:
+    form:
+      name: Business Name
+      tax_id: Tax ID
+      bussines_type: Bussines type
+      address: Business Address
+      mobile: Business Phone Number
+      state: State
+      city: City
+      Apt/Suit/Piso: Apt/Suit/Piso
+      zip_code: zip code
+      time_bussines: Years in Bussines
+      income: Bussines Annual Net Income
+      government_id_number: Driver’s License No./Passport No.
+      tipo_id: Choose ID Type
+      passport: Passport
+      licence: Driver's Licence
+      ####
+      passport_country: Country
+      passport_number: Passport Number
+      passport_due_date: Expiration Date
+
+      licence_state: Issuing State
+      licence_number: Driver's Licence Number
+      licence_due_date: Expiration Date
+  3:
+    form:
+      name: Name
+      lastname: Last Name
+      mobile: Mobile Number
+      relation: Relation
+      name2: Name
+      lastname2: Last Name
+      mobile2: Mobile Number
+      relation2: Relation
+  4:
+    form:
+      country: Country
+      state: State
+      city: City
+      address: Home Address
+      Apt/Suit/Piso: Apt/Suit/Piso
+      zip_code: zip code
+
+placeholder:
+  1:
+    form:
+      enter: Enter your
+      registerinfo: Send
+
+terms:
+  title: Dear Merchant,
+  paragraph:
+    1: We want to thank you for your interest in continuing business relationships with us; we also reiterate that we are constantly working to meet and exceed your expectations, as well as those of your customers. As part of these improvements in our Customer Service, we have reached a financial agreement with one of our partners to extend a credit line to you in order to help you increase your sales during this coming season. We invite you to fill out our credit application and we offer an additional bennefit to you; our credit application WILL NOT impact your credit score.
+    2: For the above, it is essential to meet the following requirements
+    3: The terms and conditions to make your credit effective are the following
+    4: Credit Lines
+    5: AGREEMENT
+    requirements:
+      1: Have your driver's license or passport at hand.
+      2: If you own a business, have your federal tax id number and company information at hand.
+      3: Fill out our Online Credit Application .
+      4: Payment of 50% of the invoice at the time of purchase.
+      conditions:
+        1: The company has to offer credit plans ranging from $ 500 to $ 2000 dollars.
+        2: The payment agreement is made, with 50% of the total amount paid at the time of purchase and the rest, in weekly installments ranging from 5 to 8 weeks depending on the amount of credit purchased.
+        3: For the payment of the credit a debit or credit card is required in our system and only this type of payment is accepted for credit payments.
+        4: The loan application must be previously filled out and accompanied by all the requirements before making it effective.
+        5: The collection of the installments will be automatically charged to the credit / debit card provided on the stipulated day according to your payment agreement with a declined transaction fee of $ 35 dollars just as this charge applies for non-payment on the stipulated date.
+        6: Non-payment or late payment of this will result in the permanent closing of the loan with Colmodausa and will be reported to the credit bureaus.
+        7: Before applying for a new loan, all previous loan balances or debts must be paid in full.
+    Credit_Lines:
+      1: For purchases from $ 500 to $ 749.99 you may qualify for $ 500 of credit for additional purchases, which will be payable within 5 weeks on $100 weekly installments.
+      2: For purchases from $ 750 to $ 999.99 you may qualify for $ 750 for additional purchases, which will be payable within 5 weeks on $ 150 weekly installments.
+      3: For purchases from $ 1000 to $ 1999.99 you may qualify for $ 1000 of credit for additional purchases, which will be payable within 8 weeks on $125 weekly installments.
+      4: For purchases over $ 2000 you may qualify for $2000 of credit for additional purchases, which will be payable within 8 weeks on $250 weekly installments.
+    agreement:
+      1: All invoices are to be paid between 5 to 8 weeks from the date of the invoice
+      2: Claims arising from invoices must be made with seven working days
+      3: By submitting this application, you authorize Colmodausa, to make inquiries into the banking and business/trade references that you have supplied.
+      4: The collection of these will be automatically charged to the credit card provided on the day stipulated in the agreement with a declined transaction fee of $35.00 as this charge will be applied by default in the payment due date. The collection of these will be automatically charged to the credit card provided on the day stipulated in the agreement with a declined transaction fee $35.00 as this charge will be applied by default in the payment due date
+    condicions_andterm:
+      1: Accept terms and conditions (This application WILL NOT impact your credit score)
+      name: Enter your full name
+      placeholder: Name, Middle Intitial and Last name
+
+valid-feedback:
+  register: Register
+  successful: Successful
+
+invalid-feedback:
+  enter: Enter
+  choose: Choose
+  please: Please
+
+contacto_credito:
+  title: Thank you !
+  paragraph: Your information was successfully received, please contact your sales advisor (908) 344 - 3549
+  redirection: You will be redirected to
+
+deal:
+  1: Yes
+  2: No
+
+progress_bar:
+  next: Next
+  previous : Previous
+  finish : Terminar

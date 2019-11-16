@@ -1,0 +1,22 @@
+{#
+# Created by PhpStorm.
+# User: @jdperea59
+# PC: gerencia-ti
+# Date: 16/04/18
+# Time: 11:23 AM
+#}
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-8 box-form">
+                <h3>Editar Usuario</h3>
+                <hr/>
+                {{ form_start(form, {'enctype':'multipart/form-data'}) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+BackendBundle\Entity\Audit:
+    type: entity
+    table: audit
+    uniqueConstraints:
+        modified_when:
+            columns:
+                - modified_when
+    id:
+        modifiedWhen:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: modified_when
+            generator:
+                strategy: IDENTITY
+    fields:
+        modifiedByIp:
+            type: string
+            nullable: false
+            length: 39
+            options:
+                fixed: false
+                default: ''
+            column: modified_by_ip
+        modifiedByUser:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+            column: modified_by_user
+        modifiedFrom:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: modified_from
+        modifiedTo:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: modified_to
+        modifiedWhy:
+            type: string
+            nullable: false
+            length: 250
+            options:
+                fixed: false
+                default: ''
+            column: modified_why
+        userModified:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+            column: user_modified
+    lifecycleCallbacks: {  }

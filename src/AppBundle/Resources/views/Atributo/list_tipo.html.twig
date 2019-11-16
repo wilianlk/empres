@@ -1,0 +1,170 @@
+{#
+# Created by PhpStorm.
+# User: @jdperea59
+# PC: gerencia-ti
+# Date: 16/04/18
+# Time: 11:23 AM
+#}
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+            <table class="table table-striped">
+                <thead>
+                <th>ID</th>
+                <th>Nombre Español</th>
+                <th>Nombre Ingles</th>
+                <th colspan="2">Acciones</th>
+                </thead>
+                <tbody class="">
+                {% for item in tipos %}
+                    <tr id="trtable_{{ item.id }}">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nombre }}</td>
+                        <td>{{ item.nombreIng }}</td>
+                        <td>
+                            <a href="{{ path('tipos_atributos_edit',{'id':item.id}) }}" class="btn btn-xs btn-default btn-block btnsinpadding" role="button"><span class="glyphicon glyphicon-edit espacioMenu" aria-hidden="true"></span>Editar</a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-xs btn-danger btn-block btnsinpadding" role="button" onclick="borrarTipoAtributo({{ item.id }})"><span class="glyphicon glyphicon-edit espacioMenu" aria-hidden="true"></span>Borrar<span class="badge ocultoAnimar" id="badgeborrar_{{ item.id }}"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation text-center">
+                {{ knp_pagination_render(tipos) }}
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h2>Sidemenu</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div id="dialog" title="Esta seguro de borrar este tipo de atributo?">
+            <p id="textdialogdelete"></p>
+            <form id="formDeleteIdAtributo" action="#">
+                <input type="hidden" id="formconfirmrandom" name="random">
+                <div class="form-group">
+                    <label for="confirmar">Confimar el numero para borrar el atributo:</label>
+                    <input type="text" class="form-control" id="formconfirmconfirmar" name="confirmar">
+                </div>
+                <input type="hidden" id="formconfirmidtipoatributo" name="idtipoatributo">
+                <input type="hidden" id="urlborraratributo" name="urlborraratributo">
+                <input type="submit" class="hidden">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $( function() {
+            $( "#dialog" ).dialog({
+                autoOpen: false,
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: [ {
+                    text: "Delete all items",
+                    icon: "glyphicon glyphicon-remove",
+                    class: "btn btn-danger",
+                    click: function() {
+                        deleteSubmit(this);
+                    }
+                    },{
+                    text: "Cancel",
+                    icon: "ui-icon-heart",
+                    class: "btn btn-primary",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                    }
+                ]
+            });
+        } );
+        $( document ).ready(function() {
+            $( ".ui-dialog-titlebar-close" ).html("<i class='glyphicon glyphicon-remove text-center'></i>");//
+        });
+
+        function borrarTipoAtributo(id){
+            var urlBorrarAtributo = "{{ path('tipos_atributos_delete',{'id':0}) }}";
+
+            var ultimoCaracter = urlBorrarAtributo.substring(urlBorrarAtributo.length-1);
+
+            if (ultimoCaracter == 0){
+                urlBorrarAtributo = urlBorrarAtributo.substring(0,urlBorrarAtributo.length-1);
+            }
+
+            var texto = $( "#badgeborrar_"+id).text();
+
+            var numale = Math.floor((Math.random() * 100) + 1);
+
+            $( "#textdialogdelete").html('Desea borrar este <b>Tipo de Atributo</b> que tiene <b>'+texto+'</b> atributos asociados?<br><br>Para confimar ingrese este valor '+numale+'.');
+            $( "#formconfirmrandom").val(numale);
+
+            $( "#formconfirmidtipoatributo").val(id);
+
+            urlBorrarAtributo = urlBorrarAtributo+""+id;
+            $("#urlborraratributo").val(urlBorrarAtributo);
+
+            $( "#formconfirmconfirmar").val('');
+            $( "#dialog" ).dialog( "open" );
+            $( "#formconfirmconfirmar").focus();
+        }
+
+        function deleteSubmit(dialog) {
+            var idrow = $( "#formconfirmidtipoatributo").val();
+            if($( "#formconfirmrandom").val() == $( "#formconfirmconfirmar").val()){
+                $( "#trtable_"+idrow).remove();
+
+                var urlpeticion = $("#urlborraratributo").val();
+
+                $.ajax({
+                    url: urlpeticion,
+                    type: 'POST',
+                    data: {id_tipo: idrow},
+                    success: function (data) {
+                        //$('#referencia_list_id').show();
+                        //alert(data);
+                        if (data=='ok'){
+                            console.log('ok');
+                        }else{
+                            console.log(data);
+                            //$('#notificacionAjaxOrden').html("<p>Se presentaron Problemas. Notifique a Sistemas.</p>");
+                        }
+                        //$('#loadingDiv').hide(500);
+                    }
+                });
+
+
+                //console.log("SI"+idrow);
+                $( dialog ).dialog( "close" );
+            }else{
+                console.log($( "#formconfirmrandom").val());
+                console.log($( "#formconfirmidtipoatributo").val());
+                console.log($( "#formconfirmconfirmar").val());
+            }
+        }
+
+    </script>
+{% endblock %}
+
+{% block animations %}
+    <script>
+        $( document ).ready(function() {
+            {% for key,items in usos %}
+            $("#badgeborrar_{{ key }}").text('{{ items }}');
+            $("#badgeborrar_{{ key }}").animate({
+                display: 'block',
+                opacity: 1,
+            }, 1000 );
+
+            {% endfor %}
+        });
+    </script>
+{% endblock %}

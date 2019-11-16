@@ -1,0 +1,78 @@
+BackendBundle\Entity\GenTipoMovimInventarioLog:
+    type: entity
+    table: gen_tipo_movim_inventario_log
+    indexes:
+        updated_by:
+            columns:
+                - updated_by
+        deleted_by:
+            columns:
+                - deleted_by
+        created_by:
+            columns:
+                - created_by
+    uniqueConstraints:
+        nombre:
+            columns:
+                - nombre
+    id:
+        idTipoMovimInventarioLog:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_tipo_movim_inventario_log
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+    manyToOne:
+        createdBy:
+            targetEntity: UserDelet
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                created_by:
+                    referencedColumnName: id_user
+            orphanRemoval: false
+        updatedBy:
+            targetEntity: UserDelet
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                updated_by:
+                    referencedColumnName: id_user
+            orphanRemoval: false
+        deletedBy:
+            targetEntity: UserDelet
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                deleted_by:
+                    referencedColumnName: id_user
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

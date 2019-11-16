@@ -1,0 +1,352 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <style type="text/css">
+        #group-schedule {
+            background-color: #fff;
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 40px;
+            color: #858b8e;
+            box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #group-schedule h2 {
+            padding-bottom: 20px;
+            margin: 10px 20px;
+            font-size: 24px;
+        }
+
+        #group-schedule hr {
+            margin-top: 38px;
+            margin-bottom: 54px;
+            margin-left: 3px;
+            border: 1px solid #cccccc;
+        }
+
+        #group-schedule .form-group {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            width: 30%;
+            float: left;
+            text-align: left;
+        }
+
+        #group-schedule .form-control {
+            padding: 12px 20px;
+            height: auto;
+            border-radius: 2px;
+        }
+
+        #group-schedule .radio-inline {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        #group-schedule .gender {
+            width: 30%;
+            margin-top: 30px;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #group-schedule .btn {
+            width: 46%;
+            margin: 20px auto 0;
+            display: block;
+            outline: none;
+        }
+
+        .day-option {
+            -moz-transition: all .2s ease-in;
+            -o-transition: all .2s ease-in;
+            -webkit-transition: all .2s ease-in;
+            transition: all .2s ease-in;
+            border: 1px solid #777;
+            color: #777;
+        }
+
+        .day-option:hover {
+            color: #777;
+        }
+
+        #days-list {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        #days-list .day-option {
+            /*display: inline-table;*/
+            width: 13.5%;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            align-items: center;
+            padding: 3px 10px 3px 6px;
+        }
+
+        .active-day, .active-day:hover, .active-day:focus, .active-day:active {
+            border: 1px solid #EC901D;
+            background: #EC901D;
+            color: #fff;
+        }
+    </style>
+
+    <div class="container" id="group-schedule">
+        <h2>Dia Horario Grupo</h2>
+
+        <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">Crear Dia Horario
+        </button>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-2 col-lg-6 col-lg-offset-3 text-center">
+                <div id="dayschedulegroup_idGroupSchedule"></div>
+            </div>
+        </div>
+
+        <div id="filas"></div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Crear Dia Horario Grupo</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label for="human"
+                                   class="col-sm-2 control-label">{{ form_label(form.dayOfWeek,'Dia Semana') }}</label>
+                            <div class="col-sm-12">
+                                <div id="days-list" class="col-sm-12">
+
+                                    <table>
+                                        <tr>
+                                            <td><a data-day="Mon" data-field="1" id="days" class="day-option"><strong>Lunes</strong></a>
+                                            </td>
+                                            <th><a data-day="Tue" data-field="2" id="days" class="day-option">Martes</a>
+                                            </th>
+                                            <th><a data-day="Wed" data-field="3" id="days"
+                                                   class="day-option">Miercoles</a></th>
+                                            <th><a data-day="Thu" data-field="4" id="days" class="day-option">Jueves</a>
+                                            </th>
+                                            <th><a data-day="Fri" data-field="5" id="days"
+                                                   class="day-option">Viernes</a>
+                                            </th>
+                                            <th><a data-day="Sat" data-field="6" id="days" class="day-option">Sabado</a>
+                                            </th>
+                                            <th><a data-day="Sun" data-field="7" id="days"
+                                                   class="day-option">Domingo</a>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            {#<td style="margin: 12px; padding: 3.5px;"><input size="3" type="time" id="fieldMonday"    style="display: none"></td>#}
+                                            {#<td style="margin: 12px; padding: 3.5px;"><input size="3" type="time" id="fieldTuesday"   style="display: none"></td>#}
+                                            {#<td style="margin: 12px; padding: 3.5px;"><input size="3" type="time" id="fieldWednesday" style="display: none"></td>#}
+                                            {#<td style="margin: 12px; padding: 3.5px;"><input size="3" type="time" id="fieldThursday"  style="display: none"></td>#}
+                                            {#<td style="margin: 12px; padding: 3.5px;"><input size="3" type="time" id="fieldFriday"    style="display: none"></td>#}
+                                            {#<td style="margin: 12px; padding: 3.5px;"><input size="3" type="time" id="fieldSaturday"  style="display: none"></td>#}
+                                            {#<td style="margin: 12px; padding: 3.5px;"><input size="3" type="time" id="fieldSunday"    style="display: none"></td>#}
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="human"
+                                   class="col-sm-2 control-label">{{ form_label(form.idGroupSchedule,'Grupo Horario') }}</label>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.idGroupSchedule) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="human"
+                                   class="col-sm-2 control-label">{{ form_label(form.hourIn,'Hora In') }}</label>
+                            <div class="col-sm-5">
+                                <input type="time" class="form-control" id="hourIn">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="human"
+                                   class="col-sm-2 control-label">{{ form_label(form.hourOut,'Hora Out') }}</label>
+                            <div class="col-sm-5">
+                                <input type="time" id="hourOut" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" id="submit" onclick="">Enviar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(function () {
+                // ajaxgroup()
+            });
+
+            $('#submit').click(function () {
+
+                let idGroupSchedule = $('#myModal .Schedule').val();
+                let hourIn = document.getElementById("hourIn").value;
+                let hourOut = document.getElementById("hourOut").value;
+
+                var ss = [];
+                $('#days-list a').each(function () {
+                    var dias = $(this).attr('data-day');
+                    var dum = $(this);
+
+                    if (dum.hasClass('active-day')) {
+                        ss.push(dias);
+                    }
+                });
+                var dayOfweek = ss.join(',');
+
+
+                if (idGroupSchedule == null || idGroupSchedule == "") {
+                    alert('Escoja un grupo');
+                    return false;
+                } else {
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            url: '{{ url('timeclock_dayschedulegroup_new') }}',
+                            data:
+                                {
+                                    'dayOfweek': dayOfweek,
+                                    'idGroupSchedule': idGroupSchedule,
+                                    'hourIn': hourIn,
+                                    'hourOut': hourOut,
+                                },
+                            dataType: 'json',
+                            success: function (data) {
+                                $('.modal').modal('toggle');
+                                window.location.reload();
+                            }
+                        })
+                }
+            });
+
+            let dayschedulegroup = $('#appbundle_dayschedulegroup_idGroupSchedule').clone().addClass('day_idGroupSchedule').css({"text-align": "center"});
+            $('#dayschedulegroup_idGroupSchedule').html(dayschedulegroup)
+
+            $('.day_idGroupSchedule').on('change', function () {
+                let day_idGroupSchedule = $(this).val();
+
+                $.ajax(
+                    {
+                        url: '{{ url('timeclock_dayschedulegroup_index') }}',
+                        dataType: 'json',
+                        data: {'day_idGroupSchedule': day_idGroupSchedule},
+                        success: function (data) {
+                            let datas = JSON.parse(data.data);
+
+                            var html = "";
+                            html += '<br>';
+                            html += '<br>';
+                            html += '<table class="table table-bordered" id="mytable">';
+                            html += '<thead>';
+                            html += '<tr class="text-center">';
+                            html += '<th>ID</th>';
+                            html += '<th>Dia de la Semana </th>';
+                            html += '<th>Grupo Horario</th>';
+                            html += '<th>Horario Entrada</th>';
+                            html += '<th>Horario Salida</th>';
+                            html += '</tr>';
+                            html += '</thead>';
+                            html += '<tbody>';
+
+                            for (let dd in datas) {
+                                let group = datas[dd];
+                                html += '<tr>';
+                                html += '<td>' + group['idDayScheduleGroup'] + '</td>';
+                                html += '<td>' + group['dayOfWeek'] + '</td>';
+                                html += '<td>' + group['name'] + '</td>';
+                                html += '<td>' + group['hourIn'] + '</td>';
+                                html += '<td>' + group['hourOut'] + '</td>';
+                                html += '</tr>';
+                            }
+                            html += '</tbody>';
+                            html += '</table>';
+                            $('#filas').html(html);
+                        }
+                    }
+                )
+            });
+
+        });
+
+        $(document).on('click', '#days-list a', function () {
+            var dias = $(this).attr('data-day');
+            var dataset = $('#days-chose');
+            var addday = dataset.val();
+            var removeday = dataset.val();
+            var dum = $(this);
+            let dayfield = $(this).attr('data-field');
+            if (dum.hasClass('active-day')) {
+                dum.removeClass('active-day');
+                dataset.val(removeday);
+                dataset.click();
+                AgregarField(dayfield + '_false');
+            } else {
+                dum.addClass('active-day');
+                dataset.val(addday + dias + ',');
+                dataset.click();
+                AgregarField(dayfield);
+            }
+        });
+
+        function AgregarField(field) {
+
+            if (field == 1) {
+                $("#fieldMonday").show();
+            } else if (field == 2) {
+                $("#fieldTuesday").show();
+            } else if (field == 3) {
+                $("#fieldWednesday").show();
+            } else if (field == 4) {
+                $("#fieldThursday").show();
+            } else if (field == 5) {
+                $("#fieldFriday").show();
+            } else if (field == 6) {
+                $("#fieldSaturday").show();
+            } else if (field == 7) {
+                $("#fieldSunday").show();
+            }
+
+            if ('1_false' == field) {
+                $("#fieldMonday").hide();
+            } else if ('2_false' == field) {
+                $("#fieldTuesday").hide();
+            } else if ('3_false' == field) {
+                $("#fieldWednesday").hide();
+            } else if ('4_false' == field) {
+                $("#fieldThursday").hide();
+            } else if ('5_false' == field) {
+                $("#fieldFriday").hide();
+            } else if ('6_false' == field) {
+                $("#fieldSaturday").hide();
+            } else if ('7_false' == field) {
+                $("#fieldSunday").hide();
+            }
+        }
+
+    </script>
+{% endblock %}

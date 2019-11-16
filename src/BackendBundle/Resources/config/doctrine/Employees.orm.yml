@@ -1,0 +1,100 @@
+BackendBundle\Entity\Employees:
+    type: entity
+    table: employees
+    id:
+        idEmployee:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_employee
+            generator:
+                strategy: IDENTITY
+    fields:
+        empfullname:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+        tstamp:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+        employeePasswd:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+                default: ''
+            column: employee_passwd
+        displayname:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+        email:
+            type: string
+            nullable: false
+            length: 75
+            options:
+                fixed: false
+                default: ''
+        groups:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+        office:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+                default: ''
+        admissionDate:
+            type: datetime
+            nullable: true
+            column: admission_date
+        attempts:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                default: '0'
+        currenttime:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        admin:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+        reports:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+        timeAdmin:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+            column: time_admin
+        disabled:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+    lifecycleCallbacks: {  }

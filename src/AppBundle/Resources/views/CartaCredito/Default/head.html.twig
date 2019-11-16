@@ -1,0 +1,1314 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/19.2.3/css/dx.common.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/19.2.3/css/dx.light.css"/>
+    <script src="https://cdn3.devexpress.com/jslib/19.2.3/js/dx.all.js"></script>
+
+    <link href="{{ asset('assets/css/signaturepad.css') }}" type="text/css" rel="stylesheet">
+    <script src="{{ asset('assets/js/signaturepad.js') }}"></script>
+    <link href="{{ asset('assets/css/toastify.css') }}" type="text/css" rel="stylesheet">
+    <script src="{{ asset('assets/js/toastify.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.caret.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.mobilePhoneNumber.js') }}"></script>
+
+    <link rel='stylesheet' id='asterion-main-style-css'
+          href='https://www.orange-themes.net/demo/asterion/wp-content/themes/asterion/css/main-style.css?ver=4.8.11'
+          type='text/css' media='all'/>
+
+    <style type='text/css'>
+        #myModal {
+            overflow: visible;
+        }
+
+        .modal-body {
+            max-height: calc(100vh - 210px);
+            overflow-y: auto;
+        }
+
+        #regiration_form fieldset:not(:first-of-type) {
+            display: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(window).scrollTop(0);
+            var signaturePad = $('.sigPad').signaturePad({height: 400});
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-sm navbar-light bg-faded">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content"
+                aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a href="#" class="navbar-brand" rel="home">
+            <img width="140" height="34"
+                 src="{{ asset('assets/images/wikedi.png') }}"
+                 class="custom-logo" alt="ropacolombiana"/>
+        </a>
+
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">{{ 'panel.1.title'|trans }}</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav-content">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal"><span
+                                class="glyphicon glyphicon-check"></span> {{ 'panel.5.title'|trans }}</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{ 'translate.texto1.languages'|trans }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="Preview">
+
+                        <a class="dropdown-item"
+                           href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">
+                            {{ 'translate.texto1.spanish'|trans }}
+                        </a>
+
+                        <a class="dropdown-item"
+                           href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">
+                            {{ 'translate.texto1.english'|trans }}
+                        </a>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="modal fade" tabindex="-1" id="myModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;">
+            <div class="modal-content">
+
+                <div class="modal-body" style="overflow-y: scroll;">
+
+                    <p class="">{{ 'terms.title'|trans }}</p>
+                    <p>{{ 'terms.paragraph.1'|trans }}</p>
+                    <p>{{ 'terms.paragraph.2'|trans }}</p>
+
+                    <ol>
+                        <li value="1">{{ 'terms.paragraph.requirements.1'|trans }}</li>
+                        <li value="2">{{ 'terms.paragraph.requirements.2'|trans }}</li>
+                        <li value="3">{{ 'terms.paragraph.requirements.3'|trans }}</li>
+                        <li value="4">{{ 'terms.paragraph.requirements.4'|trans }}</li>
+                    </ol>
+
+                    <p>{{ 'terms.paragraph.3'|trans }}</p>
+
+                    <ol>
+                        <li value="1">{{ 'terms.paragraph.requirements.conditions.1'|trans }}</li>
+                        <li value="2">{{ 'terms.paragraph.requirements.conditions.2'|trans }}</li>
+                        <li value="3">{{ 'terms.paragraph.requirements.conditions.3'|trans }}</li>
+                        <li value="4">{{ 'terms.paragraph.requirements.conditions.4'|trans }}</li>
+                        <li value="5">{{ 'terms.paragraph.requirements.conditions.5'|trans }}</li>
+                        <li value="6">{{ 'terms.paragraph.requirements.conditions.6'|trans }}</li>
+                        <li value="7">{{ 'terms.paragraph.requirements.conditions.7'|trans }}</li>
+                    </ol>
+
+                    <p>{{ 'terms.paragraph.4'|trans }}</p>
+
+                    <ol>
+                        <li value="">{{ 'terms.paragraph.Credit_Lines.1'|trans }}</li>
+                        <li value="">{{ 'terms.paragraph.Credit_Lines.2'|trans }}</li>
+                        <li value="">{{ 'terms.paragraph.Credit_Lines.3'|trans }}</li>
+                        <li value="">{{ 'terms.paragraph.Credit_Lines.4'|trans }}</li>
+                    </ol>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ 'modal.1.close'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0"
+             aria-valuemax="100"></div>
+    </div>
+
+    <div role="form" id="regiration_form">
+
+        <fieldset>
+            <section id="" class="personal_infor" style="background-color:#ffffff">
+                <form class="needs-validation" novalidate>
+                    <div class="section-title">
+                        <h2>{{ 'panel.4.title'|trans }}</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <label for="name">{{ 'contact_panel.1.form.name'|trans }}</label>
+                            <input type="text" class="form-control placeholder personal" id="names" name="name"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.1.form.name'|trans }}"
+                                   required>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.1.form.name'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.1.form.name'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.1.form.lastname'|trans }}</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="lastname" name="lastname"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.1.form.lastname'|trans }}"
+                                   required>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.1.form.lastname'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.1.form.lastname'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.4.form.address'|trans }}</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="address" name="address"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.4.form.address'|trans }}"
+                                   required>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.4.form.address'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.4.form.address'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.4.form.Apt/Suit/Piso'|trans }}</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="floor" name="floor"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.4.form.Apt/Suit/Piso'|trans }}">
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.4.form.Apt/Suit/Piso'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.4.form.Apt/Suit/Piso'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.4.form.state'|trans }}</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="state" name="state"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.4.form.state'|trans }}"
+                                   required>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.4.form.state'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.4.form.state'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.4.form.city'|trans }}</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="city" name="city"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.4.form.city'|trans }}"
+                                   required>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.4.form.city'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.4.form.city'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.4.form.zip_code'|trans }}</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="zip_code" name="zip_code"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.4.form.zip_code'|trans }}"
+                                   required>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.4.form.zip_code'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.4.form.zip_code'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.1.form.mobile'|trans }}</label>
+                        <div class="col-sm-4">
+
+                            <input type="tel" class="form-control tel_mobile" id="mobile" pattern=".{14}"
+                                   x-autocompletetype="tel" name="mobile" value=""
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.1.form.mobile'|trans }}"
+                                   required autofocus>
+
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.1.form.mobile'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.1.form.mobile'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.1.form.email'|trans }}</label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.1.form.email'|trans }}"
+                                   required>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.1.form.email'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.1.form.email'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.1.form.language'|trans }}</label>
+                        <div class="col-sm-4">
+
+                            <select class="form-control" name="language" id="language" required>
+                                <option></option>
+                                <option value="Español">Español</option>
+                                <option value="Ingles">Ingles</option>
+                                <option value="Portugues">Portugues</option>
+                            </select>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.1.form.language'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.choose'|trans }} {{ 'contact_panel.1.form.language'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.1.form.birthDate'|trans }}</label>
+                        <div class="col-sm-4">
+
+                            <div id="date-by-picker"></div>
+
+                            <input type="hidden" class="form-control" id="birthDate" name="birthDate"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.1.form.birthDate'|trans }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.1.form.income'|trans }}</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control income" id="income" name="income"
+                                   placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.1.form.income'|trans }}"
+                                   required>
+                            <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.1.form.income'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                !
+                            </div>
+                            <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.1.form.income'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"
+                               class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.tipo_id'|trans }}</label>
+                        <div class="col-sm-5">
+
+                            <select class="form-control" id="number_lp" onchange="lincence_passport(this.value)"
+                                    required>
+                                <option></option>
+                                <option value="licence" id="licence" data-tipo="licencia">{{ 'contact_panel.2.form.licence'|trans }}</option>
+                                <option value="pass" id="pass" data-tipo="pasaporte">{{ 'contact_panel.2.form.passport'|trans }}</option>
+                            </select>
+                        </div>
+
+                        <br>
+                        <br>
+
+                        <div id="pasaporte" style="display: none">
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.passport'|trans }}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="passport_number_passport"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.passport'|trans }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.4.form.country'|trans }}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="passport_country"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.4.form.country'|trans }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.passport_due_date'|trans }}</label>
+                                <div class="col-sm-6">
+                                    <div id="date-by-picker_passport_due_date"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="licencia" style="display: none">
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-lg-4">{{ 'contact_panel.2.form.licence_number'|trans }}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="licencence_numer_licencence_state"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.licence'|trans }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.licence_state'|trans }}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="licencence_state"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.4.form.state'|trans }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-lg-4">{{ 'contact_panel.2.form.licence_due_date'|trans }}</label>
+                                <div class="col-sm-6">
+                                    <div id="date-by-picker_licence_due_date"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <input type="button" name="password" class="next btn btn-info" value="{{ 'progress_bar.next'|trans }}"/>
+        </fieldset>
+
+        <fieldset>
+            <section id="features" class="text-dark" style="background-color:#ffffff">
+                <form class="needs-validation2" novalidate>
+                    <div class="ot-container">
+                        <div class="section-title">
+                            <h2>{{ 'panel.3.title'|trans }} 1</h2>
+                            <br>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.3.form.name'|trans }}</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="personal_reference_name"
+                                           name="personal_reference_name"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.3.form.name'|trans }}"
+                                           required>
+                                    <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.1.form.name'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                        !
+                                    </div>
+                                    <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.1.form.name'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.3.form.lastname'|trans }}</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="personal_reference_last_name"
+                                           name="personal_reference_last_name"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.3.form.lastname'|trans }}"
+                                           required>
+                                    <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.3.form.lastname'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                        !
+                                    </div>
+                                    <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.3.form.lastname'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.3.form.mobile'|trans }}</label>
+                                <div class="col-sm-4">
+                                    <input type="tel" class="form-control tel_personal_reference_mobile"
+                                           id="personal_reference_mobile"
+                                           name="personal_reference_mobile" pattern=".{14}"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.3.form.mobile'|trans }}"
+                                           required autofocus>
+                                    <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.3.form.mobile'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                        !
+                                    </div>
+                                    <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.3.form.mobile'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.3.form.relation'|trans }}</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="personal_reference_relation"
+                                           name="personal_reference_relation"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.3.form.relation'|trans }}"
+                                           required>
+                                    <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.3.form.relation'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                        !
+                                    </div>
+                                    <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.3.form.relation'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                                </div>
+                            </div>
+
+                            <h2>{{ 'panel.3.title'|trans }} 2</h2>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.3.form.name2'|trans }}</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="personal_reference_name2"
+                                           name="personal_reference_name2"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.3.form.name2'|trans }}"
+                                           required>
+                                    <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.3.form.name2'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                        !
+                                    </div>
+                                    <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.3.form.name2'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.3.form.lastname2'|trans }}</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="personal_reference_last_name2"
+                                           name="personal_reference_last_name2"
+                                           placeholder="{{ 'contact_panel.3.form.lastname2'|trans }} {{ 'placeholder.1.form.enter'|trans }}"
+                                           required>
+                                    <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.3.form.lastname2'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                        !
+                                    </div>
+                                    <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.3.form.lastname2'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.3.form.mobile2'|trans }}</label>
+                                <div class="col-sm-4">
+                                    <input type="tel" class="form-control tel_personal_reference_mobile2"
+                                           id="personal_reference_mobile2"
+                                           name="personal_reference_mobile2" pattern=".{14}" x-autocompletetype="tel"
+                                           placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.3.form.mobile2'|trans }}"
+                                           required autofocus>
+                                    <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.3.form.mobile2'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                        !
+                                    </div>
+                                    <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.3.form.mobile2'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name"
+                                       class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.3.form.relation2'|trans }}</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="personal_reference_relation2"
+                                           name="personal_reference_relation2"
+                                           placeholder="{{ 'contact_panel.3.form.relation2'|trans }} {{ 'placeholder.1.form.enter'|trans }}"
+                                           required>
+                                    <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.3.form.relation2'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                        !
+                                    </div>
+                                    <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.3.form.relation2'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <input type="button" name="previous" class="previous btn btn-default" value="{{ 'progress_bar.previous'|trans }}"/>
+            <input type="button" name="next" class="next2 btn btn-info" value="{{ 'progress_bar.next'|trans }}"/>
+
+        </fieldset>
+
+        <fieldset>
+            <section id="features" class="text-dark" style="background-color:#ffffff">
+                <form class="needs-validation3" novalidate>
+                    <h3>{{ 'panel.6.title'|trans }}</h3>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="deal" value="si" required> {{ 'deal.1'|trans }}
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label><input type="radio" name="deal" value="no" required> {{ 'deal.2'|trans }}</label>
+                    </div>
+                </form>
+            </section>
+            <input type="button" name="previous" class="previous btn btn-default" value="{{ 'progress_bar.previous'|trans }}"/>
+            <input type="button" name="next" class="next3 btn btn-info" value="{{ 'progress_bar.next'|trans }}"/>
+        </fieldset>
+
+        <fieldset>
+            <section id="bussines_field" class="deal" style="background-color:#f2f1f7;display: none">
+                <form class="needs-validation4" novalidate>
+                    <div class="section-title">
+                        <h2>{{ 'panel.2.title'|trans }}</h2>
+                        <br>
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.bussines_type'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control placeholder" id="business_type"
+                                       name="business_type"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.bussines_type'|trans }}">
+
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.bussines_type'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.bussines_type'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.name'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="business_name" name="business_name"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.name'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.name'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.name'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.tax_id'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="business_tax_id"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.tax_id'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.tax_id'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.tax_id'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.address'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="business_address"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.address'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.address'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.address'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.Apt/Suit/Piso'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="business_floor" name="business_floor"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.Apt/Suit/Piso'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.Apt/Suit/Piso'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.Apt/Suit/Piso'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.state'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="business_state" name="business_state"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.state'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.state'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.state'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.city'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="business_city" name="business_city"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.city'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.city'|trans }} {{ 'valid-feedback.successful'|trans }} !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.city'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.zip_code'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="business_zip_code"
+                                       name="business_zip_code"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.zip_code'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.zip_code'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.zip_code'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.mobile'|trans }}</label>
+                            <div class="col-sm-4">
+
+                                <input type="tel" class="form-control tel_business_mobile" id="business_mobile"
+                                       pattern=".{14}"
+                                       x-autocompletetype="tel" name="mobile" value=""
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.mobile'|trans }}"
+                                       autofocus>
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.mobile'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.mobile'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.time_bussines'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="business_time_business"
+                                       name="business_time_business"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.time_bussines'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.time_bussines'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.time_bussines'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name"
+                                   class="control-label col-sm-3 col-lg-4">{{ 'contact_panel.2.form.income'|trans }}</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control business_income" id="business_income"
+                                       name="business_income"
+                                       placeholder="{{ 'placeholder.1.form.enter'|trans }} {{ 'contact_panel.2.form.income'|trans }}">
+                                <div class="valid-feedback">{{ 'valid-feedback.register'|trans }} {{ 'contact_panel.2.form.income'|trans }} {{ 'valid-feedback.successful'|trans }}
+                                    !
+                                </div>
+                                <div class="invalid-feedback">{{ 'invalid-feedback.enter'|trans }} {{ 'contact_panel.2.form.income'|trans }} {{ 'invalid-feedback.please'|trans }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <input type="button" name="previous" class="previous btn btn-default" value="{{ 'progress_bar.previous'|trans }}"/>
+            <input type="button" name="next" class="next4 btn btn-info" value="{{ 'progress_bar.next'|trans }}"/>
+        </fieldset>
+
+        <fieldset>
+            <section>
+                <h4 class="modal-title">{{ 'terms.paragraph.5'|trans }}</h4>
+
+                <ol>
+                    <li value="">{{ 'terms.paragraph.agreement.1'|trans }}</li>
+                    <li value="">{{ 'terms.paragraph.agreement.2'|trans }}</li>
+                    <li value="">{{ 'terms.paragraph.agreement.3'|trans }}</li>
+                    <li value="">{{ 'terms.paragraph.agreement.4'|trans }}</li>
+                </ol>
+
+                <div>
+                    <input type="checkbox" id="checked_signaturepad">
+                    <label for="checked_signaturepad">{{ 'terms.paragraph.condicions_andterm.1'|trans }}</label>
+
+                </div>
+
+                <div class="sigPad">
+                    <label for="name">{{ 'terms.paragraph.condicions_andterm.name'|trans }}</label>
+                    <input type="text" name="name" id="signaturepad_name" class="name"
+                           placeholder="{{ 'terms.paragraph.condicions_andterm.placeholder'|trans }}">
+                    <br>
+
+                    <ul class="sigNav" style="visibility: hidden">
+                        <li class="typeIt"><a href="#type-it" class="current">Type It</a></li>
+                        <li class="drawIt"><a href="#draw-it">Draw It</a></li>
+                        <li class="clearButton"><a href="#clear">Clear</a></li>
+                    </ul>
+
+                    <div class="sig sigWrapper" style="visibility:hidden">
+                        <div class="typed"></div>
+                        <canvas class="pad" height="148" style="max-width: 100%"></canvas>
+                        <input type="hidden" name="output" class="output">
+                    </div>
+
+                </div>
+            </section>
+            <input type="button" name="previous" class="previous btn btn-default" value="{{ 'progress_bar.previous'|trans }}"/>
+            <button type="submit" class="btn btn-success" id="data_submit">{{ 'progress_bar.finish'|trans }}</button>
+        </fieldset>
+
+    </div>
+
+    <div class="modal" id="signature">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">{{ 'terms.paragraph.5'|trans }}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container">
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+<script type="text/javascript">
+    $(function () {
+        var now = new Date();
+
+        $("#date-by-picker").dxDateBox({
+            pickerType: "rollers",
+            value: '',
+        });
+
+        $("#date-by-picker_passport_due_date").dxDateBox({
+            pickerType: "rollers",
+            value: '',
+        });
+
+        $("#date-by-picker_licence_due_date").dxDateBox({
+            pickerType: "rollers",
+            value: '',
+        });
+
+        $("input[name='mobile']").keyup(function () {
+            $(this).val($(this).val().replace(/^(\d{3})(\d{3})(\d)+$/, "($1)$2-$3"));
+        });
+
+        $('.dx-dropdowneditor-input-wrapper input:hidden').attr('id', 'data_birthDate');
+
+        $('#date-by-picker_passport_due_date input:hidden').attr('id', 'date_passport_due_date');
+
+        $('#date-by-picker_licence_due_date input:hidden').attr('id', 'date_licence_due_date');
+
+    });
+
+    function tt(ll)
+    {
+        console.log(ll)
+    }
+
+    $(document).ready(function () {
+
+        $("#signaturepad_name").attr('disabled', 'disabled');
+        $("#data_submit").attr('disabled', 'disabled');
+
+        $('input#checked_signaturepad').change(function () {
+            if ($(this).is(':checked')) {
+                $("#signaturepad_name").removeAttr('disabled');
+                $("#data_submit").removeAttr('disabled');
+            } else {
+                $("#signaturepad_name").attr('disabled', 'disabled');
+                $("#data_submit").attr('disabled', 'disabled');
+            }
+        });
+
+        $("input[type=radio]").click(function () {
+
+            if ($(this).val() == 'si') {
+
+                var bussines_field = $('fieldset section#bussines_field .form-group').find('input');
+
+                for(var bfield of bussines_field )
+                {
+                    bfield.setAttribute("required", "");
+                }
+
+                $('.deal').show()
+            } else {
+                $('.deal').css('display', 'none');
+            }
+        });
+
+        $('#myModal').modal('show');
+
+        var signaturePad = $('.sigPad').signaturePad();
+
+        $('#data_submit').click(function () {
+
+            var tipo_signaturePad = signaturePad.getSignatureString().length;
+
+            var signaturepad_name = '';
+
+            if (tipo_signaturePad == 2) {
+                signaturepad_name += $('#signaturepad_name').val()
+            } else {
+                console.log(signaturePad.getSignatureImage())
+            }
+
+            let name = $('#names').val();
+            let lastname = $('#lastname').val();
+            let address = $('#address').val();
+            let floor = $('#floor').val();
+            let state = $('#state').val();
+            let city = $('#city').val();
+            let zip_code = $('#zip_code').val();
+            let mobile = $('#mobile').val();
+            let email = $('#email').val();
+            let language = $('#language').val();
+            let birthDate = $('.dx-dropdowneditor-input-wrapper input#data_birthDate').val()
+            let income = $('#income').val();
+
+            var tipo_identificacion = $("#number_lp option:selected").attr('data-tipo');
+
+            let passport_number_passport = $('#passport_number_passport').val();
+            let passport_country = $('#passport_country').val();
+            let passport_due_date = $('#date-by-picker_passport_due_date input#date_passport_due_date').val();
+
+            let licencence_numer_licencence_state = $('#licencence_numer_licencence_state').val();
+            let licencence_state = $('#licencence_state').val();
+            let licence_due_date = $('#date-by-picker_licence_due_date input#date_licence_due_date').val()
+
+            let personal_reference_name = $('#personal_reference_name').val();
+            let personal_reference_last_name = $('#personal_reference_last_name').val();
+            let personal_reference_mobile = $('#personal_reference_mobile').val();
+            let personal_reference_relation = $('#personal_reference_relation').val();
+
+            let personal_reference_name2 = $('#personal_reference_name2').val();
+            let personal_reference_last_name2 = $('#personal_reference_last_name2').val();
+            let personal_reference_mobile2 = $('#personal_reference_mobile2').val();
+            let personal_reference_relation2 = $('#personal_reference_relation2').val();
+
+            let business_type = $('#business_type').val();
+            let business_name = $('#business_name').val();
+            let business_tax_id = $('#business_tax_id').val();
+            let business_address = $('#business_address').val();
+            let business_floor = $('#business_floor').val();
+            let business_state = $('#business_state').val();
+            let business_city = $('#business_city').val();
+            let business_zip_code = $('#business_zip_code').val();
+            let business_mobile = $('#business_mobile').val();
+            let business_time_business = $('#business_time_business').val();
+            let business_income = $('#business_income').val();
+
+            let deal = $("input[name='deal']:checked").val();
+
+            var miData = {
+                'name': name,
+                'lastname': lastname,
+                'address': address,
+                'floor': floor,
+                'state': state,
+                'city': city,
+                'zip_code': zip_code,
+                'mobile': mobile,
+                'email': email,
+                'language': language,
+                'birthDate': birthDate,
+                'income': income,
+                'tipo_identificacion': tipo_identificacion,
+
+                'passport_number_passport': passport_number_passport,
+                'passport_country': passport_country,
+                'passport_due_date': passport_due_date,
+
+                'licencence_numer_licencence_state': licencence_numer_licencence_state,
+                'licencence_state': licencence_state,
+                'licence_due_date': licence_due_date,
+
+                'personal_reference_name': personal_reference_name,
+                'personal_reference_last_name': personal_reference_last_name,
+                'personal_reference_mobile': personal_reference_mobile,
+                'personal_reference_relation': personal_reference_relation,
+                'personal_reference_name2': personal_reference_name2,
+                'personal_reference_last_name2': personal_reference_last_name2,
+                'personal_reference_mobile2': personal_reference_mobile2,
+                'personal_reference_relation2': personal_reference_relation2,
+
+                'business_type': business_type,
+                'business_name': business_name,
+                'business_tax_id': business_tax_id,
+                'business_address': business_address,
+                'business_floor': business_floor,
+                'business_state': business_state,
+                'business_city': business_city,
+                'business_zip_code': business_zip_code,
+                'business_mobile': business_mobile,
+                'business_time_business': business_time_business,
+                'business_income': business_income,
+                'signaturepad_name': signaturepad_name,
+                'deal': deal
+            };
+
+
+            var myToast = Toastify({
+                text: "Datos Enviados",
+                duration: 5000
+            });
+            myToast.showToast();
+
+            window.location.href = "{{ url('credito_contacto') }}";
+
+
+            {#$.ajax(#}
+                {#{#}
+                    {#type: 'post',#}
+                    {#url: 'https://www.colmodausa.com/Credit_credit/web/app.php/es/credito_save',#}
+                    {#data: JSON.parse(JSON.stringify(miData)),#}
+                    {#dataType: 'json',#}
+                    {#success: function (data) {#}
+                        {#console.log(data);#}
+                        {#var myToast = Toastify({#}
+                            {#text: "Enviados",#}
+                            {#duration: 5000#}
+                        {#});#}
+                        {#myToast.showToast();#}
+
+                        {#window.location.href = "{{ url('credito_contacto') }}";#}
+                    {#}#}
+                {#});#}
+        })
+    });
+
+    function lincence_passport(value) {
+        if (value == 'licence') {
+
+            var licences = $('#licencia input');
+            for (var licence of licences)
+            {
+                licence.setAttribute("required", "");
+            }
+
+            $('#licencia').show();
+
+            $('#pasaporte').css('display', 'none');
+        }
+
+        if (value == 'pass') {
+            $('#pasaporte').show();
+            $('#licencia').css('display', 'none');
+        }
+    }
+
+    const number = document.querySelector('.income');
+
+    function formatNumber(n) {
+        n = String(n).replace(/\D/g, "");
+        return n === '' ? n : Number(n).toLocaleString();
+    }
+
+    number.addEventListener('keyup', (e) => {
+        const element = e.target;
+        const value = element.value;
+        element.value = formatNumber(value);
+    });
+
+    const number2 = document.querySelector('.business_income');
+
+    function formatNumber(n) {
+        n = String(n).replace(/\D/g, "");
+        return n === '' ? n : Number(n).toLocaleString();
+    }
+
+    number2.addEventListener('keyup', (e) => {
+        const element = e.target;
+        const value = element.value;
+        element.value = formatNumber(value);
+    });
+
+
+    var input_tel_mobile = $('.tel_mobile');
+    input_tel_mobile.mobilePhoneNumber({allowPhoneWithoutPrefix: '+1'}); // U.S.
+    input_tel_mobile.bind('country.mobilePhoneNumber', function (e, country) {
+        $('.country').text(country || '')
+    });
+
+    var input_tel_personal_reference_mobile = $('.tel_personal_reference_mobile');
+    input_tel_personal_reference_mobile.mobilePhoneNumber({allowPhoneWithoutPrefix: '+1'}); // U.S.
+    input_tel_personal_reference_mobile.bind('country.mobilePhoneNumber', function (e, country) {
+        $('.country').text(country || '')
+    });
+
+    var input_tel_personal_reference_mobile2 = $('.tel_personal_reference_mobile2');
+    input_tel_personal_reference_mobile2.mobilePhoneNumber({allowPhoneWithoutPrefix: '+1'}); // U.S.
+    input_tel_personal_reference_mobile2.bind('country.mobilePhoneNumber', function (e, country) {
+        $('.country').text(country || '')
+    });
+
+    var input_tel_business_mobile = $('.tel_business_mobile');
+    input_tel_business_mobile.mobilePhoneNumber({allowPhoneWithoutPrefix: '+1'}); // U.S.
+    input_tel_business_mobile.bind('country.mobilePhoneNumber', function (e, country) {
+        $('.country').text(country || '')
+    });
+
+
+    window.addEventListener('load', () => {
+
+        var forms = document.getElementsByClassName('needs-validation');
+
+        for (let form of forms) {
+
+            form.addEventListener('submit', (evt) => {
+
+                if (!form.checkValidity()) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+
+                    var errorElements = document.querySelectorAll("input.form-control:invalid");
+                    errorElements.forEach(function (element) {
+                        element.parentNode.childNodes.forEach(function (node) {
+                            if (node.className == 'valid-feedback') {
+                                node.className = 'invalid-feedback';
+                            }
+                        });
+                    });
+
+                    $('html, body').animate({
+                        scrollTop: $(errorElements[0]).focus().offset().top,
+                    }, 2000);
+
+                } else {
+                    $('#signature').modal('show');
+                    evt.preventDefault();
+                }
+                form.classList.add('was-validated');
+            });
+        }
+
+    });
+
+    $(document).ready(function () {
+
+        var current = 1, current_step, next_step, steps;
+        steps = $("fieldset").length;
+
+        $(".next").click(function (evt) {
+
+            var forms = document.getElementsByClassName('needs-validation');
+
+            for (let form of forms) {
+
+                if (!form.checkValidity()) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+
+                    var errorElements = document.querySelectorAll("input.form-control:invalid");
+                    errorElements.forEach(function (element) {
+                        element.parentNode.childNodes.forEach(function (node) {
+                            // if (node.className == 'valid-feedback') {
+                            //     node.className = 'invalid-feedback';
+                            // }
+                        });
+                    });
+
+                    $('html, body').animate({
+                        scrollTop: $(errorElements[0]).focus().offset().top,
+                    }, 2000);
+
+                } else {
+                    current_step = $(this).parent();
+                    next_step = $(this).parent().next()
+                    next_step.show();
+                    current_step.hide();
+                    setProgressBar(++current);
+                    $(window).scrollTop(0);
+                    evt.preventDefault();
+                }
+                form.classList.add('was-validated');
+
+            }
+        });
+
+        $(".next2").click(function (evt) {
+
+            var forms = document.getElementsByClassName('needs-validation2');
+
+            for (let form of forms) {
+
+                if (!form.checkValidity()) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+
+                    var errorElements = document.querySelectorAll("input.form-control:invalid");
+                    errorElements.forEach(function (element) {
+                        element.parentNode.childNodes.forEach(function (node) {
+                            // if (node.className == 'valid-feedback') {
+                            //     node.className = 'invalid-feedback';
+                            // }
+                        });
+                    });
+
+                    $('html, body').animate({
+                        scrollTop: $(errorElements[0]).focus().offset().top,
+                    }, 2000);
+
+                } else {
+                    current_step = $(this).parent();
+                    next_step = $(this).parent().next();
+                    next_step.show();
+                    current_step.hide();
+                    setProgressBar(++current);
+                    $(window).scrollTop(0);
+                    evt.preventDefault();
+                }
+                form.classList.add('was-validated');
+
+            }
+        });
+
+        $(".next3").click(function (evt) {
+
+            var forms = document.getElementsByClassName('needs-validation3');
+
+            for (let form of forms) {
+
+                if (!form.checkValidity()) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+
+                    var errorElements = document.querySelectorAll("input.form-control:invalid");
+                    errorElements.forEach(function (element) {
+                        element.parentNode.childNodes.forEach(function (node) {
+                        });
+                    });
+
+                    $('html, body').animate({
+                        scrollTop: $(errorElements[0]).focus().offset().top,
+                    }, 2000);
+
+                } else {
+
+                    let check_deal = $("input[name='deal']:checked").val();
+                    current_step = $(this).parent();
+
+                    if (check_deal === 'no')
+                    {
+                        next_step = $(this).parent().next().next();
+                    }else
+                    {
+                        next_step = $(this).parent().next()
+                    }
+
+                    next_step.show();
+                    current_step.hide();
+                    setProgressBar(++current);
+                    $(window).scrollTop(0);
+                    evt.preventDefault();
+                }
+                form.classList.add('was-validated');
+
+            }
+        });
+
+        $(".next4").click(function (evt) {
+
+            var forms = document.getElementsByClassName('needs-validation4');
+
+            for (let form of forms) {
+
+                if (!form.checkValidity()) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+
+                    var errorElements = document.querySelectorAll("input.form-control:invalid");
+                    errorElements.forEach(function (element) {
+                        element.parentNode.childNodes.forEach(function (node) {
+                        });
+                    });
+
+                    $('html, body').animate({
+                        scrollTop: $(errorElements[0]).focus().offset().top,
+                    }, 2000);
+
+                } else {
+
+                    current_step = $(this).parent();
+                    next_step = $(this).parent().next();
+                    next_step.show();
+                    current_step.hide();
+                    setProgressBar(++current);
+                    $(window).scrollTop(0);
+                    evt.preventDefault();
+                }
+                form.classList.add('was-validated');
+
+            }
+        });
+
+
+        $(".previous").click(function () {
+            current_step = $(this).parent();
+            next_step = $(this).parent().prev();
+            next_step.show();
+            current_step.hide();
+            setProgressBar(--current);
+        });
+        setProgressBar(current);
+
+        function setProgressBar(curStep) {
+            var percent = 0;
+
+            if (curStep == 1) {
+                percent = 50;
+            } else if (curStep == 2) {
+                percent = 70;
+            } else if (curStep == 3) {
+                percent = 75;
+            } else if (curStep == 4) {
+                percent = 95;
+            } else if (curStep == 5) {
+                percent = 100;
+            }
+
+            percent = percent.toFixed();
+            $(".progress-bar")
+                .css("width", percent + "%")
+                .html(percent + "%");
+        }
+    })
+    ;
+
+</script>

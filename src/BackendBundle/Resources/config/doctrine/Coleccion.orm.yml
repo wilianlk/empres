@@ -1,0 +1,69 @@
+BackendBundle\Entity\Coleccion:
+    type: entity
+    table: coleccion
+    id:
+        idColeccion:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_coleccion
+            generator:
+                strategy: IDENTITY
+    fields:
+        numeroColeccion:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: numero_coleccion
+        yearColeccion:
+            type: string
+            nullable: false
+            length: 4
+            options:
+                fixed: false
+            column: year_coleccion
+        descripcion:
+            type: string
+            nullable: true
+            length: 500
+            options:
+                fixed: false
+        fechaLanzamiento:
+            type: date
+            nullable: false
+            column: fecha_lanzamiento
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

@@ -1,0 +1,119 @@
+BackendBundle\Entity\TiendaInventarioLog:
+    type: entity
+    table: tienda_inventario_log
+    indexes:
+        deleted_by:
+            columns:
+                - deleted_by
+        updated_by:
+            columns:
+                - updated_by
+        created_by:
+            columns:
+                - created_by
+        id_tienda:
+            columns:
+                - id_tienda
+        id_producto:
+            columns:
+                - id_producto
+        id_tienda_2:
+            columns:
+                - id_tienda
+                - id_producto
+        id_tipo_movim_inventario_log:
+            columns:
+                - id_tipo_movim_inventario_log
+        id_proveedor_factura:
+            columns:
+                - id_proveedor_despacho
+    id:
+        idTiendaInventarioLog:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_tienda_inventario_log
+            generator:
+                strategy: IDENTITY
+    fields:
+        idTienda:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_tienda
+        idProducto:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_producto
+        cantidad:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        tipo:
+            type: string
+            nullable: false
+            length: 1
+            options:
+                fixed: true
+                comment: 'I => IN; O => OUT'
+                default: I
+        idTipoMovimInventarioLog:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_tipo_movim_inventario_log
+        procesado:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+        locacion:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+        idProveedorDespacho:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_proveedor_despacho
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+    lifecycleCallbacks: {  }

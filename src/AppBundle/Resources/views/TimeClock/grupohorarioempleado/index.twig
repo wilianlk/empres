@@ -1,0 +1,1141 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+{% block content %}
+    <style type="text/css">
+
+        #group-schedule {
+            background-color: #fff;
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 40px;
+            color: #858b8e;
+            box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #group-schedule h2 {
+            padding-bottom: 20px;
+            margin: 10px 20px;
+            font-size: 24px;
+        }
+
+        #group-schedule hr {
+            margin-top: 38px;
+            margin-bottom: 54px;
+            margin-left: 3px;
+            border: 1px solid #cccccc;
+        }
+
+        #group-schedule .form-group {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            width: 30%;
+            float: left;
+            text-align: left;
+        }
+
+        #group-schedule .form-control {
+            padding: 12px 20px;
+            height: auto;
+            border-radius: 2px;
+        }
+
+        #group-schedule .radio-inline {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        #group-schedule .gender {
+            width: 30%;
+            margin-top: 30px;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #group-schedule .btn {
+            width: 46%;
+            margin: 20px auto 0;
+            display: block;
+            outline: none;
+        }
+
+        .day-option {
+            -moz-transition: all .2s ease-in;
+            -o-transition: all .2s ease-in;
+            -webkit-transition: all .2s ease-in;
+            transition: all .2s ease-in;
+            border: 1px solid #777;
+            color: #777;
+        }
+
+        .day-option:hover {
+            color: #777;
+        }
+
+        #days-list {
+            /*margin-top: 10px;*/
+            /*margin-bottom: 5px;*/
+        }
+
+        #days-list .day-option {
+            /*display: inline-block;*/
+            width: 13.5%;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 3px 10px 3px 6px;
+        }
+
+        .active-day, .active-day:hover, .active-day:focus, .active-day:active {
+            border: 1px solid #EC901D;
+            background: #EC901D;
+            color: #fff;
+        }
+
+        #calendar {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+
+    <div class="container">
+        <div class="form-horizontal">
+            <div class="col-sm-2">
+                {{ form_widget(offices.officename) }}
+            </div>
+            <div class="col-sm-2">
+                <div id="group_offices"></div>
+            </div>
+        </div>
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Horario <strong><span id="nameimployees1"></span></strong></h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">{{ form_label(employeeTimeGroup.idGroupSchedule,'Grupo Horario') }}</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date'>
+                                            {{ form_widget(employeeTimeGroup.idGroupSchedule) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">Fecha Inicial</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="date" value="" id="initial_date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">Fecha Final</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="date" value="" id="final_date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="fhourIn">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">Hour In</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="time" class="form-control" id="hourIn">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="fhourOut">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">Hour Out</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="time" class="form-control" id="hourOut">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="human"
+                                       class="col-sm-2 control-label">Dia de Semana</label>
+                                <div class="col-sm-12">
+                                    <div id="days-list">
+
+                                        <table class="table">
+                                            <tr>
+                                                <td><a data-day="Mon" class="day-option">Lunes</a></td>
+                                                <td><a data-day="Tue" class="day-option">Martes</a></td>
+                                                <td><a data-day="Wed" class="day-option">Miercoles</a></td>
+                                                <td><a data-day="Thu" class="day-option">Jueves</a></td>
+                                                <td><a data-day="Fri" class="day-option">Viernes</a></td>
+                                                <td><a data-day="Sat" class="day-option">Sabado</a></td>
+                                                <td><a data-day="Sun" class="day-option">Domingo</a></td>
+                                            </tr>
+                                        </table>
+
+                                        <table class="table">
+                                            <tbody class="tablehourgroup" style="display: none">
+                                            <tr>
+                                                <td scope="row" colspan="6">HourIn</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="time" id="Mon"></td>
+                                                <td><input type="time" id="Tue"></td>
+                                                <td><input type="time" id="Wed"></td>
+                                                <td><input type="time" id="Thu"></td>
+                                                <td><input type="time" id="Fri"></td>
+                                                <td><input type="time" id="Sat"></td>
+                                                <td><input type="time" id="Sun"></td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row" colspan="5">HourOut</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="time" id="MonOut"></td>
+                                                <td><input type="time" id="TueOut"></td>
+                                                <td><input type="time" id="WedOut"></td>
+                                                <td><input type="time" id="ThuOut"></td>
+                                                <td><input type="time" id="FriOut"></td>
+                                                <td><input type="time" id="SatOut"></td>
+                                                <td><input type="time" id="SunOut"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" id="submithorario">Enviar</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fplist-closeade" data-refresh="true" id="editModal" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Horario <strong><span id="nameimployees"></span></strong></h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="doctor-detail-wrap">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="calendar-close" data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="ModalEdit" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modificar Horas</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for=""
+                                       class="col-sm-2 control-label">Hour In</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date'>
+                                            <input type="time" class="form-control" id="hourInupdate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for=""
+                                       class="col-sm-2 control-label">Hour Out</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date'>
+                                            <input type="time" class="form-control" id="hourOutupdate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="date" class="form-control" id="startDateupdate" style="visibility: hidden;">
+                            <input type="hidden" class="form-control" id="idhouremployee">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="cerrarhour" data-dismiss="modal">Cerrar
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="hourupdate" onclick="edit()">Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="multipleModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><strong>Empleados</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">{{ form_label(employeeTimeGroup.idGroupSchedule,'Grupo Horario') }}</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date'>
+                                            <p id="idGroupSchedulemultiple"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">Fecha Inicial</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="date" value="" id="initial_date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">Fecha Final</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="date" value="" id="final_date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="fhourIn">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">Hour In</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="time" class="form-control" id="hourIn">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="fhourOut">
+                                <label for="idEmployee"
+                                       class="col-sm-2 control-label">Hour Out</label>
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="time" class="form-control" id="hourOut">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="human"
+                                       class="col-sm-2 control-label">Dia de Semana</label>
+                                <div class="col-sm-12">
+                                    <div id="days-list">
+                                        <table class="table">
+                                            <tr>
+                                                <td><a data-day="Mon" class="day-option">Lunes</a></td>
+                                                <td><a data-day="Tue" class="day-option">Martes</a></td>
+                                                <td><a data-day="Wed" class="day-option">Miercoles</a></td>
+                                                <td><a data-day="Thu" class="day-option">Jueves</a></td>
+                                                <td><a data-day="Fri" class="day-option">Viernes</a></td>
+                                                <td><a data-day="Sat" class="day-option">Sabado</a></td>
+                                                <td><a data-day="Sun" class="day-option">Domingo</a></td>
+                                            </tr>
+                                        </table>
+                                        <table class="table">
+                                            <tbody class="tablehourgroup" style="display: none">
+                                            <tr>
+                                                <td scope="row" colspan="6">HourIn</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="time" id="Mon"></td>
+                                                <td><input type="time" id="Tue"></td>
+                                                <td><input type="time" id="Wed"></td>
+                                                <td><input type="time" id="Thu"></td>
+                                                <td><input type="time" id="Fri"></td>
+                                                <td><input type="time" id="Sat"></td>
+                                                <td><input type="time" id="Sun"></td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row" colspan="5">HourOut</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="time" id="MonOut"></td>
+                                                <td><input type="time" id="TueOut"></td>
+                                                <td><input type="time" id="WedOut"></td>
+                                                <td><input type="time" id="ThuOut"></td>
+                                                <td><input type="time" id="FriOut"></td>
+                                                <td><input type="time" id="SatOut"></td>
+                                                <td><input type="time" id="SunOut"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input id="idEmployeemultiple" type="hidden">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="updateemployemultiple">Actualizar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <div id="employees"></div>
+    </div>
+    <input type="hidden" value="" id="selectoffices">
+    <input type="hidden" value="" id="idemployeess">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#backendbundle_offices_officename').on('change', function () {
+                let officces = $(this).find('option:selected').text();
+                if (officces) {
+                    $.ajax
+                    ({
+                        url: '{{ url('timeclock_employeegroup_index') }}',
+                        data: {'officename': officces},
+                        dataType: 'json'
+
+                    }).done(function (data) {
+                        var html = "";
+
+                        html += '<table align="right" id="selectmul" style="display: none">';
+                        html += '<tr>';
+                        html += '<th>Accion Multiple</th>';
+                        html += '</tr>';
+                        html += '<tr>';
+                        html += '<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#multipleModal">Asignar Horario Empleado</button> </td>';
+                        html += '</tr>';
+                        html += '</table>';
+
+                        html += '<table class="table table-bordered" id="">';
+                        html += '<thead>';
+                        html += '<tr class="text-center">';
+                        html += '<th>Nombre Completo</th>';
+                        html += '<th>Acciones</th>';
+                        html += '</tr>';
+                        html += '</thead>';
+                        html += '<tbody>';
+
+                        let dataemplo = JSON.parse(data.data);
+
+                        for (employee in dataemplo) {
+                            let emplo = dataemplo[employee];
+
+                            html += '<tr>';
+                            html += '<td>' + '<input type="checkbox" id="myCheck" value="' + emplo['idEmployee'] + '" onclick="selectCheck()"> ' + emplo['empfullname'] + '</td>';
+                            html += '<td>' + '<button type="button" id="idEmployeeSubmit" class="btn btn-info" value="' + emplo['idEmployee'] + '" data-toggle ="modal" data-id1 = "' + emplo['empfullname'] + '" data-target="#myModal">Asignar Horario Empleado</button>  ' + '';
+                            html += '<button type="button" id="idEmployeeSubmit" name="ediccionemploy_' + emplo['idEmployee'] + '" class="btn btn-warning editmodal" value="' + emplo['idEmployee'] + '" data-id = "' + emplo['empfullname'] + '" > Editar Horario Empleado </button>';
+                            html += '</td>';
+                            html += '</tr>';
+                        }
+                        html += '</tbody>';
+                        html += '</table>';
+
+                        $('#employees').html(html);
+                        $('#group_offices').html('{{ form_widget(groups.groupname) }}')
+                    });
+
+                    $('#selectoffices').val($(this).val())
+                }
+            });
+        });
+
+        $(document).on('change', '#appbundle_groups_groupname', function () {
+            let officces = $('#backendbundle_offices_officename').find('option:selected').text();
+            let groups = $(this).find('option:selected').text();
+
+            if (groups) {
+                $.ajax
+                ({
+                    url: '{{ url('timeclock_employeegroup_index') }}',
+                    data: {'officename': officces, 'grupos': '1', 'shedul': groups},
+                    dataType: 'json'
+                }).done(function (datas) {
+                    var html = "";
+
+                    html += '<table align="right" id="selectmul" style="display: none">';
+                    html += '<tr>';
+                    html += '<th>Accion Multiple</th>';
+                    html += '</tr>';
+                    html += '<tr>';
+                    html += '<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#multipleModal">Asignar Horario Empleado</button></td>';
+                    html += '</tr>';
+                    html += '</table>';
+
+
+                    html += '<table class="table table-bordered" id="">';
+                    html += '<thead>';
+                    html += '<tr class="text-center">';
+                    html += '<th>Nombre Completo</th>';
+                    html += '<th>Acciones</th>';
+                    html += '</tr>';
+                    html += '</thead>';
+                    html += '<tbody>';
+
+                    let dataemplo = JSON.parse(datas.data2);
+
+                    for (var i = 0; i < dataemplo.length; i++) {
+                        html += '<tr>';
+                        html += '<td>' + '<input type="checkbox" id="myCheck" value="' + dataemplo[i]['idEmployee'] + '" onclick="selectCheck()"> ' + dataemplo[i]['empfullname'] + '</td>';
+                        html += '<td>' + '<button type="button" id="idEmployeeSubmit" class="btn btn-info" value="' + dataemplo[i]['idEmployee'] + '" data-toggle="modal" data-id1 = "' + dataemplo[i]['empfullname'] + '" data-target="#myModal">Editar Horario Empleado</button>  ';
+                        html += '<button type="button" id="idEmployeeSubmit" name="ediccionemploy" class="btn btn-warning editmodal" value="' + dataemplo[i]['idEmployee'] + '" data-id = "' + dataemplo[i]['empfullname'] + '" > Editar Horario Empleado </button>';
+                        html += '</td>';
+                        html += '</tr>';
+                    }
+
+                    html += '</tbody>';
+                    html += '</table>';
+
+                    $('#employees').html(html);
+                })
+            }
+        });
+
+        $(document).on('click', '#submithorario', function () {
+
+            let initial_date = $('#initial_date').val();
+            let final_date = $('#final_date').val();
+            let hourIn = $('#hourIn').val();
+            let hourOut = $('#hourOut').val();
+            let groupSchedule = $('#appbundle_employeetimegroup_idGroupSchedule').val();
+            let idemployeess = $('#idemployeess').val();
+
+            var ss = [];
+            $('#days-list a').each(function () {
+                var dias = $(this).attr('data-day');
+                var dum = $(this);
+
+                if (dum.hasClass('active-day')) {
+                    ss.push(dias);
+                }
+            });
+
+            var dayOfweek = ss.join(',');
+
+            $.ajax(
+                {
+                    url: '{{ url('timeclock_employeegroupasignacion') }}',
+                    data:
+                        {
+                            'initial_date': initial_date,
+                            'final_date': final_date,
+                            'hourIn': hourIn,
+                            'hourOut': hourOut,
+                            'dayOfweek': dayOfweek,
+                            'idemployeess': idemployeess,
+                            'groupSchedule': groupSchedule
+                        },
+                    dataType: 'json'
+                }
+            ).done(function (data) {
+                $('#myModal').modal('toggle');
+                window.location.reload();
+            });
+        });
+
+        $(document).on('click', '#idEmployeeSubmit', function () {
+            $('#nameimployees1').text($(this).attr("data-id1"));
+            $('#idemployeess').val($(this).val());
+        });
+
+        function mostrarField(item) {
+
+            let idGroupScheduleOp = item.value;
+
+            if (idGroupScheduleOp.length == 0) {
+
+                $("#fhourIn").css("display", "block");
+                $("#fhourOut").css("display", "block");
+                $(".tablehourgroup").css("display", "none");
+
+                $("#multipleModal #fhourIn").css("display", "block");
+                $("#multipleModal #fhourOut").css("display", "block");
+
+                $('#days-list a').each(function () {
+                    var dum = $(this);
+                    dum.removeClass('active-day');
+                });
+
+                $('#multipleModal #days-list a').each(function () {
+                    var dum = $(this);
+                    dum.removeClass('active-day');
+                });
+
+                $('#Mon').val('');
+                $('#Tue').val('');
+                $('#Wed').val('');
+                $('#Thu').val('');
+                $('#Fri').val('');
+                $('#Sat').val('');
+                $('#Sun').val('');
+
+                $('#MonOut').val('');
+                $('#TueOut').val('');
+                $('#WedOut').val('');
+                $('#ThuOut').val('');
+                $('#FriOut').val('');
+                $('#SatOut').val('');
+                $('#SunOut').val('');
+
+                $('#multipleModal #Mon').val('');
+                $('#multipleModal #Tue').val('');
+                $('#multipleModal #Wed').val('');
+                $('#multipleModal #Thu').val('');
+                $('#multipleModal #Fri').val('');
+                $('#multipleModal #Sat').val('');
+                $('#multipleModal #Sun').val('');
+
+                $('#multipleModal #MonOut').val('');
+                $('#multipleModal #TueOut').val('');
+                $('#multipleModal #WedOut').val('');
+                $('#multipleModal #ThuOut').val('');
+                $('#multipleModal #FriOut').val('');
+                $('#multipleModal #SatOut').val('');
+                $('#multipleModal #SunOut').val('');
+
+                $("#change_submithorario").replaceWith('<a class="btn btn-primary" id="submithorario">Enviar</a>');
+                $("#multipleModal #change_submithorario").replaceWith('<button type="button" class="btn btn-primary" id="updateemployemultiple">Actualizar</button>');
+            } else {
+                $.ajax(
+                    {
+                        url: '{{ url('timeclock_employeegroupasignacion') }}',
+                        data: {'idGroupSchedule': idGroupScheduleOp},
+                        beforeSend: function () {
+                            $('#days-list a').each(function () {
+                                var dum = $(this);
+                                dum.removeClass('active-day');
+                            });
+
+                            $('#Mon').val('');
+                            $('#Tue').val('');
+                            $('#Wed').val('');
+                            $('#Thu').val('');
+                            $('#Fri').val('');
+                            $('#Sat').val('');
+                            $('#Sun').val('');
+
+                            $('#MonOut').val('');
+                            $('#TueOut').val('');
+                            $('#WedOut').val('');
+                            $('#ThuOut').val('');
+                            $('#FriOut').val('');
+                            $('#SatOut').val('');
+                            $('#SunOut').val('');
+
+                            $('#multipleModal #days-list a').each(function () {
+                                var dum = $(this);
+                                dum.removeClass('active-day');
+                            });
+
+                            $('#multipleModal #Mon').val('');
+                            $('#multipleModal #Tue').val('');
+                            $('#multipleModal #Wed').val('');
+                            $('#multipleModal #Thu').val('');
+                            $('#multipleModal #Fri').val('');
+                            $('#multipleModal #Sat').val('');
+                            $('#multipleModal #Sun').val('');
+
+                            $('#multipleModal #MonOut').val('');
+                            $('#multipleModal #TueOut').val('');
+                            $('#multipleModal #WedOut').val('');
+                            $('#multipleModal #ThuOut').val('');
+                            $('#multipleModal #FriOut').val('');
+                            $('#multipleModal #SatOut').val('');
+                            $('#multipleModal #SunOut').val('');
+                        },
+                        dataType: 'json'
+                    }
+                ).done(function (data) {
+
+                    let idGroupSchedule = JSON.parse(data);
+
+                    if (idGroupSchedule.length > 0) {
+                        for (let idGroup in idGroupSchedule) {
+                            let idGroupSc = idGroupSchedule[idGroup];
+
+                            $('#days-list a').each(function () {
+
+                                var dum = $(this);
+                                var dias = dum[0].dataset['day'];
+
+                                if (dias == idGroupSc['dayOfWeek']) {
+                                    dum.addClass('active-day');
+                                }
+                            });
+
+                            $('#multipleModal #days-list a').each(function () {
+
+                                var dum = $(this);
+                                var dias = dum[0].dataset['day'];
+
+                                if (dias == idGroupSc['dayOfWeek']) {
+                                    dum.addClass('active-day');
+                                }
+                            });
+
+                            switch (idGroupSc['dayOfWeek']) {
+                                case 'Mon':
+                                    $('#Mon').val(idGroupSc['hourIn']);
+                                    $('#MonOut').val(idGroupSc['hourOut']);
+
+                                    $('#multipleModal #Mon').val(idGroupSc['hourIn']);
+                                    $('#multipleModal #MonOut').val(idGroupSc['hourOut']);
+                                    break;
+                                case 'Tue':
+                                    $('#Tue').val(idGroupSc['hourIn']);
+                                    $('#TueOut').val(idGroupSc['hourOut']);
+
+                                    $('#multipleModal #Tue').val(idGroupSc['hourIn']);
+                                    $('#multipleModal #TueOut').val(idGroupSc['hourOut']);
+                                    break;
+                                case 'Wed':
+                                    $('#Wed').val(idGroupSc['hourIn']);
+                                    $('#WedOut').val(idGroupSc['hourOut']);
+
+                                    $('#multipleModal #Wed').val(idGroupSc['hourIn']);
+                                    $('#multipleModal #WedOut').val(idGroupSc['hourOut']);
+                                    break;
+                                case 'Thu':
+                                    $('#Thu').val(idGroupSc['hourIn']);
+                                    $('#ThuOut').val(idGroupSc['hourOut']);
+
+                                    $('#multipleModal #Thu').val(idGroupSc['hourIn']);
+                                    $('#multipleModal #ThuOut').val(idGroupSc['hourOut']);
+                                    break;
+                                case 'Fri':
+                                    $('#Fri').val(idGroupSc['hourIn']);
+                                    $('#FriOut').val(idGroupSc['hourOut']);
+
+                                    $('#multipleModal #Fri').val(idGroupSc['hourIn']);
+                                    $('#multipleModal #FriOut').val(idGroupSc['hourOut']);
+                                    break;
+                                case 'Sat':
+                                    $('#Sat').val(idGroupSc['hourIn']);
+                                    $('#SatOut').val(idGroupSc['hourOut']);
+
+                                    $('#multipleModal #Sat').val(idGroupSc['hourIn']);
+                                    $('#multipleModal #SatOut').val(idGroupSc['hourOut']);
+                                    break;
+                                case 'Sun':
+                                    $('#Sun').val(idGroupSc['hourIn']);
+                                    $('#SunOut').val(idGroupSc['hourOut']);
+
+                                    $('#multipleModal #Sun').val(idGroupSc['hourIn']);
+                                    $('#multipleModal #SunOut').val(idGroupSc['hourOut']);
+                                    break;
+                            }
+                        }
+                    }
+
+                    $("#hourIn").val(idGroupSchedule['hourIn']);
+                    $("#hourOut").val(idGroupSchedule['hourOut']);
+
+                    $("#multipleModal #hourIn").val(idGroupSchedule['hourIn']);
+                    $("#multipleModal #hourOut").val(idGroupSchedule['hourOut']);
+
+                    $("#submithorario").replaceWith('<button id="change_submithorario" class="btn btn-info">Enviar</button>');
+
+                    $("#multipleModal #updateemployemultiple").replaceWith('<button id="multiplechange_submithorario" class="btn btn-info">Enviar</button>');
+                });
+
+                $("#fhourIn").css("display", "none");
+                $("#fhourOut").css("display", "none");
+
+                $("#multipleModal #fhourIn").css("display", "none");
+                $("#multipleModal #fhourOut").css("display", "none");
+
+                $(".tablehourgroup").css("display", "block");
+            }
+        }
+
+        $(document).on('click', '#days-list a', function () {
+            var dias = $(this).attr('data-day');
+            var dataset = $('#days-chose');
+            var addday = dataset.val();
+            var removeday = dataset.val();
+            var dum = $(this);
+
+            if (dum.hasClass('active-day')) {
+                dum.removeClass('active-day');
+                dataset.val(removeday);
+                dataset.click();
+            } else {
+                dum.addClass('active-day');
+                dataset.val(addday + dias + ',');
+                dataset.click();
+            }
+        });
+
+        $(document).on('click', '.editmodal', function () {
+
+            $('#calendar').fullCalendar('destroy');
+
+            $('#nameimployees').text($(this).data('id'));
+            $('#idhouremployee').val($(this).val());
+
+            let date = new Date();
+            let yyyy = date.getFullYear().toString();
+            let mm = (date.getMonth() + 1).toString().length == 1 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+            let dd = (date.getDate()).toString().length == 1 ? "0" + (date.getDate()).toString() : (date.getDate()).toString();
+
+            let idemployeess = $('#idemployeess').val();
+
+            $('#calendar').fullCalendar(
+                {
+                    theme: true,
+                    header:
+                        {
+                            language: 'es',
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,basicWeek'
+                        },
+                    defaultDate: yyyy + "-" + mm + "-" + dd,
+                    editable: true,
+                    eventLimit: true,
+                    selectable: true,
+                    selectHelper: true,
+                    displayEventTime: false,
+
+                    eventRender: function (event, element) {
+                        element.bind('click', '.fc-title', function () {
+
+                            let stardate = moment(event.id['start_date']).format('YYYY-MM-DD');
+
+                            $('#ModalEdit #hourInupdate').val(event.id['hourIn']);
+                            $('#ModalEdit #hourOutupdate').val(event.id['hourOut']);
+                            $('#ModalEdit #startDateupdate').val(stardate);
+                            $('#ModalEdit').modal('show');
+                        });
+                    },
+
+                    events: function (start, end, timezone, callback) {
+                        $.ajax({
+                            url: '{{ url('timeclock_employeegroupaedicion') }}',
+                            dataType: 'json',
+                            data: {'id_employ': idemployeess},
+                            async: false,
+                            success: function (doc) {
+                                var events = [];
+                                let emplot = JSON.parse(doc.employeetime);
+
+                                $.map(emplot, function (r) {
+                                    events.push(
+                                        {
+                                            title: r.hourIn + ' a ' + r.hourOut,
+                                            start: r.start_date,
+                                            id: {'hourIn': r.hourIn, 'hourOut': r.hourOut, 'start_date': r.start_date}
+                                        });
+                                });
+                                callback(events);
+                            },
+                        });
+
+                    },
+                });
+
+            $("#editModal").modal(open).show();
+        });
+
+        $(document).ready(function () {
+            $('#editModal').on('shown.bs.modal', function () {
+                $("#calendar").fullCalendar('render');
+            });
+        });
+
+        function edit(event) {
+            let idhouremployee = $('#idhouremployee').val();
+            let hourInupdate = $('#hourInupdate').val();
+            let hourOutupdate = $('#hourOutupdate').val();
+            let startdate = $('#startDateupdate').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('timeclock_employeegroupaedicionupdate') }}',
+                data: {
+                    idEmployee: idhouremployee,
+                    hourInupdate: hourInupdate,
+                    hourOutupdate: hourOutupdate,
+                    startdate: startdate
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#cerrarhour').click();
+                    $('#calendar-close').click();
+                },
+                success: function (data) {
+                    alert('Datos Actualizados')
+                },
+                complete: function (data) {
+                    let idemployeess = $('#idemployeess').val();
+                    $('button[name=ediccionemploy_' + idemployeess + ']').click();
+                },
+            });
+        }
+
+        function selectCheck() {
+
+            var selectmul = document.getElementById("selectmul");
+
+            var Check = $('input:checked').map(function () {
+                return $(this).val();
+            });
+
+            $('#idEmployeemultiple').val(Check.get().join(','));
+
+            if (Check.length == 1) {
+                selectmul.style.display = "block";
+
+            } else if (Check.length == 0) {
+                selectmul.style.display = "none";
+            }
+
+            var inputField = $('#appbundle_employeetimegroup_idGroupSchedule').clone();
+            $('#idGroupSchedulemultiple').html(inputField);
+        }
+
+        $(document).on('click', '#updateemployemultiple', function () {
+
+            let idGroupSchedulemultiple = $('#multipleModal #appbundle_employeetimegroup_idGroupSchedule').val();
+            let initial_date_multiple = $('#multipleModal #initial_date').val();
+            let final_date_multiple = $('#multipleModal #final_date').val();
+            let hourIn_multiple = $('#multipleModal #hourIn').val();
+            let hourOut_multiple = $('#multipleModal #hourOut').val();
+            let idemployees = $('#idEmployeemultiple').val();
+
+            var weeks = [];
+            $('#multipleModal #days-list a').each(function () {
+                var dias = $(this).attr('data-day');
+                var dum = $(this);
+
+                if (dum.hasClass('active-day')) {
+                    weeks.push(dias);
+                }
+            });
+            var dayOfweek = weeks.join(',');
+
+            var datamultiple = [];
+            var Check = $('input:checked').map(function () {
+                datamultiple.push(
+                    {
+                        'idemployee': $(this).val(),
+                        'idGroupSchedulemultiple': idGroupSchedulemultiple,
+                        'hourIn_multiple': hourIn_multiple,
+                        'hourOut_multiple': hourOut_multiple,
+                        'dayOfweek': dayOfweek,
+                    });
+
+                $.ajax
+                (
+                    {
+                        url: '{{ url('timeclock_employeegroupasignacionmultiple') }}',
+                        data: {
+                            'initial_date_multiple': initial_date_multiple,
+                            'final_date_multiple': final_date_multiple,
+                            'datamultiple': datamultiple
+                        },
+                        success: function (data) {
+                        }
+                    }
+                )
+            });
+        });
+
+        $(document).on('click', '#change_submithorario', function (evt) {
+            evt.preventDefault();
+
+            let initial_date = $('#initial_date').val();
+            let final_date = $('#final_date').val();
+            let groupSchedule = $('#appbundle_employeetimegroup_idGroupSchedule').val();
+            let idemployeess = $('#idemployeess').val();
+
+            let timeMongroupSchedule = $('#myModal #Mon').val();
+            let timeTuegroupSchedule = $('#myModal #Tue').val();
+            let timeWedgroupSchedule = $('#myModal #Wed').val();
+            let timeThugroupSchedule = $('#myModal #Thu').val();
+            let timeFrigroupSchedule = $('#myModal #Fri').val();
+            let timeSatgroupSchedule = $('#myModal #Sat').val();
+            let timeSungroupSchedule = $('#myModal #Sun').val();
+
+            let OuttimeMongroupSchedule = $('#myModal #MonOut').val();
+            let OuttimeTuegroupSchedule = $('#myModal #TueOut').val();
+            let OuttimeWedgroupSchedule = $('#myModal #WedOut').val();
+            let OuttimeThugroupSchedule = $('#myModal #ThuOut').val();
+            let OuttimeFrigroupSchedule = $('#myModal #FriOut').val();
+            let OuttimeSatgroupSchedule = $('#myModal #SatOut').val();
+            let OuttimeSungroupSchedule = $('#myModal #SunOut').val();
+
+            var ss = [];
+            $('#days-list a').each(function () {
+                var dias = $(this).attr('data-day');
+                var dum = $(this);
+
+                if (dum.hasClass('active-day')) {
+                    ss.push(dias);
+                }
+            });
+            var dayOfweek = ss.join(',');
+
+            $.ajax(
+                {
+                    url: '{{ url('timeclock_employeegrupoasignacion') }}',
+                    data:
+                        {
+                            'initial_date': initial_date,
+                            'final_date': final_date,
+                            'dayOfweek': dayOfweek,
+                            'idemployeess': idemployeess,
+                            'groupSchedule': groupSchedule,
+                            'timeMongroupSchedule': timeMongroupSchedule,
+                            'timeTuegroupSchedule': timeTuegroupSchedule,
+                            'timeWedgroupSchedule': timeWedgroupSchedule,
+                            'timeThugroupSchedule': timeThugroupSchedule,
+                            'timeFrigroupSchedule': timeFrigroupSchedule,
+                            'timeSatgroupSchedule': timeSatgroupSchedule,
+                            'timeSungroupSchedule': timeSungroupSchedule,
+                            'OuttimeMongroupSchedule':OuttimeMongroupSchedule,
+                            'OuttimeTuegroupSchedule':OuttimeTuegroupSchedule,
+                            'OuttimeWedgroupSchedule':OuttimeWedgroupSchedule,
+                            'OuttimeThugroupSchedule':OuttimeThugroupSchedule,
+                            'OuttimeFrigroupSchedule':OuttimeFrigroupSchedule,
+                            'OuttimeSatgroupSchedule':OuttimeSatgroupSchedule,
+                            'OuttimeSungroupSchedule':OuttimeSungroupSchedule
+                        },
+                    dataType: 'json'
+                }
+            ).done(function (data) {
+                console.log(data)
+                $('#myModal').modal('toggle');
+                window.location.reload();
+            });
+        });
+
+        $(document).on('click', '#multiplechange_submithorario', function (evt) {
+            let idGroupSchedulemultiple = $('#multipleModal #appbundle_employeetimegroup_idGroupSchedule').val();
+            let initial_date_multiple = $('#multipleModal #initial_date').val();
+            let final_date_multiple = $('#multipleModal #final_date').val();
+
+            let timeMongroupSchedule = $('#multipleModal #Mon').val();
+            let timeTuegroupSchedule = $('#multipleModal #Tue').val();
+            let timeWedgroupSchedule = $('#multipleModal #Wed').val();
+            let timeThugroupSchedule = $('#multipleModal #Thu').val();
+            let timeFrigroupSchedule = $('#multipleModal #Fri').val();
+            let timeSatgroupSchedule = $('#multipleModal #Sat').val();
+            let timeSungroupSchedule = $('#multipleModal #Sun').val();
+
+            let OuttimeMongroupSchedule = $('#multipleModal #MonOut').val();
+            let OuttimeTuegroupSchedule = $('#multipleModal #TueOut').val();
+            let OuttimeWedgroupSchedule = $('#multipleModal #WedOut').val();
+            let OuttimeThugroupSchedule = $('#multipleModal #ThuOut').val();
+            let OuttimeFrigroupSchedule = $('#multipleModal #FriOut').val();
+            let OuttimeSatgroupSchedule = $('#multipleModal #SatOut').val();
+            let OuttimeSungroupSchedule = $('#multipleModal #SunOut').val();
+
+            var datamultiple = [];
+            var Check = $('input:checked').map(function () {
+                datamultiple.push({
+                    'idemployee': $(this).val(),
+                    'idGroupSchedulemultiple': idGroupSchedulemultiple,
+                });
+            });
+
+            $.ajax
+            (
+                {
+                    url: '{{ url('timeclock_employeegrupoasignacionmultiple') }}',
+                    data: {
+                        'datamultiple': datamultiple,
+                        'initial_date_multiple':initial_date_multiple,
+                        'final_date_multiple':final_date_multiple,
+                        'timeMongroupSchedule': timeMongroupSchedule,
+                        'timeTuegroupSchedule': timeTuegroupSchedule,
+                        'timeWedgroupSchedule': timeWedgroupSchedule,
+                        'timeThugroupSchedule': timeThugroupSchedule,
+                        'timeFrigroupSchedule': timeFrigroupSchedule,
+                        'timeSatgroupSchedule': timeSatgroupSchedule,
+                        'timeSungroupSchedule': timeSungroupSchedule,
+                        'OuttimeMongroupSchedule':OuttimeMongroupSchedule,
+                        'OuttimeTuegroupSchedule':OuttimeTuegroupSchedule,
+                        'OuttimeWedgroupSchedule':OuttimeWedgroupSchedule,
+                        'OuttimeThugroupSchedule':OuttimeThugroupSchedule,
+                        'OuttimeFrigroupSchedule':OuttimeFrigroupSchedule,
+                        'OuttimeSatgroupSchedule':OuttimeSatgroupSchedule,
+                        'OuttimeSungroupSchedule':OuttimeSungroupSchedule
+                    },
+                    success: function (data) {
+                        $('#multipleModal').modal('toggle');
+                        window.location.reload();
+                    }
+                }
+            );
+        })
+
+    </script>
+{% endblock %}

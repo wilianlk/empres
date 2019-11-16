@@ -1,0 +1,33 @@
+# Con este archivo se llaman todos los archivos que contienen las rutas de todos los controladores
+app_user:
+  resource: "@AppBundle/Resources/config/routing/user.yml"
+  prefix: /
+
+app_tipoatributo:
+  resource: "@AppBundle/Resources/config/routing/atributo.yml"
+  prefix: /
+
+app_presentacion:
+  resource: "@AppBundle/Resources/config/routing/presentacion.yml"
+  prefix: /
+
+app_saldo:
+  resource: "@AppBundle/Resources/config/routing/saldo.yml"
+  prefix: /
+
+app_cliente:
+  resource: "@AppBundle/Resources/config/routing/cliente.yml"
+  prefix: /
+
+app_timeclock:
+  resource: "@AppBundle/Resources/config/routing/timeclock.yml"
+  prefix: /
+
+app_credito:
+  resource: "@AppBundle/Resources/config/routing/credito.yml"
+  prefix:   /{_locale}
+
+# Esta ruta es usada cuando el usuario no tiene sesión
+app_homepage:
+  path: /
+  defaults: { _controller: AppBundle:User:login}

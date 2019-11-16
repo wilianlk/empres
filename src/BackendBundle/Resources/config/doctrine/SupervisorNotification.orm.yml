@@ -1,0 +1,45 @@
+BackendBundle\Entity\SupervisorNotification:
+    type: entity
+    table: supervisor_notification
+    id:
+        idSupervisorNotification:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_supervisor_notification
+            generator:
+                strategy: IDENTITY
+    fields:
+        state:
+            type: boolean
+            nullable: true
+            options:
+                unsigned: false
+        nota:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        inout:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+        idEmployee:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_employee
+        typeOfPermit:
+            type: string
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+            column: type_of_permit
+    lifecycleCallbacks: {  }

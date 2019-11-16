@@ -1,0 +1,432 @@
+{% extends "@App/Layouts/layout.html.twig" %}
+
+{% block content %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/0.7.12/ua-parser.min.js"></script>
+
+    <style type="text/css">
+        .sidebar1 {
+            padding: 0;
+            min-height: 100%;
+        }
+
+        .main-content {
+            text-align: center;
+        }
+
+        #calendar_schedule
+        {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 col-sm-4 sidebar1">
+                <div>
+                    <img src="{{ asset('uploads/logo.png') }}" class="img-responsive center-block" alt="Logo">
+                </div>
+                <div class="container">
+                    <form id="form" method="post">
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <div class="form-group">
+                                    {{ form_label(form.empfullname,'Name') }}
+                                    {{ form_widget(form.empfullname) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <div class="form-group">
+                                    {{ form_label(form.employeePasswd,'Password') }}
+                                    {{ form_widget(form.employeePasswd) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-1">
+                                <div class="form-group">
+                                    <a class="btn btn-primary" id="submittime">Enviar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-10 col-sm-8 main-content">
+                <div class="container">
+                    <div id="tabla_resultado">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" value="{{ get_ipaddress }}" id="get_ipaddress">
+    <input type="hidden" value="{{ device }}" id="device">
+
+    <div class="modal fplist-closeade" data-refresh="true" id="miModal" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Horario  <strong><span id="nameimployees"></span></strong></h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="doctor-detail-wrap">
+                        <div id="calendar_schedule"></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="calendar-close" data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $("#backendbundle_employees_empfullname").change(function () {
+                var selectedemployees = $(this).children("option:selected").val();
+
+                $.ajax(
+                    {
+                        url: '{{ url('timeclock_index') }}',
+                        data: {'employees': selectedemployees},
+                        dataType: 'json',
+                    }
+                )
+                    .done(function (data) {
+
+                        let difftime = JSON.parse(data.difftime);
+                        let emplo = JSON.parse(data.emplo);
+
+                        if (emplo === 3) {
+                            document.getElementById("backendbundle_employees_employeePasswd").disabled = true;
+                            alert("En estos momentos tu cuenta esta bloqueada " + "Intenta dentro de " + difftime);
+                            window.location.reload()
+                        }
+                    })
+            });
+        });
+
+        $(document).on('click', '#submittime', function () {
+            let pass_employee = $('#backendbundle_employees_employeePasswd').val();
+            let employeselect = $('#backendbundle_employees_empfullname').val();
+            let emplofullname = $("#backendbundle_employees_empfullname option:selected").text();
+
+            if (pass_employee == null || pass_employee == '' && !employeselect == null || !employeselect == '') {
+                $.ajax(
+                    {
+                        url: '{{ url('timeclock_listemployee') }}',
+                        data:
+                            {
+                                'employeselect': employeselect,
+                                'emplofullname': emplofullname,
+                                'employepassword': pass_employee
+                            },
+                        dataType: 'json',
+                    })
+                    .done(function (data) {
+                        if (data.hasOwnProperty("response") && data.response === "success") {
+                            let employees = JSON.parse(data.employees);
+                            let pass = JSON.parse(data.datasvalidation);
+                            let empfullname = JSON.parse(data.empfullname);
+                            let employeePasswd = JSON.parse(data.employeePasswd);
+                            let id_employee = JSON.parse(data.id_employee);
+                            let states = JSON.parse(data.states);
+
+                            let state = {};
+                            if (states.length === 0) {
+                                state = 'No Tiene Estado'.toUpperCase();
+                            } else {
+                                for (var i = 0; i < states.length; i++) {
+                                    state = states[i]['inout'].toUpperCase();
+                                }
+                            }
+
+                            let statepass = '';
+                            let employeselectval = '';
+
+                            for (passw in pass) {
+                                if (pass['empfullname'] === empfullname && pass['employeePasswd'] === employeePasswd) {
+
+                                    var html = "";
+                                    html += '<table class="table" id="mytable">';
+                                    html += '<thead>';
+                                    html += '<tr>';
+                                    html += '<th colspan="3">';
+                                    html += '<button type="button" id="schedule" data-users="'+id_employee+'" data-employees="'+empfullname+'" class="btn btn-info">Ver horario asignado';
+                                    html += '</button';
+                                    html += '</th>';
+                                    html += '</tr>';
+                                    html += '<tr>';
+                                    html += '<th>Name</th>';
+                                    html += '<th>Time</th>';
+                                    html += '<th>In/out</th>';
+                                    html += '</tr>';
+                                    html += '</thead>';
+                                    html += '<tbody>';
+
+                                    for (i = 0; i < employees.length; i++) {
+                                        let emplo = employees[i];
+
+                                        html += '<tr>';
+                                        html += '<td>' + emplo['empfullname'] + '</td>';
+                                        html += '<td>' + emplo['time'] + '</td>';
+                                        html += '<td style="background-color: ' + emplo['color'] + '">' + emplo['inout'] + '</td>';
+                                        html += '</tr>';
+                                    }
+
+                                    html += '</tbody>';
+                                    html += '</table>';
+
+                                    html += '<div style="width:1000px;position:absolute;left:12%;margin: 0 auto;">';
+                                    html += '<div class="col-md-10 col-xs-12 alert alert-info" style="padding: 60px !important;">';
+                                    html += '<strong style="font-size: 30px">' + state + '</strong>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '</div>';
+
+                                    html += '<div style="width:1000px;position:absolute;left:35%;margin: 0 auto;">';
+
+                                    html += '<br>';
+                                    html += '<br>';
+                                    html += '<br>';
+                                    html += '<br>';
+                                    html += '<br>';
+                                    html += '<br>';
+                                    html += '<br>';
+                                    html += '<br>';
+                                    html += '<br>';
+
+                                    html += '<div class="row">';
+                                    html += '<div class="col-xs-3 col-md-3">';
+                                    html += '{{ form_label(form.tstamp,"In/Out:") }}';
+                                    html += '{{ form_widget(form.tstamp) }}';
+                                    html += '</div>';
+                                    html += '</div>';
+
+                                    html += '<div class="row">';
+                                    html += '<div class="col-xs-3 col-md-3">';
+                                    html += '{{ form_label(form.office,'Notes') }}';
+                                    html += '{{ form_widget(form.office) }}';
+                                    html += '</div>';
+                                    html += '</div>';
+
+                                    html += '<div style="position: absolute;left: 10%;margin-top: 5px">';
+                                    html += '<div class="row">';
+                                    html += '<button class="btn btn-primary" id="button" role="button">Ingresar</button>';
+                                    html += '</div>';
+
+                                    html += '</div>';
+                                    html += '</div>';
+
+                                    statepass = true;
+                                    employeselectval = employeselect;
+                                } else {
+                                    $('#tabla_resultado').html('');
+                                    statepass = false;
+                                    employeselectval = employeselect;
+                                    window.location.reload();
+                                }
+                                $('#tabla_resultado').html(html);
+                            }
+
+                            if (statepass === false) {
+                                $.ajax
+                                (
+                                    {
+                                        url: '{{ url('timeclock_attempt_index') }}',
+                                        data: {'idEmployee': employeselectval, 'attempt': 0},
+                                        dataType: 'json',
+                                        success: function (data) {
+                                        }
+                                    }
+                                );
+
+                                alert("Datos invalidos")
+                            } else if (statepass === true) {
+                                $.ajax
+                                (
+                                    {
+                                        url: '{{ url('timeclock_attempt_index') }}',
+                                        data: {'idEmployee': employeselectval, 'attempt': 1},
+                                        dataType: 'json',
+                                        success: function (data) {
+                                        }
+                                    }
+                                );
+
+                            }
+                        }
+                    })
+            } else {
+                console.log('Ingrese Datos');
+            }
+        });
+
+        $(document).on('click', '#button', function () {
+            var a = document.getElementById('backendbundle_employees_tstamp').value;
+
+            if (!a == null || !a == "") {
+                let employempfullname = document.getElementById('backendbundle_employees_empfullname');
+                var optfullname = employempfullname.options[employempfullname.selectedIndex];
+                let empfullname = optfullname.text;
+                let id_employee = optfullname.value;
+
+                let employeePasswd = $('#backendbundle_employees_employeePasswd').val();
+
+                let pouninout = document.getElementById('backendbundle_employees_tstamp');
+                var optinout = pouninout.options[pouninout.selectedIndex];
+                let inout = optinout.text;
+
+                let notes = $('#backendbundle_employees_office').val();
+
+                let get_ipaddress = $('#get_ipaddress').val();
+
+                var parser = new UAParser();
+
+                var userOs = parser.getOS();
+                var userBrowser = parser.getBrowser();
+
+                let os = userOs.name + ' ' + userOs.version;
+                let browser = userBrowser.name + ' ' + userBrowser.version;
+                let screen_resolu = window.screen.width + 'x' + window.screen.height;
+
+                let device = $('#device').val();
+
+                $.ajax(
+                    {
+                        method: 'POST',
+                        url: '{{ url('timeclock_create') }}',
+                        data:
+                            {
+                                id_employee: id_employee,
+                                empfullname: empfullname,
+                                employeePasswd: employeePasswd,
+                                inout: inout,
+                                notes: notes,
+                                get_ipaddress: get_ipaddress,
+                                os: os,
+                                browser: browser,
+                                screen_resolu: screen_resolu,
+                                device: device
+                            },
+                        dataType: 'json',
+                    })
+                    .done(function (resultado) {
+                        if (resultado.hasOwnProperty("response") && resultado.response === "success") {
+                            alert("Registro exitoso");
+                            let datas = JSON.parse(JSON.stringify(resultado));
+                            window.location.reload();
+                            console.log(datas)
+                        }
+                    });
+            } else {
+                alert("Ingresa, El estado para el empleado");
+            }
+        });
+
+        function getvalTstamp(sel) {
+            let id_employee = $('#backendbundle_employees_empfullname').val();
+            let selectionstate = sel.options[sel.selectedIndex].innerHTML;
+
+            $.ajax(
+                {
+                    method: 'POST',
+                    url: '{{ url('timeclock_create') }}',
+                    data: {id_employee: id_employee},
+                }).done(function (data) {
+                let datas = JSON.parse(data.state);
+
+                for (var i = 0; i < datas.length; ++i) {
+                    let laststate = datas[i];
+
+                    if (selectionstate == laststate['inout'])
+                    {
+                        alert("No puedes seleccionar la misma opcion, En la cual estas registrado");
+                        document.ready = document.getElementById("backendbundle_employees_tstamp").value = '';
+                    }
+
+                }
+
+            });
+        }
+
+        $(document).on('click','#schedule',function () {
+
+            $('#calendar_schedule').fullCalendar('destroy');
+
+            let date = new Date();
+            let yyyy = date.getFullYear().toString();
+            let mm = (date.getMonth() + 1).toString().length == 1 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+            let dd = (date.getDate()).toString().length == 1 ? "0" + (date.getDate()).toString() : (date.getDate()).toString();
+            let id_employ  = $(this).data('users');
+            $('#nameimployees').text($(this).data("employees"));
+
+            $('#calendar_schedule').fullCalendar({
+                theme: true,
+                header:
+                    {
+                        language: 'es',
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek'
+                    },
+                defaultDate: yyyy + "-" + mm + "-" + dd,
+                editable: true,
+                eventLimit: true,
+                selectable: true,
+                selectHelper: true,
+                displayEventTime: false,
+
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        url: '{{ url('timeclock_employeegroupaedicion') }}',
+                        dataType: 'json',
+                        data: {'id_employ': id_employ},
+                        async: false,
+                        success: function (doc) {
+                            var events = [];
+                            let emplot = JSON.parse(doc.employeetime);
+
+                            $.map(emplot, function (r) {
+                                events.push(
+                                    {
+                                        title: r.hourIn + ' a ' + r.hourOut,
+                                        start: r.start_date,
+                                        id: {'hourIn': r.hourIn, 'hourOut': r.hourOut, 'start_date': r.start_date}
+                                    });
+                            });
+                            callback(events);
+                        },
+                    });
+                },
+            });
+
+            $("#miModal").modal(open).show();
+            $("#miModal").css("z-index", "1500");
+
+        });
+
+        $(document).ready(function () {
+            $('#miModal').on('shown.bs.modal', function () {
+                $("#calendar_schedule").fullCalendar('render');
+            });
+        });
+
+
+
+    </script>
+{% endblock %}

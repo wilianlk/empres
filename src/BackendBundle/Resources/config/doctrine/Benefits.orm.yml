@@ -1,0 +1,27 @@
+BackendBundle\Entity\Benefits:
+    type: entity
+    table: benefits
+    id:
+        idBeneficio:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_beneficio
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        pais:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

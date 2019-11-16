@@ -1,0 +1,229 @@
+BackendBundle\Entity\Cliente:
+    type: entity
+    table: cliente
+    indexes:
+        gen_cliente_id_idioma_idx:
+            columns:
+                - id_idioma
+        gen_cliente_id_medio_conocimiento_idx:
+            columns:
+                - id_medio_conocimiento
+        gen_cliente_id_ciudad_idx:
+            columns:
+                - id_ciudad
+        gen_cliente_created_by_idx:
+            columns:
+                - created_by
+        gen_cliente_updated_by_idx:
+            columns:
+                - updated_by
+        gen_cliente_id_tipo_cliente_idx:
+            columns:
+                - id_tipo_cliente
+        cliente_id_idioma_idx:
+            columns:
+                - id_idioma
+        cliente_id_medio_conocimiento_idx:
+            columns:
+                - id_medio_conocimiento
+        cliente_id_ciudad_idx:
+            columns:
+                - id_ciudad
+        cliente_id_tipo_cliente_idx:
+            columns:
+                - id_tipo_cliente
+        cliente_created_by_idx:
+            columns:
+                - created_by
+        cliente_updated_by_idx:
+            columns:
+                - updated_by
+        id_tipo_compra:
+            columns:
+                - id_tipo_compra
+        deleted_at:
+            columns:
+                - deleted_at
+        deleted_by:
+            columns:
+                - deleted_by
+    id:
+        idCliente:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_cliente
+            generator:
+                strategy: IDENTITY
+    fields:
+        identificacion:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        nombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        apellido:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        idIdioma:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_idioma
+        idMedioConocimiento:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_medio_conocimiento
+        idTipoCliente:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_tipo_cliente
+        idTipoCompra:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: id_tipo_compra
+        mayorista:
+            type: boolean
+            nullable: false
+        idCiudad:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_ciudad
+        empresa:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        cargo:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        tipoNegocio:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: tipo_negocio
+        email:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        zipCode:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: zip_code
+        direccion:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        genero:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: false
+        fechaNacimiento:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+            column: fecha_nacimiento
+        autorizaNewsletter:
+            type: boolean
+            nullable: true
+            options:
+                default: '0'
+            column: autoriza_newsletter
+        creditoAsignado:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            options:
+                default: '0'
+            column: credito_asignado
+        cupoCredito:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            options:
+                default: '0'
+            column: cupo_credito
+        taxExcempt:
+            type: boolean
+            nullable: false
+            column: tax_excempt
+        taxExpire:
+            type: datetime
+            nullable: true
+            column: tax_expire
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        deletedAt:
+            type: datetime
+            nullable: true
+            column: deleted_at
+        createdBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: updated_by
+        deletedBy:
+            type: bigint
+            nullable: true
+            options:
+                unsigned: false
+            column: deleted_by
+        descuentoCatalogo:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: descuento_catalogo
+    lifecycleCallbacks: {  }

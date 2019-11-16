@@ -1,0 +1,27 @@
+BackendBundle\Entity\ManagerOffice:
+    type: entity
+    table: manager_office
+    id:
+        idManagerOffice:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_manager_office
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        office:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,45 @@
+BackendBundle\Entity\EmployeeTimeGroup:
+    type: entity
+    table: employee_time_group
+    id:
+        idEmployeeTimeGroup:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_employee_time_group
+            generator:
+                strategy: IDENTITY
+    fields:
+        idEmployee:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_employee
+        idGroupSchedule:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: id_group_schedule
+        hourIn:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: hour_in
+        hourOut:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: hour_out
+        startDate:
+            type: date
+            nullable: true
+            column: start_date
+    lifecycleCallbacks: {  }

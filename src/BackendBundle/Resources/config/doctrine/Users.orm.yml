@@ -1,0 +1,90 @@
+BackendBundle\Entity\Users:
+    type: entity
+    table: users
+    uniqueConstraints:
+        username:
+            columns:
+                - username
+        email:
+            columns:
+                - email
+    id:
+        idUser:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_user
+            generator:
+                strategy: IDENTITY
+    fields:
+        idRole:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: id_role
+        email:
+            type: string
+            nullable: false
+            length: 250
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        surname:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        username:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        active:
+            type: string
+            nullable: false
+            length: 1
+            options:
+                fixed: true
+        image:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        createdBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: updated_by
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    lifecycleCallbacks: {  }

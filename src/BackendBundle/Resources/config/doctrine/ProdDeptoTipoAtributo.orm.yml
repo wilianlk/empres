@@ -1,0 +1,47 @@
+BackendBundle\Entity\ProdDeptoTipoAtributo:
+    type: entity
+    table: prod_depto_tipo_atributo
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        nombreIng:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: nombre_ing
+        createdBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: created_by
+        updatedBy:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            column: updated_by
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+    lifecycleCallbacks: {  }
