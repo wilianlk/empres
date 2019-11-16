@@ -141,3 +141,4 @@ fabric.properties
 # Dejamos esta para indexar la estructura de la base de datos... y no indexar los datos para pruebas
 /app/config/database/datapruebas/*
 /vendor/
+!/vendor/
